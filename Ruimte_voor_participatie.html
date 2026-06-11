@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruimte voor participatie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Crème + diep groen + accent koraal */
+    --bg: #F8F4EB;
+    --bg-soft: #EFE9DA;
+    --paper: #FFFFFF;
+    --ink: #1F2A26;
+    --ink-soft: #4A554F;
+    --ink-muted: #8A938E;
+    --green: #2C4F3E;
+    --green-soft: #496B5A;
+    --green-pale: #D9E2DA;
+    --coral: #E27A60;
+    --coral-soft: #F0B9A8;
+    --line: #E2DACA;
+    --illust: #B68B3F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .serif { font-family: 'Cormorant Garamond', serif; }
+  .em-italic { font-style: italic; color: var(--coral); }
+
+  /* ----- ILLUSTRATIVE BANNER ----- */
+  .illust-banner {
+    background: var(--illust);
+    color: #fff;
+    padding: 9px 24px;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .illust-banner strong { font-weight: 600; }
+
+  /* ----- NAV ----- */
+  nav {
+    position: sticky;
+    top: 36px;
+    background: rgba(248, 244, 235, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    z-index: 99;
+    padding: 18px 32px;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .logo-mark {
+    display: inline-block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--coral);
+    margin: 0 8px 5px 0;
+    vertical-align: middle;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--coral); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--coral);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ----- HERO ----- */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 32px 60px;
+    position: relative;
+  }
+  h1.hero-title {
+    font-size: clamp(48px, 8vw, 100px);
+    line-height: 1.0;
+    margin-bottom: 32px;
+    max-width: 950px;
+    color: var(--ink);
+  }
+  h1.hero-title .em {
+    font-style: normal;
+    color: inherit;
+  }
+  .hero-lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-bottom: 64px;
+  }
+  .hero-problem {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    margin-top: 56px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+  }
+  .hero-problem-label {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 500;
+  }
+  .hero-problem p {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  /* ----- ANCHOR BLOCKS ----- */
+  .anchors {
+    background: var(--green);
+    padding: 80px 32px;
+    margin-top: 80px;
+  }
+  .anchors-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .anchors-title {
+    font-size: clamp(36px, 5vw, 56px);
+    color: #fff;
+    margin-bottom: 56px;
+    max-width: 800px;
+  }
+  .anchors-title .em { color: inherit; font-style: normal; }
+  .anchors-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .anchor {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 32px 24px 28px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    min-height: 230px;
+  }
+  .anchor:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: var(--coral-soft);
+    transform: translateY(-4px);
+  }
+  .anchor-num-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    transition: background 0.3s, color 0.3s;
+  }
+  .anchor:hover .anchor-num-wrap {
+    background: var(--coral);
+    color: #fff;
+  }
+  .anchor h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .anchor p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+  .anchor-arrow {
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--coral-soft);
+    text-transform: uppercase;
+  }
+
+  /* ----- SECTIONS ----- */
+  section.content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 32px;
+  }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--coral);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+  .section-title {
+    font-size: clamp(40px, 5vw, 64px);
+    margin-bottom: 32px;
+    max-width: 800px;
+  }
+  .section-title .em { font-style: normal; color: inherit; }
+  .section-lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  /* ----- THREE SPACES ----- */
+  .three-spaces {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .space-card {
+    background: var(--paper);
+    padding: 40px 32px;
+    border-top: 3px solid var(--coral);
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .space-card:hover { transform: translateY(-4px); }
+  .space-icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 24px;
+  }
+  .space-icon svg { width: 100%; height: 100%; display: block; }
+  .space-card .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--coral);
+    margin-bottom: 8px;
+  }
+  .space-card h3 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .space-card p {
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+
+  /* ============================================================
+     CARD STYLES — drie typen, overal hetzelfde gebruikt
+     ============================================================ */
+
+  /* SPANNINGEN: dark cards on light bg */
+  .tcard {
+    background: var(--ink);
+    color: #fff;
+    padding: 26px 24px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
+    border: 1px solid var(--ink);
+    text-align: left;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+  .tcard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240' preserveAspectRatio='xMidYMid slice'><g fill='none' stroke='%23F0B9A8' stroke-width='0.7' stroke-linecap='round' opacity='0.22'><path d='M-20,40 C 30,28 70,32 110,44 C 150,56 190,52 230,40 C 270,28 310,30 350,38 C 390,46 420,50 460,42'/><path d='M-20,62 C 30,50 70,54 110,66 C 150,78 190,74 230,62 C 270,50 310,52 350,60 C 390,68 420,72 460,64'/><path d='M-20,88 C 30,74 70,80 110,94 C 150,108 190,102 230,88 C 270,74 310,78 350,88 C 390,98 420,102 460,92'/><path d='M-20,118 C 30,100 70,110 110,128 C 150,146 190,138 230,118 C 270,98 310,104 350,118 C 390,132 420,138 460,124'/><path d='M-20,156 C 30,132 70,148 110,170 C 150,192 190,180 230,156 C 270,132 310,140 350,158 C 390,176 420,184 460,164'/><path d='M-20,196 C 30,172 70,190 110,212 C 150,234 190,222 230,196 C 270,170 310,180 350,200 C 390,220 420,228 460,206'/><path d='M-20,232 C 30,212 70,228 110,246 C 150,264 190,254 230,232 C 270,210 310,218 350,234 C 390,250 420,256 460,238'/></g></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .tcard > * {
+    position: relative;
+    z-index: 1;
+  }
+  .tcard:hover {
+    background: var(--green);
+    border-color: var(--green);
+    transform: translateY(-3px);
+  }
+  .tcard-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--coral-soft);
+    margin-bottom: 14px;
+  }
+  .tcard h4 {
+    font-size: 22px;
+    line-height: 1.2;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .tcard-arrow {
+    font-size: 11px;
+    color: var(--coral-soft);
+    letter-spacing: 0.15em;
+    margin-top: auto;
+    align-self: flex-end;
+    transition: transform 0.25s;
+  }
+  .tcard:hover .tcard-arrow { transform: translateX(4px); }
+
+  /* INTERVENTIES: paper cards with green accent */
+  .icard {
+    background: var(--paper);
+    padding: 28px 26px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--green);
+    min-height: 220px;
+    text-align: left;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+  .icard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240' preserveAspectRatio='xMidYMid slice'><g fill='none' stroke='%232C4F3E' stroke-width='0.7' stroke-linecap='round' opacity='0.10'><path d='M-20,30 C 40,18 90,22 140,32 C 190,42 240,38 290,28 C 340,18 390,22 460,30'/><path d='M-20,52 C 40,40 90,46 140,58 C 190,70 240,64 290,52 C 340,40 390,46 460,54'/><path d='M-20,78 C 40,62 90,72 140,86 C 190,100 240,92 290,78 C 340,64 390,72 460,80'/><path d='M-20,108 C 40,88 90,102 140,118 C 190,134 240,124 290,108 C 340,92 390,102 460,112'/><path d='M-20,144 C 40,118 90,138 140,156 C 190,174 240,162 290,144 C 340,126 390,138 460,150'/><path d='M-20,184 C 40,154 90,178 140,198 C 190,218 240,204 290,184 C 340,164 390,178 460,192'/><path d='M-20,224 C 40,196 90,220 140,238 C 190,256 240,244 290,224 C 340,204 390,216 460,232'/></g></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .icard > * {
+    position: relative;
+    z-index: 1;
+  }
+  .icard:hover {
+    border-left-color: var(--coral);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(31, 42, 38, 0.08);
+  }
+  .icard.hidden { display: none; }
+  .icard-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    background: transparent;
+    color: var(--ink-muted);
+    font-weight: 500;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+  }
+  .tag.phase-vroeg,
+  .tag.phase-midden,
+  .tag.phase-laat {
+    background: transparent;
+    color: var(--ink-muted);
+    border: 1px solid var(--line);
+  }
+  .icard-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+  .icard h4 {
+    font-size: 27px;
+    margin-bottom: 14px;
+    line-height: 1.15;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .icard-desc {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    flex-grow: 1;
+    line-height: 1.55;
+  }
+
+  /* CASES: photo + title cards */
+  .ccard {
+    background: var(--paper);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-family: inherit;
+    padding: 0;
+  }
+  .ccard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(31, 42, 38, 0.12);
+    border-color: var(--green);
+  }
+  .ccard-photo {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--green-pale);
+    position: relative;
+  }
+  .ccard-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(31,42,38,0.35) 100%);
+  }
+  .ccard-body {
+    padding: 24px 26px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ccard-body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='xMidYMid slice'><g fill='none' stroke='%23E27A60' stroke-width='0.7' stroke-linecap='round' opacity='0.16'><path d='M-20,30 C 50,20 100,28 150,38 C 200,48 250,40 300,30 C 350,20 400,24 460,32'/><path d='M-20,52 C 50,40 100,50 150,62 C 200,74 250,64 300,52 C 350,40 400,46 460,56'/><path d='M-20,80 C 50,62 100,76 150,92 C 200,108 250,96 300,80 C 350,64 400,72 460,84'/><path d='M-20,112 C 50,88 100,108 150,128 C 200,148 250,134 300,112 C 350,90 400,100 460,116'/><path d='M-20,150 C 50,118 100,144 150,168 C 200,192 250,176 300,150 C 350,124 400,138 460,158'/><path d='M-20,196 C 50,156 100,188 150,216 C 200,244 250,224 300,196 C 350,168 400,184 460,206'/></g></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .ccard-body > * {
+    position: relative;
+    z-index: 1;
+  }
+  .ccard-location {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ccard-location::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--coral);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .ccard h3 {
+    font-size: 26px;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .ccard-cta {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-top: 16px;
+  }
+
+  /* Smaller sizes used in modals/synthesis */
+  .card-small .tcard {
+    padding: 18px 18px;
+    min-height: 130px;
+  }
+  .card-small .tcard h4 { font-size: 16px; margin-bottom: 8px; }
+  .card-small .icard {
+    padding: 18px 18px;
+    min-height: 140px;
+  }
+  .card-small .icard h4 { font-size: 18px; margin-bottom: 8px; font-weight: 600; }
+  .card-small .icard-desc { font-size: 12px; }
+  .card-small .ccard-photo { height: 100px; }
+  .card-small .ccard-body { padding: 14px 16px; }
+  .card-small .ccard h3 { font-size: 17px; }
+  .card-small .ccard-location { font-size: 10px; margin-bottom: 6px; }
+
+  /* GRIDS */
+  .grid-tensions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .grid-interventions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 18px;
+  }
+  .grid-cases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .grid-cards-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  /* ----- REFLECTION TOOL ----- */
+  .reflect {
+    background: var(--paper);
+    padding: 56px 48px;
+    margin-top: 64px;
+    border: 1px solid var(--line);
+  }
+  .reflect-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .reflect h3 {
+    font-size: 36px;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .reflect-intro {
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    max-width: 680px;
+  }
+  .reflect-question {
+    margin-bottom: 22px;
+  }
+  .reflect-question label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .reflect-question textarea {
+    width: 100%;
+    min-height: 70px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    resize: vertical;
+    transition: border 0.2s;
+    border-radius: 4px;
+  }
+  .reflect-question textarea:focus {
+    outline: none;
+    border-color: var(--green);
+  }
+  .reflect-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 14px 28px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px;
+  }
+  .btn:hover { background: var(--ink); color: #fff; }
+  .btn-primary {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+
+  /* ----- SYNTHESIS OUTPUT ----- */
+  .synthesis {
+    margin-top: 32px;
+    padding: 0;
+    display: none;
+  }
+  .synthesis.show { display: block; animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .synth-block {
+    background: var(--bg-soft);
+    margin-bottom: 12px;
+    border-left: 3px solid var(--coral);
+    overflow: hidden;
+  }
+  .synth-block summary {
+    padding: 22px 28px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    user-select: none;
+  }
+  .synth-block summary::-webkit-details-marker { display: none; }
+  .synth-block summary:hover { background: rgba(0,0,0,0.02); }
+  .synth-block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    margin: 0;
+    flex-grow: 1;
+  }
+  .synth-block-chevron {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+  .synth-block[open] .synth-block-chevron {
+    transform: rotate(180deg);
+  }
+  .synth-block-body {
+    padding: 0 28px 24px;
+  }
+  .synth-block-intro {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .synth-answers {
+    background: var(--paper);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    border: 1px solid var(--line);
+  }
+  .synth-answer {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .synth-answer:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .synth-answer-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .synth-answer-a {
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .synth-empty {
+    font-style: italic;
+    color: var(--ink-muted);
+    padding: 24px;
+    background: var(--bg-soft);
+    text-align: center;
+  }
+
+  /* ----- FILTER BAR ----- */
+  .filter-bar {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    align-items: center;
+    padding: 18px 22px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .filter-group {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .filter-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-right: 4px;
+    font-weight: 600;
+  }
+  .filter-btn {
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    border-radius: 100px;
+  }
+  .filter-btn:hover { border-color: var(--green); color: var(--green); }
+  .filter-btn.active {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+
+  /* ----- MODAL ----- */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(31, 42, 38, 0.55);
+    display: none;
+    z-index: 200;
+    overflow-y: auto;
+    padding: 5vh 24px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .modal.show { display: block; animation: fadeIn 0.3s; }
+  .modal-content {
+    background: var(--paper);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 56px 48px;
+    position: relative;
+    animation: slideUp 0.4s ease;
+    border-radius: 4px;
+  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--bg-soft);
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--ink);
+    font-size: 18px;
+    transition: all 0.2s;
+    z-index: 5;
+  }
+  .modal-close:hover { background: var(--ink); color: #fff; }
+  .modal-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .modal h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .modal-body p {
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+  .modal-section {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .modal-section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 14px;
+  }
+  .modal-section p { font-size: 14px; color: var(--ink); }
+
+  .modal-photo {
+    width: calc(100% + 96px);
+    margin: -56px -48px 32px;
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--green-pale);
+  }
+  .fictief-label {
+    display: inline-block;
+    background: var(--illust);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    padding: 6px 14px;
+    margin-bottom: 14px;
+    border-radius: 100px;
+  }
+
+  /* ----- INVITATION ----- */
+  .invitation {
+    background: var(--ink);
+    color: #fff;
+    padding: 100px 32px;
+    margin-top: 80px;
+  }
+  .invitation-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .invitation h2 {
+    font-size: clamp(40px, 5vw, 60px);
+    margin-bottom: 24px;
+    color: #fff;
+  }
+  .invitation h2 .em { color: inherit; font-style: normal; }
+  .invitation > .invitation-inner > p {
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 40px;
+    font-size: 17px;
+  }
+  .invitation-form {
+    display: grid;
+    gap: 16px;
+    text-align: left;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .invitation-form input,
+  .invitation-form textarea {
+    padding: 14px 18px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  .invitation-form textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  .invitation-form input:focus,
+  .invitation-form textarea:focus {
+    outline: none;
+    border-color: var(--coral-soft);
+  }
+  .invitation-form input::placeholder,
+  .invitation-form textarea::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+  .invitation .btn {
+    border-color: #fff;
+    color: #fff;
+    margin-top: 8px;
+    align-self: start;
+  }
+  .invitation .btn:hover {
+    background: var(--coral);
+    border-color: var(--coral);
+  }
+  .form-success {
+    color: var(--coral-soft);
+    margin-top: 16px;
+    font-style: italic;
+    display: none;
+  }
+  .form-success.show { display: block; }
+
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    padding: 32px;
+    text-align: center;
+    font-size: 12px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  @media (max-width: 900px) {
+    .hero-problem { grid-template-columns: 1fr; gap: 24px; }
+    .anchors-grid { grid-template-columns: repeat(2, 1fr); }
+    .three-spaces { grid-template-columns: 1fr; gap: 16px; }
+    .grid-tensions { grid-template-columns: repeat(2, 1fr); }
+    .grid-cases { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .modal-content { padding: 40px 24px; }
+    .modal-photo { width: calc(100% + 48px); margin: -40px -24px 24px; height: 200px; }
+    section.content { padding: 80px 24px; }
+    .reflect { padding: 32px 24px; }
+  }
+  @media (max-width: 560px) {
+    .grid-tensions { grid-template-columns: 1fr; }
+    .anchors-grid { grid-template-columns: 1fr; }
+    h1.hero-title { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="illust-banner">
+  <strong>VOORBEELDVERSIE</strong> &nbsp;·&nbsp; Inhoud is illustratief en wordt later aangevuld met echte verhalen en praktijkkennis van participatiemakers.
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><span class="logo-mark"></span>Ruimte voor participatie</div>
+    <ul class="nav-links">
+      <li><a href="#perspectief">Perspectief</a></li>
+      <li><a href="#spanningen">Spanningen</a></li>
+      <li><a href="#repertoire">Repertoire</a></li>
+      <li><a href="#inspiratie">Inspiratie</a></li>
+      <li><a href="#bijdragen">Bijdragen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1 class="hero-title">Ruimte <span class="em">voor</span> participatie</h1>
+  <p class="hero-lead">Praktijkinzicht, interventies en inspiratie voor het maken van ruimte voor succesvolle inwonersparticipatie.</p>
+
+  <div class="hero-problem">
+    <div>
+      <div class="hero-problem-label">De opgave</div>
+    </div>
+    <div>
+      <p>Nederlandse gemeenten zijn steeds actiever met inwonersparticipatie. Het doel: tegemoetkomen aan het recht om mee te praten, lokale kennis ophalen en betrokkenheid bij ontwikkelingen vergroten.</p>
+      <p>Er is veel aandacht voor het belang, de voorbereiding en het proces. De praktijk leert echter dat het inbedden van de <em class="serif">opbrengst</em> van participatie in besluitvorming een grote uitdaging is — zelfs bij een zorgvuldig uitgevoerd traject.</p>
+      <p>Wanneer besluitvorming onnavolgbaar wordt voor deelnemers, ontstaat een averechts effect: teleurstelling en participatiemoeheid.</p>
+    </div>
+  </div>
+</header>
+
+<section class="anchors">
+  <div class="anchors-inner">
+    <h2 class="anchors-title">Praktijkinzicht <span class="em">voor de professional</span></h2>
+    <div class="anchors-grid">
+      <a href="#perspectief" class="anchor">
+        <div class="anchor-num-wrap">1</div>
+        <h3>Perspectief op ruimte</h3>
+        <p>Een werktaal voor strategie, beweging en verbinding in open processen.</p>
+        <div class="anchor-arrow">VERKEN →</div>
+      </a>
+      <a href="#spanningen" class="anchor">
+        <div class="anchor-num-wrap">2</div>
+        <h3>Grip op spanningen</h3>
+        <p>Twaalf veelvoorkomende patronen en hoe je ze tijdig herkent in jouw situatie.</p>
+        <div class="anchor-arrow">VERKEN →</div>
+      </a>
+      <a href="#repertoire" class="anchor">
+        <div class="anchor-num-wrap">3</div>
+        <h3>Repertoire voor interventie</h3>
+        <p>Twintig handelingsopties met richtlijnen voor inzet en aandachtspunten.</p>
+        <div class="anchor-arrow">VERKEN →</div>
+      </a>
+      <a href="#inspiratie" class="anchor">
+        <div class="anchor-num-wrap">4</div>
+        <h3>Inspiratie voor handelen</h3>
+        <p>Verhalen van ruimtemakers waarin spanningen, interventies en uitkomsten samenkomen.</p>
+        <div class="anchor-arrow">VERKEN →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="perspectief" class="content">
+  <div class="section-num">01</div>
+  <h2 class="section-title">Perspectief <span class="em">op ruimte</span></h2>
+  <p class="section-lead">Hulpmiddelen voor participatie gaan vaak uit van een voorspelbaar, planbaar traject. Bij open of complexe vormen is het verloop onzeker. Welke ruimte heb je nodig om de uitkomst betekenisvol te laten zijn?</p>
+
+  <p style="max-width: 760px; color: var(--ink-soft); margin-bottom: 18px;">Hoe groter de rol van bewoners, hoe onzekerder het verloop, de uitkomsten en de benodigde ruimte voor inbedding — in processen, regels, geld of wetgeving. Spanningen tussen uitgangspunten (bijvoorbeeld zeggenschap versus uitvoerbaarheid) worden niet altijd geadresseerd of intern kenbaar gemaakt.</p>
+  <p style="max-width: 760px; color: var(--ink-soft); margin-bottom: 32px;">Daardoor ontstaat een verschil in perspectief: deelnemers betrokken <em class="serif">in het proces</em> versus besluitvormers <em class="serif">over de inhoud</em>. Het is daarom behulpzaam om bewust drie soorten ruimte te organiseren.</p>
+
+  <div class="three-spaces">
+    <div class="space-card">
+      <div class="space-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2C4F3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- horizonlijn -->
+          <line x1="8" y1="42" x2="56" y2="42"/>
+          <!-- halve zon -->
+          <path d="M22 42 A 10 10 0 0 1 42 42"/>
+          <!-- stralen rondom -->
+          <line x1="32" y1="20" x2="32" y2="14"/>
+          <line x1="22" y1="22" x2="19" y2="17"/>
+          <line x1="42" y1="22" x2="45" y2="17"/>
+          <line x1="15" y1="30" x2="10" y2="27"/>
+          <line x1="49" y1="30" x2="54" y2="27"/>
+          <line x1="32" y1="48" x2="32" y2="54"/>
+          <line x1="22" y1="50" x2="19" y2="55"/>
+          <line x1="42" y1="50" x2="45" y2="55"/>
+          <line x1="15" y1="52" x2="10" y2="55"/>
+          <line x1="49" y1="52" x2="54" y2="55"/>
+        </svg>
+      </div>
+      <h3>Strategie</h3>
+      <p>Ruimte nemen voor een gedeelde teamaanpak met alle sleutelspelers in het participatieproces.</p>
+    </div>
+    <div class="space-card">
+      <div class="space-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2C4F3E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- liggende S: één doorlopende sierlijke lijn -->
+          <path d="M 14 40 C 14 26, 26 26, 32 32 C 38 38, 50 38, 50 24"/>
+          <!-- accent boogje boven -->
+          <path d="M 28 14 Q 32 11 36 14"/>
+          <!-- accent boogje onder -->
+          <path d="M 24 52 Q 32 56 40 52"/>
+        </svg>
+      </div>
+      <h3>Beweging</h3>
+      <p>Ruimte bieden voor een dynamisch proces met spanningen en onvoorspelbare inbreng.</p>
+    </div>
+    <div class="space-card">
+      <div class="space-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2C4F3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- centraal kruispunt + drie verbindingslijnen naar nodes -->
+          <line x1="32" y1="32" x2="14" y2="20"/>
+          <line x1="32" y1="32" x2="50" y2="26"/>
+          <line x1="32" y1="32" x2="36" y2="52"/>
+          <!-- nodes als kleine open cirkels -->
+          <circle cx="14" cy="20" r="4"/>
+          <circle cx="50" cy="26" r="4"/>
+          <circle cx="36" cy="52" r="4"/>
+          <!-- kruisende lijn die door centrum loopt -->
+          <path d="M22 48 Q 32 32 46 18"/>
+        </svg>
+      </div>
+      <h3>Verbinding</h3>
+      <p>Ruimte maken voor het verweven van een aantrekkelijk samenhangend perspectief tussen belanghebbenden.</p>
+    </div>
+  </div>
+</section>
+
+<section id="spanningen" class="content" style="padding-top: 40px;">
+  <div class="section-num">02</div>
+  <h2 class="section-title">Grip op spanningen <span class="em">in de praktijk</span></h2>
+  <p class="section-lead">Ruimte maken klinkt eenvoudig op papier. De praktijk is weerbarstig. In de verhalen van ervaren professionals zijn patronen te herkennen — twaalf spanningen die telkens terugkomen.</p>
+
+  <p style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 16px; font-weight: 600;">Klik op een spanning voor verdieping en gekoppelde interventies</p>
+
+  <div class="grid-tensions" id="tensionsGrid"></div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflectie-instrument</div>
+    <h3>Verdiepende vragen voor jouw situatie</h3>
+    <p class="reflect-intro">Drie vragen helpen ontdekken welke spanningen zich kunnen aandienen in jouw traject. Vul wat je herkent — je krijgt een synthese met passende spanningen, interventies en voorbeelden.</p>
+    <div id="reflectQuestions"></div>
+    <div class="reflect-actions">
+      <button class="btn btn-primary" onclick="generateReflection()">Synthese genereren</button>
+      <button class="btn" onclick="clearReflection()">Wissen</button>
+    </div>
+    <div class="synthesis" id="synthesis"></div>
+  </div>
+</section>
+
+<section id="repertoire" class="content" style="padding-top: 40px;">
+  <div class="section-num">03</div>
+  <h2 class="section-title">Repertoire <span class="em">voor interventie</span></h2>
+  <p class="section-lead">Wanneer je spanningen herkent, heb je interventies nodig om er ruimte mee te maken. Twintig handelingsopties die professionals in hun praktijk hebben ontwikkeld en getoetst.</p>
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label">Fase</span>
+      <button class="filter-btn active" data-filter-type="phase" data-filter-value="all">Alle</button>
+      <button class="filter-btn" data-filter-type="phase" data-filter-value="vroeg">Vroeg</button>
+      <button class="filter-btn" data-filter-type="phase" data-filter-value="midden">Midden</button>
+      <button class="filter-btn" data-filter-type="phase" data-filter-value="laat">Laat</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Type</span>
+      <button class="filter-btn active" data-filter-type="kind" data-filter-value="all">Alle</button>
+      <button class="filter-btn" data-filter-type="kind" data-filter-value="bestuurlijk">Bestuurlijk</button>
+      <button class="filter-btn" data-filter-type="kind" data-filter-value="relationeel">Relationeel</button>
+      <button class="filter-btn" data-filter-type="kind" data-filter-value="inhoudelijk">Inhoudelijk</button>
+      <button class="filter-btn" data-filter-type="kind" data-filter-value="proces">Proces</button>
+    </div>
+  </div>
+
+  <div class="grid-interventions" id="interventionsGrid"></div>
+</section>
+
+<section id="inspiratie" class="content" style="padding-top: 40px;">
+  <div class="section-num">04</div>
+  <h2 class="section-title">Verhalen van <span class="em">ruimtemakers</span></h2>
+  <p class="section-lead">Vier voorbeeldverhalen waarin spanningen en interventies samenkomen. Elke case toont hoe in een specifieke situatie ruimte werd gemaakt — en welke afwegingen daarbij hoorden.</p>
+
+  <div class="grid-cases" id="casesGrid"></div>
+</section>
+
+<section id="bijdragen" class="invitation">
+  <div class="invitation-inner">
+    <h2>Ben jij een <span class="em">ruimtemaker</span>?</h2>
+    <p>Dit podium leeft van praktijkverhalen. Deel jouw aanpak, dilemma of doorbraak — zodat anderen ervan kunnen leren en het vakmanschap zich verdiept.</p>
+    <form class="invitation-form" onsubmit="handleSubmit(event)">
+      <input type="text" placeholder="Naam" required>
+      <input type="email" placeholder="E-mailadres" required>
+      <input type="text" placeholder="Korte titel van jouw verhaal" required>
+      <textarea placeholder="In één alinea: welke ruimte heb jij gemaakt, en hoe?"></textarea>
+      <button type="submit" class="btn">Verhaal aanbieden</button>
+      <div class="form-success" id="formSuccess">Dank je wel — je verhaal is ontvangen. We nemen contact op voor een vervolggesprek.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  Ruimte voor participatie · Voorbeeldversie · Gemaakt voor reflectie en gesprek
+</footer>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()" aria-label="Sluiten">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="content.js"></script>
+<script>
+// tensions, interventions, cases en reflectQuestions worden geladen vanuit content.js
+const _contentCheck = (typeof tensions !== 'undefined') || console.error('content.js niet geladen');
+
+// CARD BUILDERS — re-used everywhere
+
+function buildTensionCard(t, idx) {
+  const num = String(idx != null ? idx + 1 : tensions.findIndex(x => x.id === t.id) + 1).padStart(2, '0');
+  return `<button class="tcard" type="button" onclick="showTensionModal('${t.id}')">
+    <div>
+      <div class="tcard-num">${num}</div>
+      <h4>${t.title}</h4>
+    </div>
+    <div class="tcard-arrow">→</div>
+  </button>`;
+}
+
+function buildInterventionCard(i, idx) {
+  const num = String(idx != null ? idx + 1 : interventions.findIndex(x => x.id === i.id) + 1).padStart(2, '0');
+  return `<button class="icard" type="button" data-id="${i.id}" data-phase="${i.phase}" data-kind="${i.kind}" onclick="showInterventionModal('${i.id}')">
+    <div class="icard-num">INTERVENTIE ${num}</div>
+    <h4>${i.title}</h4>
+    <p class="icard-desc">${i.short}</p>
+    <div class="icard-tags">
+      <span class="tag phase-${i.phase}">${i.phase}</span>
+      <span class="tag">${i.kind}</span>
+    </div>
+  </button>`;
+}
+
+function buildCaseCard(c) {
+  return `<button class="ccard" type="button" onclick="showCaseModal('${c.id}')">
+    <div class="ccard-photo" style="background-image: url('${c.photo}')"></div>
+    <div class="ccard-body">
+      <div class="ccard-location">${c.location}</div>
+      <h3>${c.title}</h3>
+      <div class="ccard-cta">LEES VERHAAL →</div>
+    </div>
+  </button>`;
+}
+
+function renderTensions() {
+  document.getElementById('tensionsGrid').innerHTML = tensions.map((t, idx) => buildTensionCard(t, idx)).join('');
+}
+function renderInterventions() {
+  document.getElementById('interventionsGrid').innerHTML = interventions.map((i, idx) => buildInterventionCard(i, idx)).join('');
+}
+function renderCases() {
+  document.getElementById('casesGrid').innerHTML = cases.map(c => buildCaseCard(c)).join('');
+}
+function renderReflectQuestions() {
+  document.getElementById('reflectQuestions').innerHTML = reflectQuestions.map(q => `
+    <div class="reflect-question">
+      <label for="${q.id}">${q.text}</label>
+      <textarea id="${q.id}" placeholder="Schrijf hier wat je herkent — kort of uitgebreid."></textarea>
+    </div>
+  `).join('');
+}
+
+// MODALS
+function showTensionModal(id) {
+  const t = tensions.find(x => x.id === id);
+  const idx = tensions.findIndex(x => x.id === id);
+  const linkedInts = t.interventions.map(iid => interventions.find(i => i.id === iid)).filter(Boolean);
+  const linkedCases = t.cases.map(cid => cases.find(c => c.id === cid)).filter(Boolean);
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-eyebrow">Spanning · ${String(idx+1).padStart(2,'0')}</div>
+    <h2>${t.title}</h2>
+    <p style="color: var(--ink-soft); font-size: 16px; margin-bottom: 8px;">${t.body}</p>
+    ${linkedInts.length ? `
+      <div class="modal-section">
+        <div class="modal-section-label">Passende interventies</div>
+        <div class="grid-cards-small card-small">${linkedInts.map(i => buildInterventionCard(i)).join('')}</div>
+      </div>` : ''}
+    ${linkedCases.length ? `
+      <div class="modal-section">
+        <div class="modal-section-label">Verhalen waarin dit speelde</div>
+        <div class="grid-cards-small card-small">${linkedCases.map(c => buildCaseCard(c)).join('')}</div>
+      </div>` : ''}
+  `;
+  openModal();
+}
+
+function showInterventionModal(id) {
+  const i = interventions.find(x => x.id === id);
+  const idx = interventions.findIndex(x => x.id === id);
+  const linkedTensions = tensions.filter(t => t.interventions.includes(id));
+  const linkedCases = cases.filter(c => c.interventions.includes(id));
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-eyebrow">INTERVENTIE ${String(idx+1).padStart(2,'0')} · ${i.phase} · ${i.kind}</div>
+    <h2>${i.title}</h2>
+    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${i.short}</p>
+    <div class="modal-section">
+      <div class="modal-section-label">Wanneer in te zetten</div><p>${i.when}</p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">Voorbeeld uit de praktijk</div><p>${i.example}</p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">Waar op te letten</div><p>${i.watch}</p>
+    </div>
+    ${linkedTensions.length ? `
+      <div class="modal-section">
+        <div class="modal-section-label">Helpt bij deze spanningen</div>
+        <div class="grid-cards-small card-small">${linkedTensions.map(t => buildTensionCard(t)).join('')}</div>
+      </div>` : ''}
+    ${linkedCases.length ? `
+      <div class="modal-section">
+        <div class="modal-section-label">Toegepast in</div>
+        <div class="grid-cards-small card-small">${linkedCases.map(c => buildCaseCard(c)).join('')}</div>
+      </div>` : ''}
+  `;
+  openModal();
+}
+
+function showCaseModal(id) {
+  const c = cases.find(x => x.id === id);
+  const linkedTensions = c.tensions.map(tid => tensions.find(t => t.id === tid)).filter(Boolean);
+  const linkedInts = c.interventions.map(iid => interventions.find(i => i.id === iid)).filter(Boolean);
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-photo" style="background-image: url('${c.photo}')"></div>
+    <div class="fictief-label">FICTIEF VERHAAL</div>
+    <div class="modal-eyebrow">${c.location}</div>
+    <h2>${c.title}</h2>
+    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 18px;">${c.summary}</p>
+    <p>${c.full}</p>
+    <div class="modal-section">
+      <div class="modal-section-label">Spanningen die speelden</div>
+      <div class="grid-cards-small card-small">${linkedTensions.map(t => buildTensionCard(t)).join('')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">Ingezette interventies</div>
+      <div class="grid-cards-small card-small">${linkedInts.map(i => buildInterventionCard(i)).join('')}</div>
+    </div>
+  `;
+  openModal();
+}
+
+// REFLECTION
+function generateReflection() {
+  const answers = reflectQuestions.map(q => ({ q: q.text, a: document.getElementById(q.id).value.trim() }));
+  const filled = answers.filter(x => x.a);
+  const out = document.getElementById('synthesis');
+
+  if (filled.length === 0) {
+    out.innerHTML = `<div class="synth-empty">Vul ten minste één vraag in om een synthese te krijgen.</div>`;
+    out.classList.add('show');
+    return;
+  }
+
+  const allText = filled.map(x => x.a).join(' ').toLowerCase();
+  const matched = matchTensions(allText);
+
+  const intIds = new Set();
+  matched.slice(0, 4).forEach(m => m.tension.interventions.forEach(id => intIds.add(id)));
+  const matchedInts = Array.from(intIds).map(id => interventions.find(i => i.id === id)).filter(Boolean).slice(0, 6);
+
+  const caseIds = new Set();
+  matched.slice(0, 4).forEach(m => m.tension.cases.forEach(id => caseIds.add(id)));
+  const matchedCases = Array.from(caseIds).map(id => cases.find(c => c.id === id)).filter(Boolean);
+
+  let html = `<div class="synth-answers">
+    <div class="synth-block-title" style="margin-bottom: 14px;">Jouw reflectie</div>
+    ${filled.map(a => `
+      <div class="synth-answer">
+        <div class="synth-answer-q">${a.q}</div>
+        <div class="synth-answer-a">${escapeHtml(a.a)}</div>
+      </div>`).join('')}
+  </div>`;
+
+  if (matched.length > 0) {
+    html += `<details class="synth-block" open>
+      <summary>
+        <div class="synth-block-title">Mogelijke spanningen die spelen</div>
+        <div class="synth-block-chevron">▾</div>
+      </summary>
+      <div class="synth-block-body">
+        <div class="synth-block-intro">Op basis van wat je beschrijft, kunnen deze patronen relevant zijn:</div>
+        <div class="grid-cards-small card-small">${matched.slice(0, 4).map(m => buildTensionCard(m.tension)).join('')}</div>
+      </div>
+    </details>`;
+
+    if (matchedInts.length) {
+      html += `<details class="synth-block">
+        <summary>
+          <div class="synth-block-title">Interventies om te overwegen</div>
+          <div class="synth-block-chevron">▾</div>
+        </summary>
+        <div class="synth-block-body">
+          <div class="synth-block-intro">Deze handelingsopties horen bij de spanningen hierboven:</div>
+          <div class="grid-cards-small card-small">${matchedInts.map(i => buildInterventionCard(i)).join('')}</div>
+        </div>
+      </details>`;
+    }
+
+    if (matchedCases.length) {
+      html += `<details class="synth-block">
+        <summary>
+          <div class="synth-block-title">Voorbeelden waarin het samenkwam</div>
+          <div class="synth-block-chevron">▾</div>
+        </summary>
+        <div class="synth-block-body">
+          <div class="synth-block-intro">Verhalen waarin vergelijkbare patronen speelden:</div>
+          <div class="grid-cards-small card-small">${matchedCases.map(c => buildCaseCard(c)).join('')}</div>
+        </div>
+      </details>`;
+    }
+  } else {
+    html += `<details class="synth-block" open>
+      <summary>
+        <div class="synth-block-title">Geen patroon herkend</div>
+        <div class="synth-block-chevron">▾</div>
+      </summary>
+      <div class="synth-block-body">
+        <div class="synth-block-intro">Vul wat meer in en specifieker — dan kan dit instrument patronen herkennen en passende interventies en voorbeelden voorstellen.</div>
+      </div>
+    </details>`;
+  }
+
+  html += `<details class="synth-block" style="border-left-color: var(--green);">
+    <summary>
+      <div class="synth-block-title">Vervolg</div>
+      <div class="synth-block-chevron">▾</div>
+    </summary>
+    <div class="synth-block-body">
+      <div class="synth-block-intro">Deze synthese is een startpunt, geen advies. Bespreek hem met collega's, sleutelspelers of een buitenstaander om scherper te krijgen welke ruimte je nodig hebt.</div>
+    </div>
+  </details>`;
+
+  out.innerHTML = html;
+  out.classList.add('show');
+  out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+
+function matchTensions(text) {
+  const keywords = {
+    t1: ['interpretatie','invloed','meedoen','meebeslissen','mening','mandaat','bedoeld','dachten','raadpleging'],
+    t2: ['impact','ingrijpend','raakt','beperkt','klein','groot','wonen','leefkwaliteit','zienswijze','bezwaar'],
+    t3: ['weerstand','conflict','boos','kritiek','ruzie','verzet','tegenstand','escalat'],
+    t4: ['beleid','wet','wetgeving','regels','tegenstrijdig','botst','botsen','schurend','kader','stikstof','klimaat'],
+    t5: ['budget','geld','financiering','subsidie','gelabeld','geoormerkt','euro','begroting'],
+    t6: ['scope','afdelingen','silo','versnipperd','integraal','fragment','thematisch','mobiliteit','groen'],
+    t7: ['timing','laat','vroeg','fase','moment','planning','besluit','principe'],
+    t8: ['expert','rapport','meten','meting','beleving','ervaren','ervaring','rationeel','norm','overlast'],
+    t9: ['transparant','gesloten','achter','geheim','dichte','open kaart','onderhandel'],
+    t10: ['wisseling','wisselen','wethouder','vertrek','nieuwe','overdracht','continuïteit','reorganisatie'],
+    t11: ['geschiedenis','verleden','eerder','vroeger','vertrouwen kwijt','gebroken','breuk','mislukt'],
+    t12: ['kpi','prestatie','deadline','snel','tempo','druk','verantwoording','planning']
+  };
+  const matches = [];
+  for (const t of tensions) {
+    const kws = keywords[t.id] || [];
+    let score = 0;
+    kws.forEach(kw => { if (text.includes(kw)) score += 1; });
+    if (score > 0) matches.push({ tension: t, score });
+  }
+  matches.sort((a,b) => b.score - a.score);
+  return matches;
+}
+
+function clearReflection() {
+  reflectQuestions.forEach(q => { document.getElementById(q.id).value = ''; });
+  document.getElementById('synthesis').classList.remove('show');
+}
+
+// FILTERS
+const activeFilters = { phase: 'all', kind: 'all' };
+function setupFilters() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.filterType;
+      const value = btn.dataset.filterValue;
+      activeFilters[type] = value;
+      document.querySelectorAll(`.filter-btn[data-filter-type="${type}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    });
+  });
+}
+function applyFilters() {
+  document.querySelectorAll('#interventionsGrid .icard').forEach(el => {
+    const phaseMatch = activeFilters.phase === 'all' || el.dataset.phase === activeFilters.phase;
+    const kindMatch = activeFilters.kind === 'all' || el.dataset.kind === activeFilters.kind;
+    el.classList.toggle('hidden', !(phaseMatch && kindMatch));
+  });
+}
+
+// MODAL
+function openModal() {
+  document.getElementById('modal').classList.add('show');
+  document.getElementById('modal').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('formSuccess').classList.add('show');
+  e.target.querySelectorAll('input, textarea').forEach(f => f.value = '');
+}
+
+renderTensions();
+renderInterventions();
+renderCases();
+renderReflectQuestions();
+setupFilters();
+</script>
+
+</body>
+</html>

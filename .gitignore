@@ -1,0 +1,8 @@
+# Achtergrondinfo en werkbestanden
+Background info/
+*.pptx
+*.key
+*.xlsx
+*.pdf
+*.DS_Store
+Werkhandleiding.md
