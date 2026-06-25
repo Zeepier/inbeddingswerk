@@ -223,11 +223,12 @@
   }
 
   /* ============================================================
-     CARD STYLES — gedeelde basis (dark cards)
+     CARD STYLES — gedeelde basis
      ============================================================ */
   .vcard, .tcard, .icard, .ccard {
-    border: 1px solid rgba(255,255,255,0.06);
-    border-top: 3px solid rgba(255,255,255,0.18);
+    background: #EAE5DA;
+    border: 1px solid #D6D0C4;
+    border-top: 4px solid transparent;
     border-radius: 6px;
     cursor: pointer;
     transition: transform 0.22s ease, box-shadow 0.22s ease;
@@ -236,37 +237,35 @@
   }
   .vcard:hover, .tcard:hover, .icard:hover, .ccard:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+    box-shadow: 0 8px 24px rgba(31,42,38,0.12);
   }
 
-  /* WAARDEN — donkergroen */
+  /* WAARDEN — groene topbalk */
   .vcard {
-    background: var(--mod-waarden);
-    border-top-color: rgba(255,255,255,0.18);
+    border-top-color: var(--mod-waarden);
     padding: 20px 20px 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: flex; flex-direction: column; justify-content: space-between;
     min-height: 130px;
   }
-  .vcard.bewoners { border-top-color: #B7A9D9; }
-  .vcard.gemeente { border-top-color: #DCC58A; }
-  .vcard h4 { font-size: 19px; line-height: 1.2; font-weight: 500; margin-bottom: 14px; color: #fff; }
+  .vcard.bewoners { background: #EBE8F2; border-color: #CFC9E0; border-top-color: #6B5BA6; }
+  .vcard.gemeente { background: #EDE9DA; border-color: #D6CEB0; border-top-color: #B68B3F; }
+  .vcard h4 { font-size: 19px; line-height: 1.2; font-weight: 500; margin-bottom: 14px; color: var(--ink); }
   .vcard-foot {
     display: flex; align-items: center; justify-content: space-between;
     font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
   }
-  .vcard-group { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.55); }
-  .vcard-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: rgba(255,255,255,0.35); }
-  .vcard.bewoners .vcard-dot { background: #B7A9D9; }
-  .vcard.gemeente .vcard-dot { background: #DCC58A; }
-  .vcard.beide .vcard-dot { background: linear-gradient(135deg, #B7A9D9, #DCC58A); }
-  .vcard-count { color: rgba(255,255,255,0.38); }
+  .vcard-group { display: flex; align-items: center; gap: 6px; color: var(--ink-muted); }
+  .vcard-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: var(--ink-muted); }
+  .vcard.bewoners .vcard-dot { background: #6B5BA6; }
+  .vcard.bewoners .vcard-group { color: #6B5BA6; }
+  .vcard.gemeente .vcard-dot { background: #B68B3F; }
+  .vcard.gemeente .vcard-group { color: #B68B3F; }
+  .vcard.beide .vcard-dot { background: linear-gradient(135deg, #6B5BA6, #B68B3F); }
+  .vcard-count { color: var(--ink-muted); }
   .vcard.hidden { display: none; }
 
-  /* SPANNINGEN — donker oker */
+  /* SPANNINGEN — okergele topbalk */
   .tcard {
-    background: #5C3D0A;
     border-top-color: var(--mod-spanningen);
     padding: 20px 20px 18px;
     display: flex; flex-direction: column; justify-content: space-between;
@@ -274,28 +273,27 @@
   }
   .tcard-num {
     font-family: 'Cormorant Garamond', serif; font-style: italic;
-    font-size: 14px; color: #E8B860; margin-bottom: 8px;
+    font-size: 14px; color: var(--mod-spanningen); margin-bottom: 8px;
   }
-  .tcard h4 { font-size: 19px; line-height: 1.2; color: #fff; font-weight: 500; margin-bottom: 14px; }
+  .tcard h4 { font-size: 19px; line-height: 1.2; color: var(--ink); font-weight: 500; margin-bottom: 14px; }
   .tcard-values { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-top: auto; }
   .tcard-vchip {
     font-size: 9.5px; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 100px;
-    background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); white-space: nowrap;
+    background: rgba(0,0,0,0.07); color: var(--ink-soft); white-space: nowrap;
   }
-  .tcard-vx { color: rgba(255,255,255,0.35); font-size: 11px; }
+  .tcard-vx { color: var(--ink-muted); font-size: 11px; }
   .tcard-phase {
     font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
     padding: 3px 8px; border-radius: 100px;
-    background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.65); white-space: nowrap;
+    background: rgba(0,0,0,0.07); color: var(--ink-muted); white-space: nowrap;
   }
-  .tcard-phase[data-phase="aanloop"] { background: rgba(136,197,160,0.25); color: #A8D9BC; }
-  .tcard-phase[data-phase="doorloop"] { background: rgba(232,184,96,0.25); color: #E8C870; }
-  .tcard-phase[data-phase="afloop"] { background: rgba(232,145,122,0.25); color: #F0A88E; }
+  .tcard-phase[data-phase="aanloop"] { background: #D8EFE3; color: #2C7A5B; }
+  .tcard-phase[data-phase="doorloop"] { background: #F5EACC; color: #9A6B10; }
+  .tcard-phase[data-phase="afloop"] { background: #F5DDD8; color: #8A3A26; }
   .tcard.hidden { display: none; }
 
-  /* INTERVENTIES — donker roestrood */
+  /* INTERVENTIES — roestrood topbalk */
   .icard {
-    background: #7A2E1E;
     border-top-color: var(--mod-interventies);
     padding: 20px 20px 18px;
     display: flex; flex-direction: column;
@@ -303,33 +301,31 @@
   }
   .icard-num {
     font-family: 'Cormorant Garamond', serif; font-style: italic;
-    font-size: 14px; color: #E8917A; margin-bottom: 8px;
+    font-size: 14px; color: var(--mod-interventies); margin-bottom: 8px;
   }
-  .icard h4 { font-size: 19px; margin-bottom: 10px; line-height: 1.2; color: #fff; font-weight: 500; }
-  .icard-desc { font-size: 13px; color: rgba(255,255,255,0.7); flex-grow: 1; line-height: 1.55; }
+  .icard h4 { font-size: 19px; margin-bottom: 10px; line-height: 1.2; color: var(--ink); font-weight: 500; }
+  .icard-desc { font-size: 13px; color: var(--ink-soft); flex-grow: 1; line-height: 1.55; }
   .icard-tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
   .icard.hidden { display: none; }
   .tag {
     font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
     padding: 3px 8px; background: transparent;
-    color: rgba(255,255,255,0.5); font-weight: 500;
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 100px;
+    color: var(--ink-muted); font-weight: 500;
+    border: 1px solid #C8C2B6; border-radius: 100px;
   }
-  .tag.phase-aanloop { border-color: #A8D9BC; color: #A8D9BC; }
-  .tag.phase-doorloop { border-color: #E8C870; color: #E8C870; }
-  .tag.phase-afloop { border-color: #F0A88E; color: #F0A88E; }
+  .tag.phase-aanloop { border-color: #2C7A5B; color: #2C7A5B; }
+  .tag.phase-doorloop { border-color: #9A6B10; color: #9A6B10; }
+  .tag.phase-afloop { border-color: #8A3A26; color: #8A3A26; }
   .catbadge {
     font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
     padding: 3px 9px; font-weight: 600; border-radius: 100px;
-    background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85);
   }
-  .catbadge.powering { background: rgba(255,255,255,0.15); }
-  .catbadge.puzzling { background: rgba(255,255,255,0.15); }
-  .catbadge.mediating { background: rgba(255,255,255,0.15); }
+  .catbadge.powering { background: var(--cat-pow-bg); color: var(--cat-pow-ink); }
+  .catbadge.puzzling { background: var(--cat-puz-bg); color: var(--cat-puz-ink); }
+  .catbadge.mediating { background: var(--cat-med-bg); color: var(--cat-med-ink); }
 
-  /* VERHALEN — donker blauw */
+  /* VERHALEN — blauwe topbalk */
   .ccard {
-    background: #1E3A52;
     border-top-color: var(--mod-verhalen);
     overflow: hidden;
     display: flex; flex-direction: column;
@@ -338,20 +334,20 @@
   .ccard-photo {
     width: 100%; height: 180px;
     background-size: cover; background-position: center;
-    background-color: #162D40;
+    background-color: var(--mod-verhalen-bg);
   }
   .ccard-photo-empty {
     height: 60px; display: flex; align-items: center; justify-content: center;
-    background: #162D40;
+    background: var(--mod-verhalen-bg);
   }
   .ccard-photo-empty span {
     font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(255,255,255,0.4); font-weight: 600;
+    color: var(--green-soft); font-weight: 600;
   }
   .ccard-body { padding: 20px 20px 22px; }
   .ccard-location {
     font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: #7BAECE; margin-bottom: 10px; font-weight: 500;
+    color: var(--mod-verhalen); margin-bottom: 10px; font-weight: 500;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -363,8 +359,8 @@
     border-radius: 50%;
     display: inline-block;
   }
-  .ccard h3 { font-size: 25px; line-height: 1.15; color: #fff; margin-bottom: 8px; }
-  .ccard-cta { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 14px; }
+  .ccard h3 { font-size: 25px; line-height: 1.15; color: var(--ink); margin-bottom: 8px; }
+  .ccard-cta { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mod-verhalen); margin-top: 14px; }
 
   /* Smaller sizes used in modals */
   .card-small .tcard { padding: 14px 14px; min-height: 110px; }
@@ -645,15 +641,15 @@
     align-items: center;
     gap: 8px;
   }
-  .value-chip:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.20); }
-  .value-chip .vc-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; background: rgba(255,255,255,0.35); }
-  .value-chip .vc-title { font-size: 14px; font-weight: 500; line-height: 1.2; color: #fff; }
-  .value-chip.bewoners { background: var(--mod-waarden); border-color: rgba(255,255,255,0.08); border-top: 2px solid #B7A9D9; }
-  .value-chip.bewoners .vc-dot { background: #B7A9D9; }
-  .value-chip.gemeente { background: var(--mod-waarden); border-color: rgba(255,255,255,0.08); border-top: 2px solid #DCC58A; }
-  .value-chip.gemeente .vc-dot { background: #DCC58A; }
-  .value-chip.beide { background: var(--mod-waarden); border-color: rgba(255,255,255,0.08); }
-  .value-chip.beide .vc-dot { background: linear-gradient(135deg, #B7A9D9, #DCC58A); }
+  .value-chip:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(31,42,38,0.12); }
+  .value-chip .vc-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; background: var(--ink-muted); }
+  .value-chip .vc-title { font-size: 14px; font-weight: 500; line-height: 1.2; color: var(--ink); }
+  .value-chip.bewoners { background: #EBE8F2; border-color: #CFC9E0; border-top: 2px solid #6B5BA6; }
+  .value-chip.bewoners .vc-dot { background: #6B5BA6; }
+  .value-chip.gemeente { background: #EDE9DA; border-color: #D6CEB0; border-top: 2px solid #B68B3F; }
+  .value-chip.gemeente .vc-dot { background: #B68B3F; }
+  .value-chip.beide { background: #EAE5DA; border-color: #D6D0C4; border-top: 2px solid var(--mod-waarden); }
+  .value-chip.beide .vc-dot { background: linear-gradient(135deg, #6B5BA6, #B68B3F); }
 
   footer {
     background: var(--ink);
