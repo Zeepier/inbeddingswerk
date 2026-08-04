@@ -330,6 +330,18 @@
   .hl-todo {
     font-style: italic; color: var(--ink-muted); font-size: 15px;
   }
+  .ilink {
+    background: none; border: none; padding: 0; font: inherit;
+    cursor: pointer; font-weight: 600;
+    text-decoration: underline; text-decoration-thickness: 1px;
+    text-underline-offset: 2px; transition: color 0.15s ease;
+    color: #2C4F3E;
+  }
+  .ilink:hover { color: var(--ink); }
+  .ilink.m-waarden { color: #2C4F3E; }
+  .ilink.m-spanningen { color: #9A6B10; }
+  .ilink.m-interventies { color: #8A3A26; }
+  .ilink.m-verhalen { color: #3E6B8C; }
 
   /* ============================================================
      CARD STYLES — gedeelde basis
@@ -909,27 +921,27 @@
       <h3>Wat is dit?</h3>
       <p>Als we burgers vragen mee te denken, moeten we ook ruimte hebben om iets te doen met hun ideeën. Maar vaak blijkt die inbeddingsruimte naderhand beperkt, en gebeurt er daardoor vaak te weinig met de opbrengsten van participatieprocessen. Wanneer we participatie organiseren moeten we dus niet alleen zorgen voor een goed proces, maar ook dat die inbeddingsruimte er is.</p>
       <p>Het is echter eigen aan participatie dat we niet precies weten wat bewoners ons gaan vertellen – als dat zo zou zijn, zouden we het ze niet hoeven vragen. Het is daarom belangrijk om te anticiperen op de mogelijke inbreng van bewoners. Welke inbeddingsruimte zou er nodig zijn om die inbreng plek te geven? En hoe kunnen we die ruimte maken?</p>
-      <p>Ruimte voor Participatie is ontwikkeld om dit gesprek te voeren. Met de tool kun je verkennen welke waarden belangrijk zijn voor gemeente en voor bewoners, welke spanningen er te verwachten zijn, en welke interventies kunnen helpen om ruimte te maken. De tool wordt gevoed met verhalen uit de praktijk, en leidt je vanzelf naar de verhalen toe waar je voor jouw project inspiratie kunt vinden.</p>
+      <p><strong>Ruimte voor Participatie</strong> is ontwikkeld om dit gesprek te voeren. Met de tool kun je verkennen welke <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button> belangrijk zijn voor gemeente en voor bewoners, welke <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanningen</button> er te verwachten zijn, en welke <button class="ilink m-interventies" onclick="switchModule('interventies')">interventies</button> kunnen helpen om ruimte te maken. De tool wordt gevoed met <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> uit de praktijk, en leidt je vanzelf naar de verhalen toe waar je voor jouw project inspiratie kunt vinden.</p>
       <p>De tool is ontwikkeld voor één coach, en één of meerdere deelnemers.</p>
       <ul>
-        <li>Bedoeld als gesprekshulp bij gesprekken over het inbedden van participatie.</li>
-        <li><strong>Modulair inzetbaar.</strong> De vier modules – waarden, spanningen, interventies en verhalen – zijn aan elkaar gekoppeld, maar ook los inzetbaar voor kortere sessies.</li>
+        <li>Bedoeld als <strong>gesprekshulp</strong> bij gesprekken over het inbedden van participatie.</li>
+        <li><strong>Modulair inzetbaar.</strong> De vier modules – <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button>, <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanningen</button>, <button class="ilink m-interventies" onclick="switchModule('interventies')">interventies</button> en <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> – zijn aan elkaar gekoppeld, maar ook los inzetbaar voor kortere sessies.</li>
         <li><strong>Online en fysiek.</strong> De fysieke component bestaat uit vier kaartdecks, een voor elke module. Tijdens een sessie kunnen deelnemers en coach daar samen mee aan de slag. De onlinecomponent is deze site. Tijdens een sessie kan de coach deze gebruiken als referentie. Naderhand kan een deelnemer hem gebruiken om zich verder te verdiepen, of relevante casusverhalen te lezen.</li>
       </ul>
 
       <div class="hl-sub">De vier modules</div>
       <ul class="hl-modlist">
-        <li><span class="hl-mod-num">01</span><strong>Waarden</strong> — Wat wil je bereiken met het participatieproces?</li>
-        <li><span class="hl-mod-num">02</span><strong>Spanningen</strong> — Welke spanningen kom je tegen in je participatieproces?</li>
-        <li><span class="hl-mod-num">03</span><strong>Interventies</strong> — Wat kun je doen om met spanningen om te gaan?</li>
-        <li><span class="hl-mod-num">04</span><strong>Verhalen</strong> — Welke praktijkverhalen bieden inspiratie voor jouw project?</li>
+        <li><span class="hl-mod-num">01</span><button class="ilink m-waarden" onclick="switchModule('waarden')">Waarden</button> — Wat wil je bereiken met het participatieproces?</li>
+        <li><span class="hl-mod-num">02</span><button class="ilink m-spanningen" onclick="switchModule('spanningen')">Spanningen</button> — Welke spanningen kom je tegen in je participatieproces?</li>
+        <li><span class="hl-mod-num">03</span><button class="ilink m-interventies" onclick="switchModule('interventies')">Interventies</button> — Wat kun je doen om met spanningen om te gaan?</li>
+        <li><span class="hl-mod-num">04</span><button class="ilink m-verhalen" onclick="switchModule('verhalen')">Verhalen</button> — Welke praktijkverhalen bieden inspiratie voor jouw project?</li>
       </ul>
     </div>
 
     <div class="hl-step">
       <div class="hl-step-num">02</div>
       <h3>Hoe werkt het?</h3>
-      <p>Je begint bij een concreet project. Vaak ligt er al een participatieplan; dat vormt het startpunt van het gesprek. Ruimte voor Participatie vult daarop aan: waar het plan het proces beschrijft, helpt deze tool je vooruitkijken naar wat er nodig is om de opbrengsten van dat proces straks een plek te geven.</p>
+      <p>Je begint bij een concreet project. Vaak ligt er al een participatieplan; dat vormt het startpunt van het gesprek. <strong>Ruimte voor Participatie</strong> vult daarop aan: waar het plan het proces beschrijft, helpt deze tool je vooruitkijken naar wat er nodig is om de opbrengsten van dat proces straks een plek te geven.</p>
       <p>Je hoeft niet bij het begin te beginnen. Meestal helpt het om te verkennen welke waarden spelen — voor de gemeente én voor bewoners — en waar die met elkaar botsen. Zo'n botsing is een spanning. Klik je op een spanning, dan laat de tool meteen zien welke waarden eronder liggen, welke interventies kunnen helpen, en in welke verhalen je iets soortgelijks terugziet.</p>
       <p>Elke spanning en interventie hoort bij een fase: aanloop, doorloop of afloop. Zo kun je samen anticiperen — waar in het proces speelt dit, en wat kun je nú al doen om er ruimte voor te maken? De interventies zijn geen voorschriften, maar stappen die professionals in echte projecten daadwerkelijk zetten, geordend naar de strategie erachter: doorzetten, koppelen of bemiddelen.</p>
       <p>De tool schrijft geen route voor. Jij bepaalt wat past bij het gesprek en de tijd die er is — één kaartdeck als korte interventie, of de vier modules na elkaar. En je sluit niet af met een opgelost probleem, maar met nieuwsgierigheid: wat wil je verder uitzoeken, en wat zet je alvast in gang?</p>
@@ -938,7 +950,7 @@
       <p class="hl-note">Reken op ongeveer een half uur per module.</p>
       <ol class="hl-do">
         <li><strong>Lees vooraf het participatieplan</strong> van het project, zodat je weet wat er speelt.</li>
-        <li><strong>Open een module</strong> die past bij het gesprek — meestal Waarden of Spanningen.</li>
+        <li><strong>Open een module</strong> die past bij het gesprek — meestal <button class="ilink m-waarden" onclick="switchModule('waarden')">Waarden</button> of <button class="ilink m-spanningen" onclick="switchModule('spanningen')">Spanningen</button>.</li>
         <li><strong>Kies samen een paar spanningen</strong> die herkenbaar zijn voor dit project. Filter op fase (aanloop, doorloop, afloop) om te focussen.</li>
         <li><strong>Klik op een spanning</strong> om de botsende waarden, mogelijke interventies en verwante verhalen te zien.</li>
         <li><strong>Bespreek per spanning:</strong> welke interventie past hier, en bij welke fase? Wat kun je nú al doen om ruimte te maken?</li>
