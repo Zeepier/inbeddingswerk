@@ -92,7 +92,46 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 40px 32px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
   }
+  .handleiding-link {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 9px 16px 9px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .handleiding-link:hover { border-color: var(--green-soft); color: var(--ink); background: var(--paper); }
+  .handleiding-link.active { background: var(--green); border-color: var(--green); color: #fff; }
+  .handleiding-link .hl-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--coral);
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .handleiding-link.active .hl-badge { background: rgba(255,255,255,0.9); color: var(--green); }
   .app-logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 30px;
@@ -138,7 +177,7 @@
     margin: 0 auto;
     padding: 12px 32px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
   }
   .module-btn {
@@ -220,6 +259,76 @@
     color: var(--ink-muted);
     margin-bottom: 16px;
     font-weight: 600;
+  }
+
+  /* HANDLEIDING — prozalaag */
+  .hl { max-width: 680px; margin-top: 8px; }
+  .hl-step { margin-bottom: 40px; }
+  .hl-step-num {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 15px; color: var(--mod-waarden); margin-bottom: 6px;
+  }
+  .hl-step h3 {
+    font-size: 24px; font-weight: 500; line-height: 1.2;
+    color: var(--ink); margin-bottom: 14px;
+  }
+  .hl-step p {
+    font-size: 16px; line-height: 1.65; color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .hl-step p:last-child { margin-bottom: 0; }
+  .hl-step ul {
+    list-style: none; margin: 4px 0 0; padding: 0;
+  }
+  .hl-step li {
+    font-size: 16px; line-height: 1.6; color: var(--ink-soft);
+    padding-left: 20px; position: relative; margin-bottom: 12px;
+  }
+  .hl-step li:last-child { margin-bottom: 0; }
+  .hl-step li::before {
+    content: ''; position: absolute; left: 2px; top: 11px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--mod-waarden);
+  }
+  .hl-step li strong { color: var(--ink); font-weight: 600; }
+  .hl-sub {
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 600; color: var(--mod-waarden); margin: 28px 0 4px;
+  }
+  .hl-note {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 17px; color: var(--ink-soft); margin-bottom: 16px;
+  }
+  .hl-do { counter-reset: hl; list-style: none; margin: 0; padding: 0; }
+  .hl-do li {
+    counter-increment: hl; position: relative;
+    padding-left: 36px; margin-bottom: 14px;
+    font-size: 16px; line-height: 1.6; color: var(--ink-soft);
+  }
+  .hl-do li:last-child { margin-bottom: 0; }
+  .hl-do li::before {
+    content: counter(hl); position: absolute; left: 0; top: 1px;
+    width: 23px; height: 23px; border-radius: 50%;
+    background: var(--mod-waarden); color: #fff;
+    font-size: 12px; font-weight: 600; font-family: inherit;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hl-do li strong { color: var(--ink); font-weight: 600; }
+  .hl-modlist { list-style: none; margin: 4px 0 0; padding: 0; }
+  .hl-modlist li {
+    display: flex; gap: 10px; align-items: baseline;
+    padding-left: 0; margin-bottom: 10px;
+    font-size: 16px; line-height: 1.5; color: var(--ink-soft);
+  }
+  .hl-modlist li::before { content: none; }
+  .hl-modlist li:last-child { margin-bottom: 0; }
+  .hl-modlist .hl-mod-num {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 14px; color: var(--mod-waarden); flex-shrink: 0; min-width: 16px;
+  }
+  .hl-modlist strong { color: var(--ink); font-weight: 600; }
+  .hl-todo {
+    font-style: italic; color: var(--ink-muted); font-size: 15px;
   }
 
   /* ============================================================
@@ -688,9 +797,14 @@
 </div>
 
 <header class="app-header">
-  <div class="app-logo"><span class="logo-mark"></span>Ruimte voor participatie</div>
-  <p class="app-sub">Een modulaire kaartset voor coaches die participatieprofessionals ondersteunen bij het inbedden van participatie in besluitvorming.</p>
-  <p class="app-hint">Kies een kaartset hieronder. Elke set werkt zelfstandig — de koppelingen tussen kaarten brengen je van waarden naar spanningen, interventies en verhalen.</p>
+  <div class="app-header-text">
+    <div class="app-logo"><span class="logo-mark"></span>Ruimte voor participatie</div>
+    <p class="app-sub">Een modulaire kaartset voor coaches die participatieprofessionals ondersteunen bij het inbedden van participatie in besluitvorming.</p>
+    <p class="app-hint">Kies een kaartset hieronder. Elke set werkt zelfstandig — de koppelingen tussen kaarten brengen je van waarden naar spanningen, interventies en verhalen.</p>
+  </div>
+  <button class="handleiding-link" data-module="handleiding" onclick="switchModule('handleiding')">
+    <span class="hl-badge">?</span> Handleiding
+  </button>
 </header>
 
 <div class="switcher-wrap">
@@ -706,9 +820,6 @@
     </button>
     <button class="module-btn" data-module="verhalen" onclick="switchModule('verhalen')">
       <span class="mb-num">04</span><span class="mb-title">Verhalen</span><span class="mb-count">4 kaarten</span>
-    </button>
-    <button class="module-btn" data-module="handleiding" onclick="switchModule('handleiding')">
-      <span class="mb-num">05</span><span class="mb-title">Handleiding</span><span class="mb-count">Gebruik</span>
     </button>
   </div>
 </div>
@@ -789,10 +900,52 @@
 
 <!-- ===== MODULE: HANDLEIDING ===== -->
 <section class="content module-panel" id="panel-handleiding">
-  <div class="section-num">05</div>
   <h2 class="section-title">Handleiding <span class="em">voor de coach</span></h2>
   <p class="section-lead">Hoe gebruik je deze tool in een coachsessie?</p>
-  <p style="color: var(--ink-muted); font-style: italic; margin-top: 32px;">Inhoud volgt.</p>
+
+  <div class="hl">
+    <div class="hl-step">
+      <div class="hl-step-num">01</div>
+      <h3>Wat is dit?</h3>
+      <p>Als we burgers vragen mee te denken, moeten we ook ruimte hebben om iets te doen met hun ideeën. Maar vaak blijkt die inbeddingsruimte naderhand beperkt, en gebeurt er daardoor vaak te weinig met de opbrengsten van participatieprocessen. Wanneer we participatie organiseren moeten we dus niet alleen zorgen voor een goed proces, maar ook dat die inbeddingsruimte er is.</p>
+      <p>Het is echter eigen aan participatie dat we niet precies weten wat bewoners ons gaan vertellen – als dat zo zou zijn, zouden we het ze niet hoeven vragen. Het is daarom belangrijk om te anticiperen op de mogelijke inbreng van bewoners. Welke inbeddingsruimte zou er nodig zijn om die inbreng plek te geven? En hoe kunnen we die ruimte maken?</p>
+      <p>Ruimte voor Participatie is ontwikkeld om dit gesprek te voeren. Met de tool kun je verkennen welke waarden belangrijk zijn voor gemeente en voor bewoners, welke spanningen er te verwachten zijn, en welke interventies kunnen helpen om ruimte te maken. De tool wordt gevoed met verhalen uit de praktijk, en leidt je vanzelf naar de verhalen toe waar je voor jouw project inspiratie kunt vinden.</p>
+      <p>De tool is ontwikkeld voor één coach, en één of meerdere deelnemers.</p>
+      <ul>
+        <li>Bedoeld als gesprekshulp bij gesprekken over het inbedden van participatie.</li>
+        <li><strong>Modulair inzetbaar.</strong> De vier modules – waarden, spanningen, interventies en verhalen – zijn aan elkaar gekoppeld, maar ook los inzetbaar voor kortere sessies.</li>
+        <li><strong>Online en fysiek.</strong> De fysieke component bestaat uit vier kaartdecks, een voor elke module. Tijdens een sessie kunnen deelnemers en coach daar samen mee aan de slag. De onlinecomponent is deze site. Tijdens een sessie kan de coach deze gebruiken als referentie. Naderhand kan een deelnemer hem gebruiken om zich verder te verdiepen, of relevante casusverhalen te lezen.</li>
+      </ul>
+
+      <div class="hl-sub">De vier modules</div>
+      <ul class="hl-modlist">
+        <li><span class="hl-mod-num">01</span><strong>Waarden</strong> — Wat wil je bereiken met het participatieproces?</li>
+        <li><span class="hl-mod-num">02</span><strong>Spanningen</strong> — Welke spanningen kom je tegen in je participatieproces?</li>
+        <li><span class="hl-mod-num">03</span><strong>Interventies</strong> — Wat kun je doen om met spanningen om te gaan?</li>
+        <li><span class="hl-mod-num">04</span><strong>Verhalen</strong> — Welke praktijkverhalen bieden inspiratie voor jouw project?</li>
+      </ul>
+    </div>
+
+    <div class="hl-step">
+      <div class="hl-step-num">02</div>
+      <h3>Hoe werkt het?</h3>
+      <p>Je begint bij een concreet project. Vaak ligt er al een participatieplan; dat vormt het startpunt van het gesprek. Ruimte voor Participatie vult daarop aan: waar het plan het proces beschrijft, helpt deze tool je vooruitkijken naar wat er nodig is om de opbrengsten van dat proces straks een plek te geven.</p>
+      <p>Je hoeft niet bij het begin te beginnen. Meestal helpt het om te verkennen welke waarden spelen — voor de gemeente én voor bewoners — en waar die met elkaar botsen. Zo'n botsing is een spanning. Klik je op een spanning, dan laat de tool meteen zien welke waarden eronder liggen, welke interventies kunnen helpen, en in welke verhalen je iets soortgelijks terugziet.</p>
+      <p>Elke spanning en interventie hoort bij een fase: aanloop, doorloop of afloop. Zo kun je samen anticiperen — waar in het proces speelt dit, en wat kun je nú al doen om er ruimte voor te maken? De interventies zijn geen voorschriften, maar stappen die professionals in echte projecten daadwerkelijk zetten, geordend naar de strategie erachter: doorzetten, koppelen of bemiddelen.</p>
+      <p>De tool schrijft geen route voor. Jij bepaalt wat past bij het gesprek en de tijd die er is — één kaartdeck als korte interventie, of de vier modules na elkaar. En je sluit niet af met een opgelost probleem, maar met nieuwsgierigheid: wat wil je verder uitzoeken, en wat zet je alvast in gang?</p>
+
+      <div class="hl-sub">In een sessie — zo pak je het aan</div>
+      <p class="hl-note">Reken op ongeveer een half uur per module.</p>
+      <ol class="hl-do">
+        <li><strong>Lees vooraf het participatieplan</strong> van het project, zodat je weet wat er speelt.</li>
+        <li><strong>Open een module</strong> die past bij het gesprek — meestal Waarden of Spanningen.</li>
+        <li><strong>Kies samen een paar spanningen</strong> die herkenbaar zijn voor dit project. Filter op fase (aanloop, doorloop, afloop) om te focussen.</li>
+        <li><strong>Klik op een spanning</strong> om de botsende waarden, mogelijke interventies en verwante verhalen te zien.</li>
+        <li><strong>Bespreek per spanning:</strong> welke interventie past hier, en bij welke fase? Wat kun je nú al doen om ruimte te maken?</li>
+        <li><strong>Sluit af met nieuwsgierigheid:</strong> wat wil de deelnemer verder uitzoeken of alvast in gang zetten?</li>
+      </ol>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -898,9 +1051,10 @@ function renderCases() {
 // ===== MODULE SWITCHING =====
 function switchModule(name) {
   document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.module-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('[data-module]').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
-  document.querySelector(`.module-btn[data-module="${name}"]`).classList.add('active');
+  const btn = document.querySelector(`[data-module="${name}"]`);
+  if (btn) btn.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
