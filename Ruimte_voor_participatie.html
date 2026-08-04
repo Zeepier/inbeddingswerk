@@ -1091,6 +1091,13 @@ function closeModal() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
+// Sorteer spanningen en interventies chronologisch: aanloop > doorloop > afloop.
+// Array.sort is stabiel, dus kaartjes binnen dezelfde fase houden hun onderlinge volgorde.
+const phaseOrder = { aanloop: 0, doorloop: 1, afloop: 2 };
+const byPhase = (a, b) => (phaseOrder[a.phase] ?? 99) - (phaseOrder[b.phase] ?? 99);
+tensions.sort(byPhase);
+interventions.sort(byPhase);
+
 renderValues();
 renderTensions();
 renderInterventions();
