@@ -395,10 +395,53 @@
   .gl-term.flash { background: var(--bg-soft); transition: background 0.6s ease; }
   /* BEGRIPPEN */
   .gl { max-width: 680px; margin: 8px 0 0; }
-  .gl-term { padding: 18px 0; border-bottom: 1px solid var(--line); }
-  .gl-term:first-child { padding-top: 0; }
-  .gl-term dt { font-size: 20px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
-  .gl-term dd { margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink-soft); }
+  .gl-group { margin-bottom: 8px; }
+  .gl-group-label {
+    font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    font-weight: 600; color: var(--mod-waarden); margin: 38px 0 8px;
+  }
+  .gl-group:first-child .gl-group-label { margin-top: 6px; }
+  .gl-group-intro {
+    margin: 2px 0 8px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 17px; line-height: 1.5; color: var(--ink-soft);
+  }
+  .gl-term { border-bottom: 1px solid var(--line); }
+  .gl-term:last-of-type { border-bottom: none; }
+  .gl-term > summary {
+    list-style: none; cursor: pointer; padding: 14px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px; font-weight: 500; color: var(--ink);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    transition: color 0.15s ease;
+  }
+  .gl-term > summary::-webkit-details-marker { display: none; }
+  .gl-term > summary::after {
+    content: ''; width: 8px; height: 8px; flex-shrink: 0; margin-right: 3px;
+    border-right: 2px solid var(--ink-muted); border-bottom: 2px solid var(--ink-muted);
+    transform: rotate(45deg); transition: transform 0.2s ease;
+  }
+  .gl-term[open] > summary::after { transform: rotate(-135deg); }
+  .gl-term > summary:hover { color: var(--coral); }
+  .gl-def { padding: 0 0 18px; font-size: 15.5px; line-height: 1.65; color: var(--ink-soft); }
+  .gl-def strong { color: var(--ink); font-weight: 600; }
+  .gl-golink {
+    display: inline-block; margin-top: 14px; font-size: 13px; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+  }
+  .gl-golink:hover { text-decoration: underline; }
+  .gl-golink.m-waarden { color: #2C4F3E; }
+  .gl-golink.m-spanningen { color: #9A6B10; }
+  .gl-golink.m-interventies { color: #8A3A26; }
+  .gl-source { display: block; margin-top: 8px; font-size: 12.5px; color: var(--ink-muted); }
+  .gl-group-source { margin-top: 14px; }
+  .gl-source a { color: var(--mod-verhalen); text-decoration: none; }
+  .gl-source a:hover { text-decoration: underline; }
+  .gl-muse {
+    display: block; margin-top: 10px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 17px; line-height: 1.5; color: var(--ink-soft);
+  }
   .ilink.m-waarden { color: #2C4F3E; }
   .ilink.m-spanningen { color: #9A6B10; }
   .ilink.m-interventies { color: #8A3A26; }
@@ -872,7 +915,7 @@
 <header class="app-header">
   <div class="app-header-text">
     <div class="app-logo"><span class="logo-mark"></span>Ruimte voor participatie</div>
-    <p class="app-sub">Een modulaire kaartset voor coaches die participatieprofessionals ondersteunen bij het inbedden van participatie in besluitvorming.</p>
+    <p class="app-sub">Een gesprekshulp om te anticiperen op de inbedding van participatie — zodat de inbreng van bewoners straks echt een plek krijgt in beleid en besluitvorming.</p>
     <p class="app-hint">Kies een kaartset hieronder. Elke set werkt zelfstandig — de koppelingen tussen kaarten brengen je van waarden naar spanningen, interventies en verhalen.</p>
   </div>
   <div class="header-links">
@@ -906,7 +949,7 @@
 <section class="content module-panel active" id="panel-waarden">
   <div class="section-num">01</div>
   <h2 class="section-title">Waarden <span class="em">als bouwstenen</span></h2>
-  <p class="section-lead">Wat wil je bereiken met het participatieproces? Selecteer de waarden die in het proces centraal staan.</p>
+  <p class="section-lead">Welke waarden zijn in dit participatieproces het meest belangrijk? Selecteer de waarden die centraal staan.</p>
 
   <div class="filter-bar">
     <div class="filter-group">
@@ -925,7 +968,7 @@
 <section class="content module-panel" id="panel-spanningen">
   <div class="section-num">02</div>
   <h2 class="section-title">Spanningen <span class="em">in de praktijk</span></h2>
-  <p class="section-lead">Welke spanningen kom je tegen in je participatieproces?</p>
+  <p class="section-lead">Welke spanningen tussen deze waarden voorzie je?</p>
 
   <div class="filter-bar">
     <div class="filter-group">
@@ -945,15 +988,15 @@
 <section class="content module-panel" id="panel-interventies">
   <div class="section-num">03</div>
   <h2 class="section-title">Interventies <span class="em">voor de praktijk</span></h2>
-  <p class="section-lead">Wat kun je doen om met spanningen om te gaan?</p>
+  <p class="section-lead">Welke interventies spreken je aan?</p>
 
   <div class="filter-bar">
     <div class="filter-group">
       <span class="filter-label">Strategie</span>
       <button class="filter-btn active" data-filter-type="category" data-filter-value="all">Alle</button>
+      <button class="filter-btn" data-filter-type="category" data-filter-value="mediating">Afstemmen</button>
+      <button class="filter-btn" data-filter-type="category" data-filter-value="puzzling">Verbinden</button>
       <button class="filter-btn" data-filter-type="category" data-filter-value="powering">Doorzetten</button>
-      <button class="filter-btn" data-filter-type="category" data-filter-value="puzzling">Koppelen</button>
-      <button class="filter-btn" data-filter-type="category" data-filter-value="mediating">Bemiddelen</button>
     </div>
     <div class="filter-group">
       <span class="filter-label">Fase</span>
@@ -1000,19 +1043,19 @@
         <button class="flow-step fs-waarden" onclick="switchModule('waarden')">
           <span class="fs-num">01</span>
           <span class="fs-title">Waarden</span>
-          <span class="fs-q">Wat wil je bereiken met het participatieproces?</span>
+          <span class="fs-q">Welke waarden zijn het meest belangrijk?</span>
         </button>
         <div class="flow-link" aria-hidden="true"><span class="fl-label">botsen tot</span><svg viewBox="0 0 40 12"><path d="M0 6 H36 M30 1 L36 6 L30 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <button class="flow-step fs-spanningen" onclick="switchModule('spanningen')">
           <span class="fs-num">02</span>
           <span class="fs-title">Spanningen</span>
-          <span class="fs-q">Welke spanningen kom je tegen in je participatieproces?</span>
+          <span class="fs-q">Welke spanningen tussen deze waarden voorzie je?</span>
         </button>
         <div class="flow-link" aria-hidden="true"><span class="fl-label">vragen om</span><svg viewBox="0 0 40 12"><path d="M0 6 H36 M30 1 L36 6 L30 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <button class="flow-step fs-interventies" onclick="switchModule('interventies')">
           <span class="fs-num">03</span>
           <span class="fs-title">Interventies</span>
-          <span class="fs-q">Wat kun je doen om met spanningen om te gaan?</span>
+          <span class="fs-q">Welke interventies spreken je aan?</span>
         </button>
         <div class="flow-link" aria-hidden="true"><span class="fl-label">terug te zien in</span><svg viewBox="0 0 40 12"><path d="M0 6 H36 M30 1 L36 6 L30 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <button class="flow-step fs-verhalen" onclick="switchModule('verhalen')">
@@ -1051,15 +1094,65 @@
   <h2 class="section-title">Begrippen <span class="em">in deze tool</span></h2>
   <p class="section-lead">Wat bedoelen we met de termen die in de tool terugkomen?</p>
 
-  <dl class="gl">
-    <div class="gl-term" id="gl-inbedding"><dt>Inbedding</dt><dd class="hl-todo">Definitie volgt.</dd></div>
-    <div class="gl-term" id="gl-inbeddingsruimte"><dt>Inbeddingsruimte</dt><dd class="hl-todo">Definitie volgt.</dd></div>
-    <div class="gl-term" id="gl-participatie"><dt>Participatie</dt><dd class="hl-todo">Definitie volgt.</dd></div>
-    <div class="gl-term" id="gl-waarden"><dt><button class="ilink m-waarden" onclick="switchModule('waarden')">Waarden</button></dt><dd class="hl-todo">Definitie volgt.</dd></div>
-    <div class="gl-term" id="gl-spanningen"><dt><button class="ilink m-spanningen" onclick="switchModule('spanningen')">Spanningen</button></dt><dd class="hl-todo">Definitie volgt.</dd></div>
-    <div class="gl-term" id="gl-interventies"><dt><button class="ilink m-interventies" onclick="switchModule('interventies')">Interventies</button></dt><dd class="hl-todo">Definitie volgt.</dd></div>
-    <div class="gl-term" id="gl-fasen"><dt>Aanloop, doorloop en afloop</dt><dd class="hl-todo">Definitie volgt.</dd></div>
-  </dl>
+  <div class="gl">
+    <div class="gl-group">
+      <div class="gl-group-label">Waar het over gaat</div>
+      <details class="gl-term" id="gl-inbedding">
+        <summary>Inbedding</summary>
+        <div class="gl-def">Het werk dat nodig is om de (verwachte) uitkomst van een participatieproces te verankeren in beleid- en besluitvorming.</div>
+      </details>
+      <details class="gl-term" id="gl-inbeddingsruimte">
+        <summary>Inbeddingsruimte</summary>
+        <div class="gl-def">De beschikbare en verwachte mogelijkheden om uitkomsten van participatie in te (gaan) bedden.</div>
+      </details>
+      <details class="gl-term" id="gl-participatie">
+        <summary>Participatie</summary>
+        <div class="gl-def">Participatie is een proces waarbij individuen, groepen en organisaties invloed uitoefenen op en controle delen over collectieve vraagstukken, beslissingen of diensten die hen aangaan.<span class="gl-source"><a href="https://kennisknooppuntparticipatie.nl/themas/definitie-van-participatie" target="_blank" rel="noopener">Bron: Kennisknooppunt Participatie ↗</a></span></div>
+      </details>
+    </div>
+
+    <div class="gl-group">
+      <div class="gl-group-label">Waar je mee werkt</div>
+      <details class="gl-term" id="gl-waarden">
+        <summary>Waarden</summary>
+        <div class="gl-def">Wat je met het participatieproces wilt bereiken: de belangen en drijfveren die centraal staan, bezien vanuit het perspectief van bewoners, gemeente of beide. Waarden zijn de bouwstenen — door ze vooraf te benoemen zie je waar spanningen te verwachten zijn.<span class="gl-muse">Vaak zijn binnen één proces meerdere waarden belangrijk, en zijn die niet vanzelfsprekend verenigbaar.</span><a class="gl-golink m-waarden" onclick="switchModule('waarden')">Open de kaartset Waarden →</a></div>
+      </details>
+      <details class="gl-term" id="gl-spanningen">
+        <summary>Spanningen</summary>
+        <div class="gl-def">Wat kan ontstaan waar twee waarden botsen, bijvoorbeeld een waarde van bewoners tegenover een van de gemeente. Een spanning is geen los item, maar het schuren tussen twee dingen die allebei van belang zijn.<span class="gl-muse">Deze spanningen zijn uitdagingen in een proces, maar ook belangrijke aanwijzingen: ze vertellen je waar de bestaande inbeddingsruimte mogelijk niet overeenkomt met de dingen die bewoners belangrijk vinden. Zo kun je er vooraf op anticiperen.</span><a class="gl-golink m-spanningen" onclick="switchModule('spanningen')">Open de kaartset Spanningen →</a></div>
+      </details>
+      <details class="gl-term" id="gl-interventies">
+        <summary>Interventies</summary>
+        <div class="gl-def">Wat je kunt doen om met een (verwachte) spanning om te gaan. Geen voorschrift, maar een stap die professionals in vergelijkbare projecten daadwerkelijk zetten — die helpt vooruit te kijken naar wat er nodig is om ruimte te maken. Geordend naar de strategie erachter (afstemmen, verbinden of doorzetten) en de fase waarin ze speelt.<a class="gl-golink m-interventies" onclick="switchModule('interventies')">Open de kaartset Interventies →</a></div>
+      </details>
+    </div>
+
+    <div class="gl-group">
+      <div class="gl-group-label">Strategieën om ruimte te maken</div>
+      <div class="gl-group-intro">We onderscheiden drie soorten strategieën die je kunt gebruiken om inbeddingsruimte te maken: afstemmen, verbinden en doorzetten. De interventies vallen elk onder één van deze strategieën.</div>
+      <details class="gl-term" id="gl-afstemmen">
+        <summary>Afstemmen</summary>
+        <div class="gl-def">Ruimte maken via de relatie: vroeg vertrouwen en gedeelde betekenis opbouwen en partijen bij elkaar brengen rond een gedeeld belang.</div>
+      </details>
+      <details class="gl-term" id="gl-verbinden">
+        <summary>Verbinden</summary>
+        <div class="gl-def">Ruimte maken door vooruit te schakelen: uitkomsten herkaderen en aanhaken op beleidskansen en vensters die eraan komen, zodat je barrières vóór bent.</div>
+      </details>
+      <details class="gl-term" id="gl-doorzetten">
+        <summary>Doorzetten</summary>
+        <div class="gl-def">Ruimte maken via formele macht of positie: op tijd escaleren, een knoop doorhakken of een barrière doorbreken, zodat een verwachte uitkomst straks een plek heeft.</div>
+      </details>
+      <div class="gl-source gl-group-source"><a href="https://doi.org/10.1080/03003930.2018.1546172" target="_blank" rel="noopener">Bron: Nederhand, Van der Steen &amp; Van Twist (2018), Local Government Studies ↗</a></div>
+    </div>
+
+    <div class="gl-group">
+      <div class="gl-group-label">Fasen in het proces</div>
+      <details class="gl-term" id="gl-fasen">
+        <summary>Aanloop, doorloop en afloop</summary>
+        <div class="gl-def">De fasen van een participatieproces. De <strong>aanloop</strong> is de fase vóór het begin van de (geplande) interacties met bewoners, de <strong>doorloop</strong> is tijdens, en de <strong>afloop</strong> is nadat die interacties zijn afgerond en de uitkomsten moeten worden verwerkt.<span class="gl-source"><a href="https://kennisknooppuntparticipatie.nl/publicaties/competentie-overzichten" target="_blank" rel="noopener">Bron: Kennisknooppunt Participatie ↗</a></span><span class="gl-muse">In veel processen zijn deze fases niet eenvoudig van elkaar te scheiden: vaak begint de verwerking van uitkomsten bijvoorbeeld al tijdens de doorloop, of zijn er al wat oriënterende gesprekken in de aanloopfase. Bovendien doorlopen projecten vaak meerdere cycli van aan-, door- en afloop, bijvoorbeeld in de verschillende fasen van een planproces.</span></div>
+      </details>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -1119,7 +1212,7 @@ function buildTensionCard(t, idx) {
   </button>`;
 }
 
-const categoryLabel = { powering: 'Doorzetten', puzzling: 'Koppelen', mediating: 'Bemiddelen' };
+const categoryLabel = { powering: 'Doorzetten', puzzling: 'Verbinden', mediating: 'Afstemmen' };
 
 function buildInterventionCard(i, idx) {
   const num = String(idx != null ? idx + 1 : interventions.findIndex(x => x.id === i.id) + 1).padStart(2, '0');
@@ -1383,6 +1476,7 @@ const glossaryTerms = [
   ['waarden', 'waarden'], ['waarde', 'waarden'],
   ['spanningen', 'spanningen'], ['spanning', 'spanningen'],
   ['interventies', 'interventies'], ['interventie', 'interventies'],
+  ['doorzetten', 'doorzetten'], ['verbinden', 'verbinden'], ['afstemmen', 'afstemmen'],
   ['aanloop', 'fasen'], ['doorloop', 'fasen'], ['afloop', 'fasen']
 ];
 const glossaryRe = new RegExp('(?<!\\p{L})(' + glossaryTerms.map(t => t[0]).join('|') + ')(?!\\p{L})', 'iu');
@@ -1423,6 +1517,7 @@ function goToTerm(id) {
   switchModule('begrippen');
   const el = document.getElementById('gl-' + id);
   if (!el) return;
+  if (el.tagName === 'DETAILS') el.open = true;
   setTimeout(() => {
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     el.classList.add('flash');
