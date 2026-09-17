@@ -1199,7 +1199,7 @@ function buildTensionCard(t, idx) {
     ? `<div class="tcard-values">${vals.map((v, i) =>
         `${i > 0 ? '<span class="tcard-vx">·</span>' : ''}<span class="tcard-vchip">${v.title}</span>`).join('')}</div>`
     : '';
-  const phaseHtml = t.phase ? `<span class="tcard-phase" data-phase="${t.phase}">${t.phase}</span>` : '';
+  const phaseHtml = (t.phase || '').split(' ').filter(Boolean).map(p => `<span class="tcard-phase" data-phase="${p}">${p}</span>`).join(' ');
   const footer = (vals.length || t.phase)
     ? `<div class="tcard-values" style="gap: 6px;">${vals.map((v, i) => `${i > 0 ? '<span class="tcard-vx">·</span>' : ''}<span class="tcard-vchip">${v.title}</span>`).join('')}${phaseHtml}</div>`
     : '';
@@ -1222,7 +1222,7 @@ function buildInterventionCard(i, idx) {
     <p class="icard-desc">${i.short}</p>
     <div class="icard-tags">
       <span class="catbadge ${i.category}">${categoryLabel[i.category]||i.category}</span>
-      <span class="tag phase-${i.phase}">${i.phase}</span>
+      ${(i.phase || '').split(' ').filter(Boolean).map(p => `<span class="tag phase-${p}">${p}</span>`).join(' ')}
     </div>
   </button>`;
 }
@@ -1407,7 +1407,7 @@ function setupFilters() {
 function applyFilters() {
   document.querySelectorAll('#interventionsGrid .icard').forEach(el => {
     const catMatch = activeFilters.category === 'all' || el.dataset.category === activeFilters.category;
-    const phaseMatch = activeFilters.phase === 'all' || el.dataset.phase === activeFilters.phase;
+    const phaseMatch = activeFilters.phase === 'all' || el.dataset.phase.split(' ').includes(activeFilters.phase);
     el.classList.toggle('hidden', !(catMatch && phaseMatch));
   });
 }
@@ -1420,7 +1420,7 @@ function setupTensionFilters() {
       document.querySelectorAll('[data-tfilter]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.querySelectorAll('#tensionsGrid .tcard').forEach(el => {
-        el.classList.toggle('hidden', !(value === 'all' || el.dataset.tphase === value));
+        el.classList.toggle('hidden', !(value === 'all' || el.dataset.tphase.split(' ').includes(value)));
       });
     });
   });
@@ -1455,7 +1455,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 // Sorteer spanningen en interventies chronologisch: aanloop > doorloop > afloop.
 // Array.sort is stabiel, dus kaartjes binnen dezelfde fase houden hun onderlinge volgorde.
 const phaseOrder = { aanloop: 0, doorloop: 1, afloop: 2 };
-const byPhase = (a, b) => (phaseOrder[a.phase] ?? 99) - (phaseOrder[b.phase] ?? 99);
+const firstPhase = x => Math.min(99, ...(x.phase || '').split(' ').filter(Boolean).map(p => phaseOrder[p] ?? 99));
+const byPhase = (a, b) => firstPhase(a) - firstPhase(b);
 tensions.sort(byPhase);
 interventions.sort(byPhase);
 

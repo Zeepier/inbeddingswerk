@@ -137,14 +137,14 @@ const tensions = [
     body: 'Sommige besluiten worden om bestuurlijke, juridische of onderhandelingstechnische redenen achter gesloten deuren genomen. Hoe communiceer je daar transparant over zonder vertrouwen te verliezen — en zonder de onderhandelingsruimte weg te geven?',
     interventions: ['i12','i14','i1'],
     cases: ['c3'],
-    values: ['v5','v8'], phase: 'doorloop' },
+    values: ['v5','v8'], phase: 'doorloop afloop' },
 
   { id: 't10',
     title: 'Bestuurlijke of ambtelijke wisselingen in langlopende ontwikkeling',
     body: 'Wethouders, projectleiders of dossierhouders wisselen tijdens het traject — zeker rond verkiezingen of reorganisaties. Afspraken raken in de mist en deelnemers moeten hun verhaal opnieuw vertellen aan een nieuwe gesprekspartner.',
     interventions: ['i1','i12'],
     cases: ['c4'],
-    values: [], phase: 'doorloop' },
+    values: [], phase: 'doorloop afloop' },
 
   { id: 't11',
     title: 'Geschiedenis en context omgeving van invloed op nieuwe initiatieven',
@@ -158,7 +158,7 @@ const tensions = [
     body: 'KPI\'s, deadlines en verantwoordingseisen sturen het werk zo strak dat er weinig ruimte is om te reageren op wat opkomt. Het traject loopt door volgens planning, ook als signalen aangeven dat het niet meer klopt.',
     interventions: ['i16','i17','i10','i1'],
     cases: ['c1'],
-    values: ['v1','v4','v10'], phase: 'doorloop' },
+    values: ['v1','v4','v10'], phase: 'doorloop afloop' },
 
   { id: 't13',
     title: 'Invloed geven versus iedereen gelijk behandelen',
@@ -198,7 +198,7 @@ const interventions = [
     when: 'Vroeg in het traject, en steeds wanneer je een nieuwe fase ingaat.',
     example: 'Een collega bij Beheer & Onderhoud die later betrokken raakt — al vroeg meenemen voorkomt verrassingen bij oplevering.',
     watch: 'Bondgenoten worden geen mede-verantwoordelijken zonder dat ze daar iets voor terugzien.',
-    phase: 'aanloop', category: 'mediating' },
+    phase: 'aanloop doorloop', category: 'mediating' },
 
   { id: 'i4',
     title: 'Vernieuwende werkwijze',
@@ -222,7 +222,7 @@ const interventions = [
     when: 'Wanneer afdelingen langs elkaar heen werken of de opgave fragmentarisch oogt.',
     example: 'Een visiedocument van twee A4 dat ruimtelijk, sociaal en economisch beleid bij elkaar brengt rond één plek — geschreven mét de afdelingen, niet voor hen.',
     watch: 'Een wenkend perspectief verliest zijn werking als het te abstract blijft. Maak het concreet aan een plek of moment.',
-    phase: 'aanloop', category: 'puzzling' },
+    phase: 'aanloop doorloop', category: 'puzzling' },
 
   { id: 'i7',
     title: 'Meenemen in belevingswereld',
@@ -254,7 +254,7 @@ const interventions = [
     when: 'Bij initiatieven die buiten de gangbare kaders vallen maar wel passen bij ambities.',
     example: 'Een bewonerscoöperatie voor groenbeheer koppelen aan de uitvoeringsagenda biodiversiteit — hetzelfde initiatief krijgt zo legitimiteit en budget.',
     watch: 'Een haakje is geen volledige inbedding. Houd in de gaten of het haakje stevig genoeg is.',
-    phase: 'doorloop', category: 'puzzling' },
+    phase: 'doorloop afloop', category: 'puzzling' },
 
   { id: 'i12',
     title: 'Opbrengst inzichtelijk maken',
@@ -262,7 +262,7 @@ const interventions = [
     when: 'Na elke participatieronde, vóór bestuurlijke besluitvorming.',
     example: 'Een opbrengstrapport dat niet alleen meningen samenvat, maar ook patronen, dilemma\'s en gemaakte afwegingen — leesbaar voor bewoners en bestuur.',
     watch: 'Opbrengst zonder traceerbaarheid (wat is er met welke inbreng gedaan?) verliest zijn functie.',
-    phase: 'afloop', category: 'puzzling' },
+    phase: 'doorloop afloop', category: 'puzzling' },
 
   { id: 'i13',
     title: 'Kaders formuleren',
@@ -278,7 +278,7 @@ const interventions = [
     when: 'Op het moment dat een schuring zichtbaar wordt — niet later.',
     example: 'In een raadsbrief expliciet maken: "we kunnen niet én alle parkeerplaatsen behouden én de vergroening realiseren — hoe wegen we?".',
     watch: 'Dilemma\'s presenteren als zwart-wit keuzes versimpelt de werkelijkheid. Toon de gradaties.',
-    phase: 'doorloop', category: 'puzzling' },
+    phase: 'doorloop afloop', category: 'puzzling' },
 
   { id: 'i16',
     title: 'Vertraging als investering',
