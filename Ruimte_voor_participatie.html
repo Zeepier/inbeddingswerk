@@ -983,7 +983,7 @@
       <button class="filter-btn active" data-vfilter="all">Alle</button>
       <button class="filter-btn" data-vfilter="bewoners">Bewoners</button>
       <button class="filter-btn" data-vfilter="gemeente">Gemeente</button>
-      <button class="filter-btn" data-vfilter="beide">Beide</button>
+      <button class="filter-btn" data-vfilter="beide">Gemeente &amp; Bewoners</button>
     </div>
   </div>
 
@@ -1208,7 +1208,7 @@
 // values, tensions, interventions, cases, reflectQuestions komen uit content.js
 const _contentCheck = (typeof values !== 'undefined' && typeof tensions !== 'undefined') || console.error('content.js niet geladen');
 
-const groupLabel = { bewoners: 'Bewoners', gemeente: 'Gemeente', beide: 'Beide' };
+const groupLabel = { bewoners: 'Bewoners', gemeente: 'Gemeente', beide: 'Gemeente & Bewoners' };
 
 // ===== CARD BUILDERS =====
 
@@ -1309,7 +1309,8 @@ function showValueModal(id) {
   document.getElementById('modalBody').innerHTML = `
     <div class="modal-eyebrow">Waarde · ${groupLabel[v.group]}</div>
     <h2>${v.title}</h2>
-    <p style="color: var(--ink-soft); font-size: 15px;">Deze waarde hoort bij het perspectief <strong>${groupLabel[v.group].toLowerCase()}</strong>. Spanningen ontstaan waar deze waarde botst met een andere.</p>
+    ${v.desc ? `<p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${v.desc}</p>` : ''}
+    <p style="color: var(--ink-soft); font-size: 14px;">Dit is een waarde vanuit het perspectief <strong>${groupLabel[v.group].toLowerCase()}</strong>. Spanningen ontstaan waar deze waarde botst met een andere.</p>
     ${linkedTensions.length ? `
       <div class="modal-section">
         <div class="modal-section-label">Speelt in deze spanningen</div>

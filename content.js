@@ -30,6 +30,8 @@
 // WAARDE-VELDEN
 // ─────────────
 // group: 'bewoners' (paars) | 'gemeente' (geel) | 'beide' (gradient)
+//   getoond als Bewoners / Gemeente / "Gemeente & Bewoners"
+// desc:  één zin die de waarde toelicht (gebruikt op de speelkaarten)
 //
 // INTERVENTIE-VELDEN
 // ──────────────────
@@ -48,24 +50,40 @@
 
 const values = [
 
-  { id: 'v1',  title: 'Invloed van bewoners',                   group: 'bewoners', tensions: ['t1','t2','t5','t7','t12','t13'] },
-  { id: 'v2',  title: 'Meenemen lokale kennis',                 group: 'bewoners', tensions: ['t8'] },
-  { id: 'v3',  title: 'Erkenning perspectief bewoners',         group: 'bewoners', tensions: ['t6'] },
-  { id: 'v4',  title: 'Bevorderen sociale cohesie in de buurt', group: 'bewoners', tensions: ['t12'] },
-  { id: 'v5',  title: 'Een open gesprek mogelijk maken',        group: 'bewoners', tensions: ['t3','t9','t11'] },
+  { id: 'v1',  title: 'Invloed van bewoners',                   group: 'bewoners', tensions: ['t1','t2','t5','t7','t12','t13'],
+    desc: 'Bewoners kunnen daadwerkelijk iets veranderen aan de uitkomst, niet alleen hun mening geven.' },
+  { id: 'v2',  title: 'Meenemen lokale kennis',                 group: 'bewoners', tensions: ['t8'],
+    desc: 'De kennis en ervaring van bewoners over hun eigen buurt telt mee in de afweging.' },
+  { id: 'v3',  title: 'Erkenning perspectief bewoners',         group: 'bewoners', tensions: ['t6'],
+    desc: 'De manier waarop bewoners de situatie beleven wordt serieus genomen, ook als die afwijkt van het officiële beeld.' },
+  { id: 'v4',  title: 'Bevorderen sociale cohesie in de buurt', group: 'bewoners', tensions: ['t12'],
+    desc: 'Het proces versterkt de onderlinge verbondenheid en het contact tussen bewoners.' },
+  { id: 'v5',  title: 'Een open gesprek mogelijk maken',        group: 'bewoners', tensions: ['t3','t9','t11'],
+    desc: 'Er is ruimte voor een eerlijk gesprek, ook over lastige of ongemakkelijke onderwerpen.' },
 
-  { id: 'v6',  title: 'Uitvoeren staand beleid',                group: 'gemeente', tensions: ['t2','t6','t11'] },
-  { id: 'v7',  title: 'Ambtelijke loyaliteit',                  group: 'gemeente', tensions: ['t3'] },
-  { id: 'v8',  title: 'Politiek risico beheersen',              group: 'gemeente', tensions: ['t1','t3','t9'] },
-  { id: 'v9',  title: 'Domeinoverstijgende samenwerking',       group: 'gemeente', tensions: ['t4'] },
-  { id: 'v10', title: 'Efficiëntie & effectiviteit bevorderen', group: 'gemeente', tensions: ['t7','t12'] },
-  { id: 'v11', title: 'Betaalbaarheid bewaken',                 group: 'gemeente', tensions: ['t5'] },
-  { id: 'v12', title: 'Vakkennis tot zijn recht laten komen',   group: 'gemeente', tensions: ['t4','t8'] },
+  { id: 'v6',  title: 'Uitvoeren staand beleid',                group: 'gemeente', tensions: ['t2','t6','t11'],
+    desc: 'Vastgesteld beleid en eerder gemaakte afspraken worden nageleefd.' },
+  { id: 'v7',  title: 'Ambtelijke loyaliteit',                  group: 'gemeente', tensions: ['t3'],
+    desc: 'Ambtenaren handelen in lijn met de koers en besluiten van bestuur en organisatie.' },
+  { id: 'v8',  title: 'Politiek risico beheersen',              group: 'gemeente', tensions: ['t1','t3','t9'],
+    desc: 'Bestuurlijke en politieke gevoeligheden worden tijdig herkend en beheerst.' },
+  { id: 'v9',  title: 'Domeinoverstijgende samenwerking',       group: 'gemeente', tensions: ['t4'],
+    desc: 'Verschillende afdelingen en beleidsterreinen werken samen in plaats van los van elkaar.' },
+  { id: 'v10', title: 'Efficiëntie & effectiviteit bevorderen', group: 'gemeente', tensions: ['t7','t12'],
+    desc: 'Tijd, geld en inzet worden zo besteed dat ze daadwerkelijk resultaat opleveren.' },
+  { id: 'v11', title: 'Betaalbaarheid bewaken',                 group: 'gemeente', tensions: ['t5'],
+    desc: 'De kosten van het proces en de uitkomsten blijven binnen haalbare grenzen.' },
+  { id: 'v12', title: 'Vakkennis tot zijn recht laten komen',   group: 'gemeente', tensions: ['t4','t8'],
+    desc: 'De expertise van vakspecialisten weegt mee in de uiteindelijke keuzes.' },
 
-  { id: 'v13', title: '(Sociaal) leren',                        group: 'beide',    tensions: [] },
-  { id: 'v14', title: 'Ruimte (maken) voor tegenspraak',        group: 'beide',    tensions: ['t3'] },
-  { id: 'v15', title: 'Gelijke behandeling bewoners',           group: 'beide',    tensions: ['t13'] },
-  { id: 'v16', title: 'Navolgbaar overheidshandelen',           group: 'beide',    tensions: [] },
+  { id: 'v13', title: '(Sociaal) leren',                        group: 'beide',    tensions: [],
+    desc: 'Betrokkenen worden door het proces wijzer over zichzelf, elkaar en de opgave.' },
+  { id: 'v14', title: 'Ruimte (maken) voor tegenspraak',        group: 'beide',    tensions: ['t3'],
+    desc: 'Afwijkende meningen en kritische geluiden kunnen naar voren komen zonder dat het proces daardoor vastloopt.' },
+  { id: 'v15', title: 'Gelijke behandeling bewoners',           group: 'beide',    tensions: ['t13'],
+    desc: 'Alle bewoners worden op eenzelfde manier behandeld, ongeacht wie het hardst laat horen.' },
+  { id: 'v16', title: 'Navolgbaar overheidshandelen',           group: 'beide',    tensions: [],
+    desc: 'Het is voor bewoners te volgen en te begrijpen hoe en waarom de gemeente tot een besluit komt.' },
 
 ];
 
