@@ -2,7 +2,7 @@
 // RUIMTE VOOR PARTICIPATIE — inhoud
 // =============================================================
 // Dit bestand bevat alle inhoud van de tool: spanningen,
-// interventies, verhalen en reflectievragen.
+// interventies en verhalen.
 //
 // HOE TE BEWERKEN
 // ───────────────
@@ -26,7 +26,6 @@
 // Spanningen:   t1, t2, t3, ... (voeg toe als t14, t15, enz.)
 // Interventies: i1, i2, i3, ... (voeg toe als i21, i22, enz.)
 // Verhalen:     c1, c2, c3, ... (voeg toe als c5, c6, enz.)
-// Reflectievragen: q1, q2, q3  (IDs NIET wijzigen)
 //
 // WAARDE-VELDEN
 // ─────────────
@@ -34,10 +33,11 @@
 //
 // INTERVENTIE-VELDEN
 // ──────────────────
-// phase:    'vroeg' | 'midden' | 'laat'
+// phase:    'aanloop' | 'doorloop' | 'afloop'
+//   (mag ook meerdere fases, gescheiden door een spatie: 'doorloop afloop')
 // category: 'powering' | 'puzzling' | 'mediating'
-//   (boundary-spanning strategie, Nederhand et al. 2018:
-//    powering = hiërarchisch, puzzling = ondernemend, mediating = bemiddelend)
+//   (getoond als Doorzetten / Verbinden / Afstemmen; boundary-spanning
+//    strategie, Nederhand et al. 2018)
 // =============================================================
 
 
