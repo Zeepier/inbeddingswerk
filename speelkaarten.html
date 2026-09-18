@@ -82,10 +82,15 @@
     font-size: 19px; line-height: 1.14; color: var(--ink); margin-bottom: 2.6mm;
   }
   .card .desc { font-size: 10.5px; line-height: 1.42; color: var(--ink-soft); }
-  .vals { display: flex; flex-wrap: wrap; gap: 1.2mm; margin-top: 1.5mm; }
+  .vals { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6mm 2mm; margin-top: 3mm; }
+  .chip-group { display: flex; align-items: center; gap: 1.2mm; }
   .chip {
-    font-size: 8px; line-height: 1.3; padding: 0.8mm 1.9mm; border-radius: 100px;
-    background: rgba(0,0,0,0.06); color: var(--ink-soft); white-space: nowrap;
+    font-size: 8px; font-weight: 600; line-height: 1.3; padding: 0.8mm 1.9mm; border-radius: 100px;
+    white-space: nowrap;
+  }
+  .vx {
+    font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    font-size: 13px; color: var(--ink-muted); flex-shrink: 0; line-height: 1;
   }
 
   .card .tags { display: flex; flex-wrap: wrap; gap: 1.2mm; margin: 2.4mm 0 2.5mm; }
@@ -201,8 +206,11 @@
   // SPANNINGEN — genummerd in fase-volgorde (zoals de online tool)
   const tSorted = [...tensions].sort(byPhase);
   renderDeck('Spanningen', 'var(--spanningen)', tSorted, (t, idx) => {
-    const vals = (t.values || []).map(id => (values.find(v => v.id === id) || {}).title).filter(Boolean);
-    const chips = vals.map(v => `<span class="chip">${esc(v)}</span>`).join('');
+    const vals = (t.values || []).map(id => values.find(v => v.id === id)).filter(Boolean);
+    const chips = vals.map((v, i) => {
+      const chip = `<span class="chip" style="background:${groupBg[v.group]};color:${groupColor[v.group]}">${esc(v.title)}</span>`;
+      return i > 0 ? `<span class="chip-group"><span class="vx">×</span>${chip}</span>` : chip;
+    }).join('');
     return `
     <div class="card" style="--c: var(--spanningen); --bg: var(--spanningen-bg)">
       <div class="row-top">
