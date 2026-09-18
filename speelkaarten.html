@@ -82,38 +82,47 @@
     font-size: 19px; line-height: 1.14; color: var(--ink); margin-bottom: 2.6mm;
   }
   .card .desc { font-size: 10.5px; line-height: 1.42; color: var(--ink-soft); }
-  .vals { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6mm 2mm; margin-top: 3mm; }
-  .chip-group { display: flex; align-items: center; gap: 1.2mm; }
+  .vals-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+  .vals { display: flex; flex-direction: column; align-items: center; width: 100%; gap: 1.2mm; }
   .chip {
-    font-size: 8px; font-weight: 600; line-height: 1.3; padding: 0.8mm 1.9mm; border-radius: 100px;
-    white-space: nowrap;
+    display: inline-block; font-size: 10.5px; font-weight: 600; line-height: 1.3;
+    padding: 1.1mm 3mm; border-radius: 100px;
+    white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
   }
   .vx {
     font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 13px; color: var(--ink-muted); flex-shrink: 0; line-height: 1;
+    font-size: 17px; color: var(--ink-muted); line-height: 1;
   }
 
-  .card .tags { display: flex; flex-wrap: wrap; gap: 1.2mm; margin: 2.4mm 0 2.5mm; }
-  .badge {
-    font-size: 7.5px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;
-    padding: 1mm 2.1mm; border-radius: 100px; white-space: nowrap;
+
+  /* Fase-balk: aanloop -> doorloop -> afloop, relevante fase(n) gemarkeerd */
+  .phase-bar {
+    margin-top: auto; padding-top: 2mm;
+    display: flex; align-items: center; justify-content: center; gap: 0.9mm;
   }
-  .badge.aanloop { background: #D8EFE3; color: var(--aanloop); }
-  .badge.doorloop { background: #F5EACC; color: var(--doorloop); }
-  .badge.afloop { background: #F5DDD8; color: var(--afloop); }
-  .badge.powering { background: var(--pow-bg); color: var(--pow-ink); }
-  .badge.puzzling { background: var(--puz-bg); color: var(--puz-ink); }
-  .badge.mediating { background: var(--med-bg); color: var(--med-ink); }
+  .phase-bar .ph {
+    font-size: 6.6px; letter-spacing: 0.03em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-muted); opacity: 0.55;
+  }
+  .phase-bar .ph.active { font-weight: 800; opacity: 1; }
+  .phase-bar .ph.active.aanloop { color: var(--aanloop); }
+  .phase-bar .ph.active.doorloop { color: var(--doorloop); }
+  .phase-bar .ph.active.afloop { color: var(--afloop); }
+  .phase-bar .arrow { font-size: 7px; color: var(--ink-muted); opacity: 0.4; }
 
   /* Merk-footer: consistent op alle kaarten */
   .foot-brand {
-    margin-top: auto; padding: 2mm 0 2.2mm; border-top: 1px solid rgba(31,42,38,0.08);
+    padding: 1.6mm 0 2.2mm; border-top: 1px solid rgba(31,42,38,0.08);
     display: flex; align-items: center; gap: 1.5mm;
   }
   .foot-brand .mark { width: 3mm; height: 0.45mm; background: var(--coral); flex-shrink: 0; }
   .foot-brand .word {
     font-size: 5.3px; letter-spacing: 0.09em; text-transform: uppercase;
     color: var(--ink-muted); font-weight: 600; white-space: nowrap;
+  }
+  .foot-brand .credit {
+    margin-left: auto; font-size: 5.3px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-muted); font-weight: 600; white-space: nowrap; flex-shrink: 0;
   }
 
   @media print {
@@ -146,8 +155,17 @@
   const firstPhase = x => Math.min(99, ...phases(x).map(p => phaseOrder[p] ?? 99));
   const byPhase = (a, b) => firstPhase(a) - firstPhase(b);
   const esc = s => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const phaseBadges = x => phases(x).map(p => `<span class="badge ${p}">${p}</span>`).join('');
-  const footBrand = `<div class="foot-brand"><span class="mark"></span><span class="word">Ruimte voor Participatie</span></div>`;
+  const PHASE_ORDER = ['aanloop', 'doorloop', 'afloop'];
+  const phaseBar = x => {
+    const active = new Set(phases(x));
+    const parts = PHASE_ORDER.map((p, i) => {
+      const cls = 'ph' + (active.has(p) ? ' active ' + p : '');
+      const word = `<span class="${cls}">${p.charAt(0).toUpperCase() + p.slice(1)}</span>`;
+      return (i > 0 ? '<span class="arrow">→</span>' : '') + word;
+    }).join('');
+    return `<div class="phase-bar">${parts}</div>`;
+  };
+  const footBrand = `<div class="foot-brand"><span class="mark"></span><span class="word">Ruimte voor Participatie</span><span class="credit">STP × HvA</span></div>`;
 
   // Iconen: Lucide (lucide.dev), ISC-licentie — geen AI-gegenereerde beelden.
   const ICON_PATHS = {
@@ -209,7 +227,7 @@
     const vals = (t.values || []).map(id => values.find(v => v.id === id)).filter(Boolean);
     const chips = vals.map((v, i) => {
       const chip = `<span class="chip" style="background:${groupBg[v.group]};color:${groupColor[v.group]}">${esc(v.title)}</span>`;
-      return i > 0 ? `<span class="chip-group"><span class="vx">×</span>${chip}</span>` : chip;
+      return i > 0 ? `<span class="vx">×</span>${chip}` : chip;
     }).join('');
     return `
     <div class="card" style="--c: var(--spanningen); --bg: var(--spanningen-bg)">
@@ -218,11 +236,11 @@
         ${icon('spanning')}
       </div>
       <div class="card-mid top-align">
-        <div class="tags" style="margin:0 0 1.8mm;">${phaseBadges(t)}</div>
         <div class="rule"></div>
         <h3>${esc(t.title)}</h3>
-        ${vals.length ? `<div class="vals">${chips}</div>` : ''}
+        ${vals.length ? `<div class="vals-wrap"><div class="vals">${chips}</div></div>` : ''}
       </div>
+      ${phaseBar(t)}
       ${footBrand}
     </div>`;
   });
@@ -236,12 +254,12 @@
         ${icon(i.category, categoryInk[i.category])}
       </div>
       <div class="card-mid top-align">
-        <span class="badge ${i.category}" style="margin-bottom: 1.8mm;">${categoryLabel[i.category] || i.category}</span>
+        <span class="persp" style="color:${categoryInk[i.category]}">${categoryLabel[i.category] || i.category}</span>
         <div class="rule"></div>
         <h3>${esc(i.title)}</h3>
         <div class="desc">${esc(i.short)}</div>
       </div>
-      <div class="tags">${phaseBadges(i)}</div>
+      ${phaseBar(i)}
       ${footBrand}
     </div>`);
 </script>
