@@ -342,6 +342,10 @@
   }
   .ilink:hover { color: var(--ink); }
   .header-links { display: flex; gap: 8px; flex-wrap: wrap; flex-shrink: 0; }
+  .lang-toggle { padding: 9px 16px; }
+  .lang-toggle .lt-opt { color: var(--ink-muted); font-weight: 500; }
+  .lang-toggle .lt-opt.on { color: var(--ink); font-weight: 600; }
+  .lang-toggle .lt-sep { color: var(--line); }
   /* FLOW-GRAPHIC (handleiding) */
   .flow {
     display: grid;
@@ -934,25 +938,28 @@
 </head>
 <body>
 
-<div class="illust-banner">
+<div class="illust-banner" data-i18n="banner">
   <strong>VOORBEELDVERSIE</strong> &nbsp;·&nbsp; Coach-tool · Inhoud is deels illustratief en wordt aangevuld met praktijkkennis.
 </div>
 
 <header class="app-header">
   <div class="app-header-text">
-    <div class="app-logo"><span class="logo-mark"></span>Ruimte voor participatie</div>
-    <p class="app-sub">Een gesprekshulp om te anticiperen op de inbedding van participatie — zodat de inbreng van bewoners straks echt een plek krijgt in beleid en besluitvorming.</p>
-    <p class="app-hint">Kies een kaartset hieronder. Elke set werkt zelfstandig — de koppelingen brengen je van waarden naar spanningen en interventies, met de verhalen als onderlegger.</p>
+    <div class="app-logo" data-i18n="logo"><span class="logo-mark"></span>Ruimte voor participatie</div>
+    <p class="app-sub" data-i18n="sub">Een gesprekshulp om te anticiperen op de inbedding van participatie — zodat de inbreng van bewoners straks echt een plek krijgt in beleid en besluitvorming.</p>
+    <p class="app-hint" data-i18n="hint">Kies een kaartset hieronder. Elke set werkt zelfstandig — de koppelingen brengen je van waarden naar spanningen en interventies, met de verhalen als onderlegger.</p>
   </div>
   <div class="header-links">
-    <button class="handleiding-link" data-module="handleiding" onclick="switchModule('handleiding')">
+    <button class="handleiding-link" data-module="handleiding" data-i18n="btn-handleiding" onclick="switchModule('handleiding')">
       <span class="hl-badge">?</span> Handleiding
     </button>
-    <button class="handleiding-link" data-module="begrippen" onclick="switchModule('begrippen')">
+    <button class="handleiding-link" data-module="begrippen" data-i18n="btn-begrippen" onclick="switchModule('begrippen')">
       <span class="hl-badge">B</span> Begrippen
     </button>
-    <button class="handleiding-link hl-verhalen" data-module="verhalen" onclick="switchModule('verhalen')">
+    <button class="handleiding-link hl-verhalen" data-module="verhalen" data-i18n="btn-verhalen" onclick="switchModule('verhalen')">
       <span class="hl-badge">V</span> Verhalen
+    </button>
+    <button class="handleiding-link lang-toggle" id="langToggle" type="button" onclick="toggleLang()" aria-label="Switch to English">
+      <span class="lt-opt" data-lang="nl">NL</span><span class="lt-sep">/</span><span class="lt-opt" data-lang="en">EN</span>
     </button>
   </div>
 </header>
@@ -960,13 +967,13 @@
 <div class="switcher-wrap">
   <div class="switcher" id="switcher">
     <button class="module-btn active" data-module="waarden" onclick="switchModule('waarden')">
-      <span class="mb-num">01</span><span class="mb-title">Waarden</span><span class="mb-count">16 kaarten</span>
+      <span class="mb-num">01</span><span class="mb-title" data-i18n="mb-waarden">Waarden</span><span class="mb-count">16 kaarten</span>
     </button>
     <button class="module-btn" data-module="spanningen" onclick="switchModule('spanningen')">
-      <span class="mb-num">02</span><span class="mb-title">Spanningen</span><span class="mb-count">13 kaarten</span>
+      <span class="mb-num">02</span><span class="mb-title" data-i18n="mb-spanningen">Spanningen</span><span class="mb-count">13 kaarten</span>
     </button>
     <button class="module-btn" data-module="interventies" onclick="switchModule('interventies')">
-      <span class="mb-num">03</span><span class="mb-title">Interventies</span><span class="mb-count">18 kaarten</span>
+      <span class="mb-num">03</span><span class="mb-title" data-i18n="mb-interventies">Interventies</span><span class="mb-count">18 kaarten</span>
     </button>
   </div>
 </div>
@@ -974,84 +981,84 @@
 <!-- ===== MODULE: WAARDEN ===== -->
 <section class="content module-panel active" id="panel-waarden">
   <div class="section-num">01</div>
-  <h2 class="section-title">Waarden <span class="em">als bouwstenen</span></h2>
-  <p class="section-lead">Welke waarden zijn in dit participatieproces het meest belangrijk? Selecteer de waarden die centraal staan.</p>
+  <h2 class="section-title" data-i18n="waarden-title">Waarden <span class="em">als bouwstenen</span></h2>
+  <p class="section-lead" data-i18n="waarden-lead">Welke waarden zijn in dit participatieproces het meest belangrijk? Selecteer de waarden die centraal staan.</p>
 
   <div class="filter-bar">
     <div class="filter-group">
-      <span class="filter-label">Perspectief</span>
-      <button class="filter-btn active" data-vfilter="all">Alle</button>
-      <button class="filter-btn" data-vfilter="bewoners">Bewoners</button>
-      <button class="filter-btn" data-vfilter="gemeente">Gemeente</button>
-      <button class="filter-btn" data-vfilter="beide">Gemeente &amp; Bewoners</button>
+      <span class="filter-label" data-i18n="f-perspectief">Perspectief</span>
+      <button class="filter-btn active" data-vfilter="all" data-i18n="f-alle">Alle</button>
+      <button class="filter-btn" data-vfilter="bewoners" data-i18n="f-bewoners">Bewoners</button>
+      <button class="filter-btn" data-vfilter="gemeente" data-i18n="f-gemeente">Gemeente</button>
+      <button class="filter-btn" data-vfilter="beide" data-i18n="f-beide">Gemeente &amp; Bewoners</button>
     </div>
   </div>
 
-  <p class="hint-line">Klik op een waarde voor de spanningen waarin ze een rol speelt</p>
+  <p class="hint-line" data-i18n="waarden-hint">Klik op een waarde voor de spanningen waarin ze een rol speelt</p>
   <div class="grid-values" id="valuesGrid"></div>
 </section>
 
 <!-- ===== MODULE: SPANNINGEN ===== -->
 <section class="content module-panel" id="panel-spanningen">
   <div class="section-num">02</div>
-  <h2 class="section-title">Spanningen <span class="em">in de praktijk</span></h2>
-  <p class="section-lead">Welke spanningen tussen deze waarden voorzie je?</p>
+  <h2 class="section-title" data-i18n="spanningen-title">Spanningen <span class="em">in de praktijk</span></h2>
+  <p class="section-lead" data-i18n="spanningen-lead">Welke spanningen tussen deze waarden voorzie je?</p>
 
   <div class="filter-bar">
     <div class="filter-group">
-      <span class="filter-label">Fase</span>
-      <button class="filter-btn active" data-tfilter="all">Alle</button>
-      <button class="filter-btn" data-tfilter="aanloop">Aanloop</button>
-      <button class="filter-btn" data-tfilter="doorloop">Doorloop</button>
-      <button class="filter-btn" data-tfilter="afloop">Afloop</button>
+      <span class="filter-label" data-i18n="f-fase">Fase</span>
+      <button class="filter-btn active" data-tfilter="all" data-i18n="f-alle">Alle</button>
+      <button class="filter-btn" data-tfilter="aanloop" data-i18n="f-aanloop">Aanloop</button>
+      <button class="filter-btn" data-tfilter="doorloop" data-i18n="f-doorloop">Doorloop</button>
+      <button class="filter-btn" data-tfilter="afloop" data-i18n="f-afloop">Afloop</button>
     </div>
   </div>
 
-  <p class="hint-line">Klik op een spanning voor de botsende waarden, interventies en verhalen</p>
+  <p class="hint-line" data-i18n="spanningen-hint">Klik op een spanning voor de botsende waarden, interventies en verhalen</p>
   <div class="grid-tensions" id="tensionsGrid"></div>
 </section>
 
 <!-- ===== MODULE: INTERVENTIES ===== -->
 <section class="content module-panel" id="panel-interventies">
   <div class="section-num">03</div>
-  <h2 class="section-title">Interventies <span class="em">voor de praktijk</span></h2>
-  <p class="section-lead">Welke interventies spreken je aan?</p>
+  <h2 class="section-title" data-i18n="interventies-title">Interventies <span class="em">voor de praktijk</span></h2>
+  <p class="section-lead" data-i18n="interventies-lead">Welke interventies spreken je aan?</p>
 
   <div class="filter-bar">
     <div class="filter-group">
-      <span class="filter-label">Strategie</span>
-      <button class="filter-btn active" data-filter-type="category" data-filter-value="all">Alle</button>
-      <button class="filter-btn" data-filter-type="category" data-filter-value="mediating">Afstemmen</button>
-      <button class="filter-btn" data-filter-type="category" data-filter-value="puzzling">Verbinden</button>
-      <button class="filter-btn" data-filter-type="category" data-filter-value="powering">Doorzetten</button>
+      <span class="filter-label" data-i18n="f-strategie">Strategie</span>
+      <button class="filter-btn active" data-filter-type="category" data-filter-value="all" data-i18n="f-alle">Alle</button>
+      <button class="filter-btn" data-filter-type="category" data-filter-value="mediating" data-i18n="f-mediating">Afstemmen</button>
+      <button class="filter-btn" data-filter-type="category" data-filter-value="puzzling" data-i18n="f-puzzling">Verbinden</button>
+      <button class="filter-btn" data-filter-type="category" data-filter-value="powering" data-i18n="f-powering">Doorzetten</button>
     </div>
     <div class="filter-group">
-      <span class="filter-label">Fase</span>
-      <button class="filter-btn active" data-filter-type="phase" data-filter-value="all">Alle</button>
-      <button class="filter-btn" data-filter-type="phase" data-filter-value="aanloop">Aanloop</button>
-      <button class="filter-btn" data-filter-type="phase" data-filter-value="doorloop">Doorloop</button>
-      <button class="filter-btn" data-filter-type="phase" data-filter-value="afloop">Afloop</button>
+      <span class="filter-label" data-i18n="f-fase">Fase</span>
+      <button class="filter-btn active" data-filter-type="phase" data-filter-value="all" data-i18n="f-alle">Alle</button>
+      <button class="filter-btn" data-filter-type="phase" data-filter-value="aanloop" data-i18n="f-aanloop">Aanloop</button>
+      <button class="filter-btn" data-filter-type="phase" data-filter-value="doorloop" data-i18n="f-doorloop">Doorloop</button>
+      <button class="filter-btn" data-filter-type="phase" data-filter-value="afloop" data-i18n="f-afloop">Afloop</button>
     </div>
   </div>
 
-  <p class="hint-line">Klik op een interventie voor uitleg, gekoppelde spanningen en verhalen</p>
+  <p class="hint-line" data-i18n="interventies-hint">Klik op een interventie voor uitleg, gekoppelde spanningen en verhalen</p>
   <div class="grid-interventions" id="interventionsGrid"></div>
 </section>
 
 <!-- ===== MODULE: VERHALEN ===== -->
 <section class="content module-panel" id="panel-verhalen">
-  <h2 class="section-title">Verhalen <span class="em">uit de praktijk</span></h2>
-  <p class="section-lead">De onderlegger van de tool: praktijkcases waaraan de spanningen en interventies gekoppeld zijn. Bron én inspiratie — je komt hier vooral via de koppelingen in de kaarten, maar kunt de verhalen ook los doorbladeren.</p>
+  <h2 class="section-title" data-i18n="verhalen-title">Verhalen <span class="em">uit de praktijk</span></h2>
+  <p class="section-lead" data-i18n="verhalen-lead">De onderlegger van de tool: praktijkcases waaraan de spanningen en interventies gekoppeld zijn. Bron én inspiratie — je komt hier vooral via de koppelingen in de kaarten, maar kunt de verhalen ook los doorbladeren.</p>
 
   <div class="grid-cases" id="casesGrid"></div>
 </section>
 
 <!-- ===== MODULE: HANDLEIDING ===== -->
 <section class="content module-panel" id="panel-handleiding">
-  <h2 class="section-title">Handleiding <span class="em">voor de coach</span></h2>
-  <p class="section-lead">Hoe gebruik je deze tool in een coachsessie?</p>
+  <h2 class="section-title" data-i18n="handleiding-title">Handleiding <span class="em">voor de coach</span></h2>
+  <p class="section-lead" data-i18n="handleiding-lead">Hoe gebruik je deze tool in een coachsessie?</p>
 
-  <div class="hl">
+  <div class="hl" data-i18n="handleiding-body">
     <div class="hl-step">
       <div class="hl-step-num">01</div>
       <h3>Wat is dit?</h3>
@@ -1125,10 +1132,10 @@
 
 <!-- ===== MODULE: BEGRIPPEN ===== -->
 <section class="content module-panel" id="panel-begrippen">
-  <h2 class="section-title">Begrippen <span class="em">in deze tool</span></h2>
-  <p class="section-lead">Wat bedoelen we met de termen die in de tool terugkomen?</p>
+  <h2 class="section-title" data-i18n="begrippen-title">Begrippen <span class="em">in deze tool</span></h2>
+  <p class="section-lead" data-i18n="begrippen-lead">Wat bedoelen we met de termen die in de tool terugkomen?</p>
 
-  <div class="gl">
+  <div class="gl" data-i18n="begrippen-body">
     <div class="gl-group c-kern">
       <div class="gl-group-label">Waar het over gaat</div>
       <div class="gl-group-intro">De begrippen waar de tool om draait: het inbedden van de opbrengsten van participatie, en de ruimte die daarvoor nodig is.</div>
@@ -1192,7 +1199,7 @@
   </div>
 </section>
 
-<footer>
+<footer data-i18n="footer">
   Ruimte voor participatie · Coach-tool · Voorbeeldversie · Gemaakt voor reflectie en gesprek
 </footer>
 
@@ -1204,62 +1211,117 @@
 </div>
 
 <script src="content.js"></script>
+<script src="content_en.js"></script>
 <script>
 // values, tensions, interventions, cases, reflectQuestions komen uit content.js
+// contentEN en staticEN (Engelse vertaling) komen uit content_en.js
 const _contentCheck = (typeof values !== 'undefined' && typeof tensions !== 'undefined') || console.error('content.js niet geladen');
 
-const groupLabel = { bewoners: 'Bewoners', gemeente: 'Gemeente', beide: 'Gemeente & Bewoners' };
+// ===== TAAL =====
+// Nederlands staat in de HTML en content.js; Engels in content_en.js.
+// Taal kiezen via de NL/EN-knop, of met ?lang=en in de URL.
+const UI = {
+  nl: {
+    title: 'Ruimte voor participatie — coach-tool',
+    group: { bewoners: 'Bewoners', gemeente: 'Gemeente', beide: 'Gemeente & Bewoners' },
+    category: { powering: 'Doorzetten', puzzling: 'Verbinden', mediating: 'Afstemmen' },
+    phase: { aanloop: 'aanloop', doorloop: 'doorloop', afloop: 'afloop' },
+    tension: 'spanning', tensions: 'spanningen', cards: 'kaarten',
+    intervention: 'INTERVENTIE', photoSoon: 'Foto volgt', readStory: 'LEES VERHAAL →',
+    value: 'Waarde', tensionEyebrow: 'Spanning',
+    valuePerspective: g => `Dit is een waarde vanuit het perspectief <strong>${g}</strong>. Spanningen ontstaan waar deze waarde botst met een andere.`,
+    playsIn: 'Speelt in deze spanningen', tensionsLabel: 'Spanningen',
+    noTension: 'Aan deze waarde is nog geen spanning gekoppeld. Dit is vaak een gedeeld belang dat zelf geen partij is in een conflict.',
+    clashing: 'Botsende waarden', fittingInts: 'Passende interventies', casesWhere: 'Verhalen waarin dit speelde',
+    when: 'Wanneer in te zetten', example: 'Voorbeeld uit de praktijk', watch: 'Waar op te letten',
+    helpsWith: 'Helpt bij deze spanningen', appliedIn: 'Toegepast in',
+    tensionsPlayed: 'Spanningen die speelden', intsUsed: 'Ingezette interventies',
+    glossTitle: 'Bekijk in Begrippen', close: 'Sluiten', switchTo: 'Switch to English',
+  },
+  en: {
+    title: 'Room for participation — coach tool',
+    group: { bewoners: 'Residents', gemeente: 'Municipality', beide: 'Municipality & Residents' },
+    category: { powering: 'Powering', puzzling: 'Puzzling', mediating: 'Mediating' },
+    phase: { aanloop: 'preparation', doorloop: 'engagement', afloop: 'follow-up' },
+    tension: 'tension', tensions: 'tensions', cards: 'cards',
+    intervention: 'INTERVENTION', photoSoon: 'Photo to follow', readStory: 'READ STORY →',
+    value: 'Value', tensionEyebrow: 'Tension',
+    valuePerspective: g => `This is a value from the perspective of <strong>${g}</strong>. Tensions arise where this value clashes with another.`,
+    playsIn: 'Plays a part in these tensions', tensionsLabel: 'Tensions',
+    noTension: 'No tension has been linked to this value yet. This is often a shared interest that is not itself a party to a conflict.',
+    clashing: 'Clashing values', fittingInts: 'Suitable interventions', casesWhere: 'Stories in which this played out',
+    when: 'When to use', example: 'Example from practice', watch: 'What to watch out for',
+    helpsWith: 'Helps with these tensions', appliedIn: 'Applied in',
+    tensionsPlayed: 'Tensions at play', intsUsed: 'Interventions used',
+    glossTitle: 'View in Glossary', close: 'Close', switchTo: 'Schakel naar Nederlands',
+  },
+};
+
+let lang = 'nl';
+try {
+  const q = new URLSearchParams(location.search).get('lang');
+  const saved = localStorage.getItem('rvp-lang');
+  if (q === 'en' || q === 'nl') lang = q;
+  else if (saved === 'en' || saved === 'nl') lang = saved;
+} catch (e) {}
+
+const t = key => UI[lang][key];
+// Tekst van een kaart in de gekozen taal (valt terug op Nederlands)
+const L = (obj, field) => (lang === 'en' && typeof contentEN !== 'undefined' && contentEN[obj.id] && contentEN[obj.id][field]) || obj[field];
+const phaseText = p => (p || '').split(' ').filter(Boolean).map(x => t('phase')[x] || x).join(' · ');
+
+// Originele (Nederlandse) HTML van alle vaste teksten bewaren vóór er iets aan verandert
+const i18nOriginal = new Map();
+document.querySelectorAll('[data-i18n]').forEach(el => i18nOriginal.set(el, el.innerHTML));
+
+const groupLabel = new Proxy({}, { get: (_, g) => t('group')[g] });
 
 // ===== CARD BUILDERS =====
 
 function buildValueCard(v) {
   const n = (v.tensions || []).length;
   return `<button class="vcard ${v.group}" type="button" data-group="${v.group}" onclick="showValueModal('${v.id}')">
-    <h4>${v.title}</h4>
+    <h4>${L(v, 'title')}</h4>
     <div class="vcard-foot">
       <span class="vcard-group"><span class="vcard-dot"></span>${groupLabel[v.group]}</span>
-      <span class="vcard-count">${n} ${n === 1 ? 'spanning' : 'spanningen'}</span>
+      <span class="vcard-count">${n} ${n === 1 ? t('tension') : t('tensions')}</span>
     </div>
   </button>`;
 }
 
 function buildValueChip(v) {
   return `<button class="value-chip ${v.group}" type="button" onclick="showValueModal('${v.id}')">
-    <span class="vc-dot"></span><span class="vc-title">${v.title}</span>
+    <span class="vc-dot"></span><span class="vc-title">${L(v, 'title')}</span>
   </button>`;
 }
 
-function buildTensionCard(t, idx) {
-  const num = String(idx != null ? idx + 1 : tensions.findIndex(x => x.id === t.id) + 1).padStart(2, '0');
-  const vals = (t.values || []).map(vid => values.find(v => v.id === vid)).filter(Boolean);
-  const valHtml = vals.length
-    ? `<div class="tcard-values">${vals.map((v, i) =>
-        `${i > 0 ? '<span class="tcard-vx">·</span>' : ''}<span class="tcard-vchip">${v.title}</span>`).join('')}</div>`
+function buildTensionCard(tn, idx) {
+  const num = String(idx != null ? idx + 1 : tensions.findIndex(x => x.id === tn.id) + 1).padStart(2, '0');
+  const vals = (tn.values || []).map(vid => values.find(v => v.id === vid)).filter(Boolean);
+  const phaseHtml = (tn.phase || '').split(' ').filter(Boolean).map(p => `<span class="tcard-phase" data-phase="${p}">${t('phase')[p] || p}</span>`).join(' ');
+  const footer = (vals.length || tn.phase)
+    ? `<div class="tcard-values" style="gap: 6px;">${vals.map((v, i) => `${i > 0 ? '<span class="tcard-vx">·</span>' : ''}<span class="tcard-vchip">${L(v, 'title')}</span>`).join('')}${phaseHtml}</div>`
     : '';
-  const phaseHtml = (t.phase || '').split(' ').filter(Boolean).map(p => `<span class="tcard-phase" data-phase="${p}">${p}</span>`).join(' ');
-  const footer = (vals.length || t.phase)
-    ? `<div class="tcard-values" style="gap: 6px;">${vals.map((v, i) => `${i > 0 ? '<span class="tcard-vx">·</span>' : ''}<span class="tcard-vchip">${v.title}</span>`).join('')}${phaseHtml}</div>`
-    : '';
-  return `<button class="tcard" type="button" data-tphase="${t.phase||''}" onclick="showTensionModal('${t.id}')">
+  return `<button class="tcard" type="button" data-tphase="${tn.phase||''}" onclick="showTensionModal('${tn.id}')">
     <div>
       <div class="tcard-num">${num}</div>
-      <h4>${t.title}</h4>
+      <h4>${L(tn, 'title')}</h4>
     </div>
     ${footer}
   </button>`;
 }
 
-const categoryLabel = { powering: 'Doorzetten', puzzling: 'Verbinden', mediating: 'Afstemmen' };
+const categoryLabel = new Proxy({}, { get: (_, c) => t('category')[c] });
 
 function buildInterventionCard(i, idx) {
   const num = String(idx != null ? idx + 1 : interventions.findIndex(x => x.id === i.id) + 1).padStart(2, '0');
   return `<button class="icard" type="button" data-id="${i.id}" data-phase="${i.phase}" data-category="${i.category}" onclick="showInterventionModal('${i.id}')">
-    <div class="icard-num">INTERVENTIE ${num}</div>
-    <h4>${i.title}</h4>
-    <p class="icard-desc">${i.short}</p>
+    <div class="icard-num">${t('intervention')} ${num}</div>
+    <h4>${L(i, 'title')}</h4>
+    <p class="icard-desc">${L(i, 'short')}</p>
     <div class="icard-tags">
       <span class="catbadge ${i.category}">${categoryLabel[i.category]||i.category}</span>
-      ${(i.phase || '').split(' ').filter(Boolean).map(p => `<span class="tag phase-${p}">${p}</span>`).join(' ')}
+      ${(i.phase || '').split(' ').filter(Boolean).map(p => `<span class="tag phase-${p}">${t('phase')[p] || p}</span>`).join(' ')}
     </div>
   </button>`;
 }
@@ -1267,13 +1329,13 @@ function buildInterventionCard(i, idx) {
 function buildCaseCard(c) {
   const photoHtml = c.photo
     ? `<div class="ccard-photo" style="background-image: url('${c.photo}')"></div>`
-    : `<div class="ccard-photo ccard-photo-empty"><span>Foto volgt</span></div>`;
+    : `<div class="ccard-photo ccard-photo-empty"><span>${t('photoSoon')}</span></div>`;
   return `<button class="ccard" type="button" onclick="showCaseModal('${c.id}')">
     ${photoHtml}
     <div class="ccard-body">
-      <div class="ccard-location">${c.location}</div>
-      <h3>${c.title}</h3>
-      <div class="ccard-cta">LEES VERHAAL →</div>
+      <div class="ccard-location">${L(c, 'location')}</div>
+      <h3>${L(c, 'title')}</h3>
+      <div class="ccard-cta">${t('readStory')}</div>
     </div>
   </button>`;
 }
@@ -1283,7 +1345,7 @@ function renderValues() {
   document.getElementById('valuesGrid').innerHTML = values.map(buildValueCard).join('');
 }
 function renderTensions() {
-  document.getElementById('tensionsGrid').innerHTML = tensions.map((t, idx) => buildTensionCard(t, idx)).join('');
+  document.getElementById('tensionsGrid').innerHTML = tensions.map((tn, idx) => buildTensionCard(tn, idx)).join('');
 }
 function renderInterventions() {
   document.getElementById('interventionsGrid').innerHTML = interventions.map((i, idx) => buildInterventionCard(i, idx)).join('');
@@ -1305,31 +1367,32 @@ function switchModule(name) {
 // ===== MODALS =====
 function showValueModal(id) {
   const v = values.find(x => x.id === id);
-  const linkedTensions = (v.tensions || []).map(tid => tensions.find(t => t.id === tid)).filter(Boolean);
+  const linkedTensions = (v.tensions || []).map(tid => tensions.find(tn => tn.id === tid)).filter(Boolean);
+  const desc = L(v, 'desc');
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">Waarde · ${groupLabel[v.group]}</div>
-    <h2>${v.title}</h2>
-    ${v.desc ? `<p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${v.desc}</p>` : ''}
-    <p style="color: var(--ink-soft); font-size: 14px;">Dit is een waarde vanuit het perspectief <strong>${groupLabel[v.group].toLowerCase()}</strong>. Spanningen ontstaan waar deze waarde botst met een andere.</p>
+    <div class="modal-eyebrow">${t('value')} · ${groupLabel[v.group]}</div>
+    <h2>${L(v, 'title')}</h2>
+    ${desc ? `<p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${desc}</p>` : ''}
+    <p style="color: var(--ink-soft); font-size: 14px;">${t('valuePerspective')(groupLabel[v.group].toLowerCase())}</p>
     ${linkedTensions.length ? `
       <div class="modal-section">
-        <div class="modal-section-label">Speelt in deze spanningen</div>
-        <div class="grid-cards-small card-small">${linkedTensions.map(t => buildTensionCard(t)).join('')}</div>
+        <div class="modal-section-label">${t('playsIn')}</div>
+        <div class="grid-cards-small card-small">${linkedTensions.map(tn => buildTensionCard(tn)).join('')}</div>
       </div>` : `
       <div class="modal-section">
-        <div class="modal-section-label">Spanningen</div>
-        <p style="color: var(--ink-muted); font-style: italic;">Aan deze waarde is nog geen spanning gekoppeld. Dit is vaak een gedeeld belang dat zelf geen partij is in een conflict.</p>
+        <div class="modal-section-label">${t('tensionsLabel')}</div>
+        <p style="color: var(--ink-muted); font-style: italic;">${t('noTension')}</p>
       </div>`}
   `;
   openModal();
 }
 
 function showTensionModal(id) {
-  const t = tensions.find(x => x.id === id);
+  const tn = tensions.find(x => x.id === id);
   const idx = tensions.findIndex(x => x.id === id);
-  const linkedInts = t.interventions.map(iid => interventions.find(i => i.id === iid)).filter(Boolean);
-  const linkedCases = t.cases.map(cid => cases.find(c => c.id === cid)).filter(Boolean);
-  const vals = (t.values || []).map(vid => values.find(v => v.id === vid)).filter(Boolean);
+  const linkedInts = tn.interventions.map(iid => interventions.find(i => i.id === iid)).filter(Boolean);
+  const linkedCases = tn.cases.map(cid => cases.find(c => c.id === cid)).filter(Boolean);
+  const vals = (tn.values || []).map(vid => values.find(v => v.id === vid)).filter(Boolean);
 
   let clashHtml = '';
   if (vals.length) {
@@ -1339,7 +1402,7 @@ function showTensionModal(id) {
     // Als er een duidelijke twee-zijdige botsing is, toon die met een "versus"
     if (sideA.length && sideB.length) {
       clashHtml = `<div class="clash">
-        <div class="clash-side">${[...sideA, ...both.filter(b => false)].map(buildValueChip).join('')}</div>
+        <div class="clash-side">${sideA.map(buildValueChip).join('')}</div>
         <div class="clash-vs">×</div>
         <div class="clash-side">${sideB.map(buildValueChip).join('')}</div>
       </div>`;
@@ -1352,22 +1415,22 @@ function showTensionModal(id) {
   }
 
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">Spanning · ${String(idx+1).padStart(2,'0')}</div>
-    <h2>${t.title}</h2>
-    <p style="color: var(--ink-soft); font-size: 16px; margin-bottom: 8px;">${t.body}</p>
+    <div class="modal-eyebrow">${t('tensionEyebrow')} · ${String(idx+1).padStart(2,'0')}</div>
+    <h2>${L(tn, 'title')}</h2>
+    <p style="color: var(--ink-soft); font-size: 16px; margin-bottom: 8px;">${L(tn, 'body')}</p>
     ${vals.length ? `
       <div class="modal-section">
-        <div class="modal-section-label">Botsende waarden</div>
+        <div class="modal-section-label">${t('clashing')}</div>
         ${clashHtml}
       </div>` : ''}
     ${linkedInts.length ? `
       <div class="modal-section">
-        <div class="modal-section-label">Passende interventies</div>
+        <div class="modal-section-label">${t('fittingInts')}</div>
         <div class="grid-cards-small card-small">${linkedInts.map(i => buildInterventionCard(i)).join('')}</div>
       </div>` : ''}
     ${linkedCases.length ? `
       <div class="modal-section">
-        <div class="modal-section-label">Verhalen waarin dit speelde</div>
+        <div class="modal-section-label">${t('casesWhere')}</div>
         <div class="grid-cards-small card-small">${linkedCases.map(c => buildCaseCard(c)).join('')}</div>
       </div>` : ''}
   `;
@@ -1377,29 +1440,29 @@ function showTensionModal(id) {
 function showInterventionModal(id) {
   const i = interventions.find(x => x.id === id);
   const idx = interventions.findIndex(x => x.id === id);
-  const linkedTensions = tensions.filter(t => t.interventions.includes(id));
+  const linkedTensions = tensions.filter(tn => tn.interventions.includes(id));
   const linkedCases = cases.filter(c => c.interventions.includes(id));
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">INTERVENTIE ${String(idx+1).padStart(2,'0')} · ${categoryLabel[i.category]||i.category} · ${i.phase}</div>
-    <h2>${i.title}</h2>
-    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${i.short}</p>
+    <div class="modal-eyebrow">${t('intervention')} ${String(idx+1).padStart(2,'0')} · ${categoryLabel[i.category]||i.category} · ${phaseText(i.phase)}</div>
+    <h2>${L(i, 'title')}</h2>
+    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${L(i, 'short')}</p>
     <div class="modal-section">
-      <div class="modal-section-label">Wanneer in te zetten</div><p>${i.when}</p>
+      <div class="modal-section-label">${t('when')}</div><p>${L(i, 'when')}</p>
     </div>
     <div class="modal-section">
-      <div class="modal-section-label">Voorbeeld uit de praktijk</div><p>${i.example}</p>
+      <div class="modal-section-label">${t('example')}</div><p>${L(i, 'example')}</p>
     </div>
     <div class="modal-section">
-      <div class="modal-section-label">Waar op te letten</div><p>${i.watch}</p>
+      <div class="modal-section-label">${t('watch')}</div><p>${L(i, 'watch')}</p>
     </div>
     ${linkedTensions.length ? `
       <div class="modal-section">
-        <div class="modal-section-label">Helpt bij deze spanningen</div>
-        <div class="grid-cards-small card-small">${linkedTensions.map(t => buildTensionCard(t)).join('')}</div>
+        <div class="modal-section-label">${t('helpsWith')}</div>
+        <div class="grid-cards-small card-small">${linkedTensions.map(tn => buildTensionCard(tn)).join('')}</div>
       </div>` : ''}
     ${linkedCases.length ? `
       <div class="modal-section">
-        <div class="modal-section-label">Toegepast in</div>
+        <div class="modal-section-label">${t('appliedIn')}</div>
         <div class="grid-cards-small card-small">${linkedCases.map(c => buildCaseCard(c)).join('')}</div>
       </div>` : ''}
   `;
@@ -1408,20 +1471,20 @@ function showInterventionModal(id) {
 
 function showCaseModal(id) {
   const c = cases.find(x => x.id === id);
-  const linkedTensions = c.tensions.map(tid => tensions.find(t => t.id === tid)).filter(Boolean);
+  const linkedTensions = c.tensions.map(tid => tensions.find(tn => tn.id === tid)).filter(Boolean);
   const linkedInts = c.interventions.map(iid => interventions.find(i => i.id === iid)).filter(Boolean);
   document.getElementById('modalBody').innerHTML = `
     ${c.photo ? `<div class="modal-photo" style="background-image: url('${c.photo}')"></div>` : ''}
-    <div class="modal-eyebrow">${c.location}</div>
-    <h2>${c.title}</h2>
-    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 18px;">${c.summary}</p>
-    ${c.full.split('\n\n').map(p => `<p>${p}</p>`).join('')}
+    <div class="modal-eyebrow">${L(c, 'location')}</div>
+    <h2>${L(c, 'title')}</h2>
+    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 18px;">${L(c, 'summary')}</p>
+    ${L(c, 'full').split('\n\n').map(p => `<p>${p}</p>`).join('')}
     <div class="modal-section">
-      <div class="modal-section-label">Spanningen die speelden</div>
-      <div class="grid-cards-small card-small">${linkedTensions.map(t => buildTensionCard(t)).join('')}</div>
+      <div class="modal-section-label">${t('tensionsPlayed')}</div>
+      <div class="grid-cards-small card-small">${linkedTensions.map(tn => buildTensionCard(tn)).join('')}</div>
     </div>
     <div class="modal-section">
-      <div class="modal-section-label">Ingezette interventies</div>
+      <div class="modal-section-label">${t('intsUsed')}</div>
       <div class="grid-cards-small card-small">${linkedInts.map(i => buildInterventionCard(i)).join('')}</div>
     </div>
   `;
@@ -1498,58 +1561,72 @@ const byPhase = (a, b) => firstPhase(a) - firstPhase(b);
 tensions.sort(byPhase);
 interventions.sort(byPhase);
 
-renderValues();
-renderTensions();
-renderInterventions();
-renderCases();
 setupFilters();
 setupTensionFilters();
 setupValueFilters();
 
 // Kaart-tellingen automatisch uit de data (blijven kloppen bij bewerken van content.js)
-const moduleCounts = { waarden: values.length, spanningen: tensions.length, interventies: interventions.length };
-document.querySelectorAll('#switcher .module-btn').forEach(b => {
-  const c = moduleCounts[b.dataset.module], el = b.querySelector('.mb-count');
-  if (c != null && el) el.textContent = c + ' kaarten';
-});
+function updateCounts() {
+  const moduleCounts = { waarden: values.length, spanningen: tensions.length, interventies: interventions.length };
+  document.querySelectorAll('#switcher .module-btn').forEach(b => {
+    const c = moduleCounts[b.dataset.module], el = b.querySelector('.mb-count');
+    if (c != null && el) el.textContent = c + ' ' + t('cards');
+  });
+}
 
 // ===== BEGRIPPEN-LINKS =====
 // Eerste vermelding van een begrip per blok krijgt een subtiele link naar het tabblad Begrippen.
-const glossaryTerms = [
-  ['inbeddingsruimte', 'inbeddingsruimte'],
-  ['inbedding', 'inbedding'],
-  ['participatie', 'participatie'],
-  ['waarden', 'waarden'], ['waarde', 'waarden'],
-  ['spanningen', 'spanningen'], ['spanning', 'spanningen'],
-  ['interventies', 'interventies'], ['interventie', 'interventies'],
-  ['doorzetten', 'doorzetten'], ['verbinden', 'verbinden'], ['afstemmen', 'afstemmen'],
-  ['aanloop', 'fasen'], ['doorloop', 'fasen'], ['afloop', 'fasen']
-];
-const glossaryRe = new RegExp('(?<!\\p{L})(' + glossaryTerms.map(t => t[0]).join('|') + ')(?!\\p{L})', 'iu');
+// [woord in de tekst, id van het begrip (gl-...)]
+const glossaryTermsByLang = {
+  nl: [
+    ['inbeddingsruimte', 'inbeddingsruimte'],
+    ['inbedding', 'inbedding'],
+    ['participatie', 'participatie'],
+    ['waarden', 'waarden'], ['waarde', 'waarden'],
+    ['spanningen', 'spanningen'], ['spanning', 'spanningen'],
+    ['interventies', 'interventies'], ['interventie', 'interventies'],
+    ['doorzetten', 'doorzetten'], ['verbinden', 'verbinden'], ['afstemmen', 'afstemmen'],
+    ['aanloop', 'fasen'], ['doorloop', 'fasen'], ['afloop', 'fasen']
+  ],
+  en: [
+    ['embedding space', 'inbeddingsruimte'],
+    ['embedding', 'inbedding'],
+    ['participation', 'participatie'],
+    ['values', 'waarden'], ['value', 'waarden'],
+    ['tensions', 'spanningen'], ['tension', 'spanningen'],
+    ['interventions', 'interventies'], ['intervention', 'interventies'],
+    ['powering', 'doorzetten'], ['puzzling', 'verbinden'], ['mediating', 'afstemmen'],
+    ['preparation', 'fasen'], ['engagement', 'fasen'], ['follow-up', 'fasen']
+  ]
+};
+const glossaryRe = () => new RegExp('(?<!\\p{L})(' + glossaryTermsByLang[lang].map(g => g[0]).join('|') + ')(?![\\p{L}-])', 'iu');
 const glossarySkip = 'button, a, [onclick]:not(#modal), h1, h2, h3, h4, dt, label, [data-nogloss], .glink, .modal-eyebrow, .modal-section-label, .section-num, .filter-label, #panel-begrippen, .switcher-wrap';
 
 function linkGlossary(root) {
   if (!root) return;
-  const done = new Set();
+  const terms = glossaryTermsByLang[lang];
+  const testRe = glossaryRe();
+  // Begrippen die in dit blok al een link hebben niet nog eens linken
+  const done = new Set([...root.querySelectorAll('.glink')].map(g => g.dataset.term));
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-    acceptNode: n => (n.parentElement && !n.parentElement.closest(glossarySkip) && glossaryRe.test(n.nodeValue))
+    acceptNode: n => (n.parentElement && !n.parentElement.closest(glossarySkip) && testRe.test(n.nodeValue))
       ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
   });
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   nodes.forEach(node => {
     let text = node.nodeValue, frag = document.createDocumentFragment(), changed = false, m;
-    const re = new RegExp(glossaryRe.source, 'giu');
+    const re = new RegExp(testRe.source, 'giu');
     let last = 0;
     while ((m = re.exec(text))) {
-      const target = glossaryTerms.find(t => t[0] === m[1].toLowerCase())[1];
+      const target = terms.find(g => g[0] === m[1].toLowerCase())[1];
       if (done.has(target)) continue;
       done.add(target); changed = true;
       frag.append(text.slice(last, m.index));
       const a = document.createElement('span');
       a.className = 'glink'; a.textContent = m[1];
       a.setAttribute('role', 'link'); a.tabIndex = 0;
-      a.title = 'Bekijk in Begrippen';
+      a.title = t('glossTitle');
       a.dataset.term = target;
       frag.append(a);
       last = m.index + m[1].length;
@@ -1579,10 +1656,50 @@ document.addEventListener('keydown', e => {
   if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); goToTerm(g.dataset.term); }
 });
 
-// Koppelen aan kop, alle panelen en elke geopende modal
-document.querySelectorAll('.app-header-text, .module-panel').forEach(linkGlossary);
+// Koppelen aan elke geopende modal (kop en panelen: zie applyLang)
 const _openModal = openModal;
 openModal = function () { linkGlossary(document.getElementById('modalBody')); _openModal(); };
+
+// ===== TAAL WISSELEN =====
+function applyLang(newLang) {
+  lang = newLang;
+  document.documentElement.lang = lang;
+  document.title = t('title');
+
+  // Vaste teksten: Nederlands uit de HTML, Engels uit staticEN
+  i18nOriginal.forEach((nlHtml, el) => {
+    el.innerHTML = (lang === 'en' && staticEN[el.dataset.i18n] != null) ? staticEN[el.dataset.i18n] : nlHtml;
+  });
+
+  // Kaarten opnieuw opbouwen en actieve filters opnieuw toepassen
+  closeModal();
+  renderValues();
+  renderTensions();
+  renderInterventions();
+  renderCases();
+  updateCounts();
+  document.querySelectorAll('[data-vfilter].active, [data-tfilter].active').forEach(b => b.click());
+  applyFilters();
+
+  document.querySelectorAll('.app-header-text, .module-panel').forEach(linkGlossary);
+
+  const tog = document.getElementById('langToggle');
+  tog.setAttribute('aria-label', t('switchTo'));
+  tog.querySelectorAll('.lt-opt').forEach(o => o.classList.toggle('on', o.dataset.lang === lang));
+  document.querySelector('.modal-close').setAttribute('aria-label', t('close'));
+}
+
+function toggleLang() {
+  applyLang(lang === 'en' ? 'nl' : 'en');
+  try { localStorage.setItem('rvp-lang', lang); } catch (e) {}
+  try {
+    const url = new URL(location.href);
+    if (lang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
+    history.replaceState(null, '', url);
+  } catch (e) {}
+}
+
+applyLang(lang);
 </script>
 
 </body>
