@@ -205,7 +205,6 @@ const contentEN = {
 
 const staticEN = {
 
-  banner: `<strong>PREVIEW VERSION</strong> &nbsp;·&nbsp; Coach tool · Content is partly illustrative and will be supplemented with practical knowledge.`,
   logo: `<span class="logo-mark"></span>Room for participation`,
   sub: `A conversation aid for anticipating the embedding of participation — so that residents’ input genuinely finds a place in policy and decision-making later on.`,
   hint: `Choose a card set below. Each set works on its own — the links take you from values to tensions and interventions, with the stories as the foundation.`,
