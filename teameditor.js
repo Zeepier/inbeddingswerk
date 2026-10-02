@@ -496,7 +496,16 @@
       if (!entry) {
         id = newId(k);
         entry = { id };
-        if (k === 'c') draft.verhalen.push(entry); else draft.toevoegen[ADD_KEY[k]].push(entry);
+        if (k === 'c') draft.verhalen.push(entry);
+        else {
+          // Vast nummer: eerstvolgende na alle kaarten in deze set (ook verborgen en eerder verwijderde
+          // eigen kaarten tellen mee via 'nrTeller', zodat een nummer nooit opnieuw wordt uitgegeven)
+          draft.nrTeller = draft.nrTeller || {};
+          const max = Math.max(0, ...SET_LIST[k]().map(x => x.nr || 0), draft.nrTeller[k] || 0);
+          entry.nr = max + 1;
+          draft.nrTeller[k] = entry.nr;
+          draft.toevoegen[ADD_KEY[k]].push(entry);
+        }
       }
       for (const [f] of TEXT_FIELDS[k]) {
         const v = val(f);
@@ -556,6 +565,20 @@
     };
     reader.readAsText(file);
   }
+
+  // Eigen kaarten zonder vast nummer (bijv. uit een met de hand gemaakte team.json)
+  // krijgen het nummer dat ze nu hebben, zodat verwijderen later niets verschuift.
+  (function freezeNumbers() {
+    let changed = false;
+    draft.nrTeller = draft.nrTeller || {};
+    for (const k of ['v', 't', 'i']) {
+      for (const e of draft.toevoegen[ADD_KEY[k]]) {
+        if (!e.nr) { const m = findCard(e.id); if (m && m.nr) { e.nr = m.nr; changed = true; } }
+        draft.nrTeller[k] = Math.max(draft.nrTeller[k] || 0, e.nr || 0);
+      }
+    }
+    if (changed) saveTeamDraft(draft, teamDraftDirty());
+  })();
 
   // Eerste keer tekenen gebeurt door de site (applyLang na het laden van dit script)
   setBarHeight();

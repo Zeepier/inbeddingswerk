@@ -110,16 +110,18 @@ function applyTeamLayer(layer, opts = {}) {
   const find = id => all().find(x => x.id === id);
   const uniq = arr => [...new Set(arr)];
 
-  // 1. Eigen kaarten toevoegen — nummering loopt door na de basisset
+  // 1. Eigen kaarten toevoegen — een eigen kaart houdt zijn vaste 'nr' (de editor geeft
+  //    bij aanmaken het eerstvolgende nummer); zonder nr loopt de nummering door na de rest.
   const add = layer.toevoegen || {};
   for (const [key, list] of [['values', values], ['tensions', tensions], ['interventions', interventions]]) {
-    let nr = Math.max(0, ...list.map(x => x.nr || 0));
-    for (const card of add[key] || []) {
+    const cards = add[key] || [];
+    let nr = Math.max(0, ...list.map(x => x.nr || 0), ...cards.map(c => c.nr || 0));
+    for (const card of cards) {
       if (!card.id || find(card.id)) { teamWarnings.push(`Kaart overgeslagen: id "${card.id}" ontbreekt of bestaat al`); continue; }
       list.push({
         tensions: [], values: [], interventions: [], cases: [],
         ...(key === 'values' ? { group: 'beide' } : {}),
-        ...JSON.parse(JSON.stringify(card)), nr: ++nr, local: true,
+        ...JSON.parse(JSON.stringify(card)), nr: card.nr || ++nr, local: true,
       });
     }
   }
