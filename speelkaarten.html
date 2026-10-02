@@ -348,6 +348,10 @@
     deck('i', [...interventions].sort(byNr), backIntervention);
     document.fonts.ready.then(fitTitles);
   }
+  // Opnieuw passend maken zodra (late) webfonts binnen zijn, en vlak voor het printen
+  document.fonts.addEventListener('loadingdone', () => fitTitles());
+  window.addEventListener('beforeprint', () => fitTitles());
+  window.addEventListener('load', () => setTimeout(fitTitles, 300));
 
   // Titels op de voorkant: verklein (vanaf 30px, niet onder 22px ≈ 16pt) tot het
   // langste woord in de breedte past en de titel in de hoogte — nooit midden in een woord afbreken.
