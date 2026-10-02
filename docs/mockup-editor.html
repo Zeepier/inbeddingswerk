@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup teameditor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F8F4EB; --bg-soft: #EFE9DA; --paper: #fff; --ink: #1F2A26; --ink-soft: #4A554F; --ink-muted: #8A938E;
+    --line: #E2DACA; --coral: #E27A60; --green: #2C4F3E;
+    --w: #2C4F3E; --s: #A87412; --i: #2F5F8A; --c: #6E4A7E;
+    --val-light: #84AC95; --val-mid: #5E8A73;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: Inter, sans-serif; color: var(--ink); font-size: 14px; }
+  .serif { font-family: 'Cormorant Garamond', serif; }
+  .note { background: #FFF6D6; border-bottom: 1px solid #E8D9A0; padding: 6px 20px; font-size: 12px; color: #6E5417; text-align: center; }
+
+  /* Beheerbalk */
+  .admin { background: var(--ink); color: #fff; padding: 10px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; position: sticky; top: 0; z-index: 5; }
+  .admin .ttl { font-weight: 600; font-size: 13px; }
+  .admin .ttl span { opacity: 0.6; font-weight: 400; }
+  .admin .sep { width: 1px; height: 22px; background: rgba(255,255,255,0.2); }
+  .btn { font: inherit; font-size: 12.5px; font-weight: 600; border-radius: 100px; padding: 6px 12px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #fff; cursor: pointer; }
+  .btn.add::before { content: '+ '; }
+  .btn.solid { background: var(--coral); border-color: var(--coral); }
+  .admin .status { margin-left: auto; font-size: 12px; opacity: 0.8; }
+  .admin .status b { color: #FFD9A8; }
+
+  .wrap { display: grid; grid-template-columns: 1fr 400px; gap: 0; min-height: calc(100vh - 80px); }
+  main { padding: 24px 28px; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 34px; margin-bottom: 4px; }
+  .lead { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--ink-soft); margin-bottom: 16px; }
+  .warn { background: #FBEFE6; border: 1px solid #F0C9B6; color: #8A3A26; border-radius: 6px; padding: 8px 12px; font-size: 13px; margin-bottom: 14px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card { background: #EAE5DA; border: 1px solid #D6D0C4; border-top: 4px solid var(--s); border-radius: 6px; padding: 14px 14px 10px; min-height: 128px; display: flex; flex-direction: column; position: relative; }
+  .card .num { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--s); margin-bottom: 4px; }
+  .card h4 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 18px; line-height: 1.2; margin-bottom: 8px; }
+  .card .acts { margin-top: auto; display: flex; gap: 6px; border-top: 1px dashed #CFC7B6; padding-top: 8px; }
+  .act { font: inherit; font-size: 11.5px; font-weight: 600; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 100px; padding: 3px 9px; }
+  .card.local { background: #F3EEE3; }
+  .card.local .num::after { content: ' ◆'; font-size: 10px; }
+  .card.adjusted .tag { position: absolute; top: 10px; right: 10px; font-size: 10px; font-weight: 600; color: var(--ink-muted); border: 1px solid var(--line); border-radius: 100px; padding: 1px 7px; background: #fff; }
+  .card.hidden { opacity: 0.45; border-style: dashed; }
+  .card.hidden .tag { position: absolute; top: 10px; right: 10px; font-size: 10px; font-weight: 700; color: #fff; background: var(--ink-muted); border-radius: 100px; padding: 1px 7px; }
+  .card.selected { outline: 2px solid var(--coral); outline-offset: 2px; }
+
+  /* Zijpaneel */
+  aside { background: var(--paper); border-left: 1px solid var(--line); padding: 20px 22px 28px; }
+  .p-eyebrow { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--s); margin-bottom: 4px; }
+  aside h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 26px; margin-bottom: 16px; }
+  .f { margin-bottom: 14px; }
+  .f label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 5px; }
+  .f label small { font-weight: 400; color: var(--ink-muted); }
+  .f label small.ok { color: #2C7A5B; }
+  .in { width: 100%; font: inherit; font-size: 13.5px; border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; background: var(--bg); }
+  .in.big { font-family: 'Cormorant Garamond', serif; font-size: 19px; }
+  textarea.in { min-height: 64px; resize: none; line-height: 1.45; }
+  .hint { font-size: 11.5px; color: var(--ink-muted); margin-top: 4px; }
+  .phases { display: flex; gap: 6px; }
+  .ph { font-size: 12px; border: 1px solid var(--line); border-radius: 100px; padding: 4px 10px; }
+  .ph.on { background: var(--s); border-color: var(--s); color: #fff; font-weight: 600; }
+  .pick { border: 1px solid var(--line); border-radius: 6px; padding: 6px; background: var(--bg); display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; border-radius: 100px; padding: 3px 8px 3px 9px; }
+  .chip.v { background: #E3ECE6; color: #23402F; }
+  .chip.i { background: #E1EAF2; color: #234A6C; }
+  .chip.c { background: #EEE6F1; color: #4F3360; }
+  .chip .x { opacity: 0.5; font-weight: 700; }
+  .pick input { border: none; background: transparent; font: inherit; font-size: 12.5px; padding: 3px 4px; flex: 1; min-width: 120px; }
+  .dropdown { border: 1px solid var(--line); border-radius: 6px; background: #fff; margin-top: 4px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+  .dropdown div { padding: 6px 10px; font-size: 12.5px; border-bottom: 1px solid #F1ECE2; }
+  .dropdown div:last-child { border-bottom: none; }
+  .dropdown div.hl { background: #F6F1E6; }
+  .dropdown .n { display: inline-block; min-width: 26px; color: var(--ink-muted); }
+  .p-actions { display: flex; gap: 8px; margin-top: 18px; }
+  .p-actions .btn { color: var(--ink); border-color: var(--line); }
+  .p-actions .btn.solid { color: #fff; background: var(--green); border-color: var(--green); }
+
+  .callouts { position: fixed; bottom: 14px; left: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .co { background: var(--coral); color: #fff; font-size: 11.5px; font-weight: 600; border-radius: 6px; padding: 5px 9px; max-width: 360px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  @media (max-width: 900px) {
+    .wrap { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    aside { border-left: none; border-top: 1px solid var(--line); }
+    .callouts { position: static; margin: 0 28px 20px; }
+    .admin .status { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="note">MOCKUP — niet werkend. Zo zou de beheer-modus voor een teambeheerder eruit kunnen zien.</div>
+
+<div class="admin">
+  <div class="ttl">Beheer teamversie <span>· Voorbeeldteam (fictief)</span></div>
+  <div class="sep"></div>
+  <button class="btn add">Waarde</button>
+  <button class="btn add">Spanning</button>
+  <button class="btn add">Interventie</button>
+  <button class="btn add">Verhaal</button>
+  <div class="sep"></div>
+  <button class="btn">Importeer…</button>
+  <button class="btn solid">Exporteer teamversie</button>
+  <div class="status">3 eigen kaarten · 2 verborgen · 1 aangepast · <b>niet geëxporteerd</b></div>
+</div>
+
+<div class="wrap">
+  <main>
+    <h2>Spanningen</h2>
+    <p class="lead">Klik op een kaart om hem aan te passen of te verbergen.</p>
+    <div class="warn">Let op: de teamversie heeft nu <b>16 waarden</b>. In de tests werkte het best met niet meer dan 15.</div>
+    <div class="grid">
+      <div class="card"><div class="num">⇆ 1</div><h4>Verschil in interpretatie van ruimte voor invloed</h4>
+        <div class="acts"><span class="act">✎ Aanpassen</span><span class="act">◌ Verbergen</span></div></div>
+      <div class="card"><div class="num">⇆ 2</div><h4>Impact staat niet in verhouding tot invloed</h4>
+        <div class="acts"><span class="act">✎ Aanpassen</span><span class="act">◌ Verbergen</span></div></div>
+      <div class="card hidden"><span class="tag">verborgen</span><div class="num">⇆ 3</div><h4>Invloed geven versus iedereen gelijk behandelen</h4>
+        <div class="acts"><span class="act">↺ Weer tonen</span></div></div>
+      <div class="card adjusted"><span class="tag">lokaal aangepast</span><div class="num">⇆ 4</div><h4>Participatie start te laat of te vroeg</h4>
+        <div class="acts"><span class="act">✎ Aanpassen</span><span class="act">↺ Origineel</span></div></div>
+      <div class="card"><div class="num">⇆ 5</div><h4>Procesdruk laat weinig ruimte om bij te sturen</h4>
+        <div class="acts"><span class="act">✎ Aanpassen</span><span class="act">◌ Verbergen</span></div></div>
+      <div class="card local selected"><div class="num">⇆ 15</div><h4>Bewoners zijn participatiemoe</h4>
+        <div class="acts"><span class="act">✎ Bewerken</span><span class="act">🗑 Verwijderen</span></div></div>
+    </div>
+  </main>
+
+  <aside>
+    <div class="p-eyebrow">Eigen spanning · ⇆ 15 ◆</div>
+    <h3>Spanning bewerken</h3>
+
+    <div class="f"><label>Titel <small class="ok">4 woorden · max. ~8</small></label>
+      <input class="in big" value="Bewoners zijn participatiemoe"></div>
+
+    <div class="f"><label>Korte zin <small>voor de kaart-achterkant</small></label>
+      <textarea class="in">Er is al zo vaak om inbreng gevraagd dat mensen niet meer willen meedoen.</textarea></div>
+
+    <div class="f"><label>Toelichting <small>alleen op de website · optioneel</small></label>
+      <textarea class="in" style="min-height:52px">In sommige buurten lopen meerdere trajecten tegelijk of vlak na elkaar…</textarea></div>
+
+    <div class="f"><label>Fase</label>
+      <div class="phases"><span class="ph on">Aanloop</span><span class="ph">Doorloop</span><span class="ph">Afloop</span></div></div>
+
+    <div class="f"><label>Mogelijk botsende waarden</label>
+      <div class="pick"><span class="chip v">◎ 7 Vertrouwen <span class="x">×</span></span><span class="chip v">◎ 1 Invloed van bewoners <span class="x">×</span></span><input placeholder="Zoek of kies een waarde…"></div></div>
+
+    <div class="f"><label>Passende interventies</label>
+      <div class="pick"><span class="chip i">🔧 9 Sleutelfiguur zoeken <span class="x">×</span></span><span class="chip i">🔧 24 Trajecten bundelen ◆ <span class="x">×</span></span><input value="tijd"></div>
+      <div class="dropdown">
+        <div class="hl"><span class="n">16</span>Vertraging als investering</div>
+        <div><span class="n">8</span>Opknippen</div>
+        <div><span class="n">21</span>Go/no-go-moment</div>
+      </div>
+      <div class="hint">Koppelingen werken in beide richtingen: de interventie toont deze spanning ook.</div></div>
+
+    <div class="f"><label>Verhalen</label>
+      <div class="pick"><span class="chip c">↗ Voorbeeld uit de eigen voorbeeldenbank <span class="x">×</span></span><input placeholder="Kies een verhaal of plak een link…"></div></div>
+
+    <div class="p-actions"><button class="btn solid">Opslaan</button><button class="btn">Annuleren</button></div>
+  </aside>
+</div>
+
+<div class="callouts">
+  <div class="co">① Beheerbalk: nieuwe kaarten, import/export en status van de teamversie</div>
+  <div class="co">② Op elke kaart: aanpassen / verbergen; eigen kaarten: bewerken / verwijderen</div>
+  <div class="co">③ Zijpaneel met formulier: koppelingen kiezen met zoeken, op nummer of titel</div>
+</div>
+</body>
+</html>
