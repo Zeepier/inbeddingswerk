@@ -36,7 +36,11 @@
     { "id": "x-c2", "title": "Openbaar voorbeeld",
       "samenvatting": "Een voorbeeld dat openbaar online staat.",
       "url": "https://kennisknooppuntparticipatie.nl/",
-      "tensions": ["t7"], "interventions": ["i16"] }
+      "tensions": ["t7"], "interventions": ["i16"] },
+    { "id": "x-c3", "title": "Een buurtavond die twee trajecten samenbracht", "locatie": "Voorbeeldwijk",
+      "samenvatting": "Een fictief voorbeeld van een volledig eigen verhaal, zonder link.",
+      "tekst": "Twee afdelingen wilden in hetzelfde najaar bewoners spreken over de buurt: de een over de herinrichting van een straat, de ander over een speeltuin.\n\nIn plaats van twee avonden organiseerden ze er één, met één terugkoppeling achteraf. Bewoners hoefden hun verhaal maar één keer te vertellen.",
+      "tensions": ["x-t1"], "interventions": ["x-i1"] }
   ],
 
   "verbergen": ["v13", "i20"],

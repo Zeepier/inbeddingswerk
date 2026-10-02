@@ -56,10 +56,12 @@ De site laadt eerst `content.js` (de basis) en daarna `team.json` (de teamlaag).
                          "watch": "…", "phase": "doorloop", "category": "mediating" } ]
   },
 
-  // 2. Verhalen als link — aan basis- of eigen kaarten te koppelen
+  // 2. Eigen verhalen — volledige tekst, alleen een link, of allebei; aan basis- of eigen kaarten te koppelen
   "verhalen": [
-    { "id": "x-c1", "title": "…", "samenvatting": "…", "url": "https://intranet…/voorbeeld-123",
-      "tensions": ["t5"], "interventions": ["i17", "x-i1"] }
+    { "id": "x-c1", "title": "…", "samenvatting": "…", "url": "https://intranet…/voorbeeld-123", "intranet": true,
+      "tensions": ["t5"], "interventions": ["i17", "x-i1"] },
+    { "id": "x-c2", "title": "…", "locatie": "…", "samenvatting": "…", "tekst": "Alinea…\n\nAlinea…", "foto": "https://…",
+      "tensions": ["x-t1"], "interventions": [] }
   ],
 
   // 3. Basiskaarten verbergen

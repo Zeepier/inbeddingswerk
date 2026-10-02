@@ -67,12 +67,12 @@ function applyTeamLayer(layer) {
     }
   }
 
-  // 2. Verhalen als link
+  // 2. Eigen verhalen — volledige tekst (tekst), alleen een link (url), of allebei
   for (const v of layer.verhalen || []) {
     if (!v.id || find(v.id)) { teamWarnings.push(`Verhaal overgeslagen: id "${v.id}" ontbreekt of bestaat al`); continue; }
     cases.push({
-      id: v.id, local: true, link: true,
-      title: v.title || '', location: v.locatie || '', summary: v.samenvatting || '', full: '',
+      id: v.id, local: true, link: !v.tekst && !!v.url,
+      title: v.title || '', location: v.locatie || '', summary: v.samenvatting || '', full: v.tekst || '',
       url: v.url || '', intranet: !!v.intranet, photo: v.foto || '',
       tensions: v.tensions || [], interventions: v.interventions || [],
     });
