@@ -22,9 +22,9 @@ Alle adviseurs van dat team gebruiken dezelfde versie: website én printkaarten.
 ## 2. Uitgangspunten
 
 1. **De basisset blijft van het onderzoek.** `content.js` wordt alleen door de beheerder van de basisset (Jelle) aangepast. Updates daarvan moeten bij elk team aankomen, zonder dat lokale aanpassingen verloren gaan.
-2. **Lokaal is altijd zichtbaar als lokaal.**
-   - Eigen kaarten krijgen een duidelijk kenmerk.
-   - Aangepaste basiskaarten krijgen het label "lokaal aangepast", en de originele tekst blijft opvraagbaar.
+2. **Lokaal is herleidbaar, maar subtiel.**
+   - Eigen kaarten hoeven aan tafel niet opvallend gemarkeerd te worden; een subtiel onderscheid volstaat (besluit okt 2026).
+   - Aangepaste basiskaarten krijgen een klein label "lokaal aangepast", en de originele tekst blijft opvraagbaar.
    - Zo blijft na te gaan wat uit het onderzoek komt en wat niet.
 3. **Geen server nodig om te beginnen.** De site blijft statisch (GitHub Pages of intranet). Er is geen database en er zijn geen accounts. Dat is privacyvriendelijk en vraagt geen IT-traject.
 4. **Laagdrempelig voor de beheerder van het team.** Bewerken gebeurt in de site zelf, via formulieren. Niemand hoeft code te schrijven of Git te gebruiken.
@@ -78,7 +78,7 @@ De site laadt eerst `content.js` (de basis) en daarna `team.json` (de teamlaag).
 **Regels:**
 
 - **Ids.** Eigen kaarten krijgen een teamprefix (`x-v1`, `x-t1`, `x-i1`). Ze kunnen dus nooit botsen met nieuwe basiskaarten.
-- **Nummering.** Eigen kaarten krijgen een **eigen reeks met een kenmerk**. Zie open vraag 7.1. Basisnummers verschuiven nooit.
+- **Nummering.** Eigen kaarten nummeren door na de basisset, met een subtiel onderscheid (zie 7). Basisnummers verschuiven nooit.
 - **Koppelingen** mogen wijzen naar basis- én eigen kaarten. Koppelingen naar een verborgen kaart worden niet getoond.
 - **Aanpassen** gaat per veld. De site toont het label "lokaal aangepast" met een knop "toon originele tekst".
 - **Waarschuwing:** komt het totaal aan zichtbare waarden boven de 15, dan waarschuwt de editor. Hij blokkeert niet (zie de testrondes).
@@ -134,11 +134,18 @@ Eerst kijken of fase 1–3 in de praktijk volstaat.
 
 Fase 1 is klein en laat al zien of het model klopt. Fase 2 is het meeste werk.
 
-## 7. Open vragen
+## 7. Besluiten en open vragen
 
-1. **Nummering en kenmerk van eigen kaarten.** Een eigen kaart krijgt bijvoorbeeld het set-icoon + nummer met een ster (★1), een gestippelde balk, of het teamlogo/-naam in de balk. Wat werkt aan tafel?
-2. **Aanpassen van basiskaarten.** Mag elk veld, of alleen titel en korte tekst? (Minder velden = minder kans dat de kaart iets anders gaat betekenen.)
-3. **Taal.** Moeten eigen kaarten ook een Engelse versie kunnen hebben, of alleen Nederlands?
-4. **Intranetlinks.** Verhalen op het intranet werken alleen binnen het netwerk van de gemeente. Is dat acceptabel, met een melding "alleen bereikbaar via intranet"?
-5. **Terugstromen naar de basis.** Willen we dat goede teamkaarten kunnen worden voorgedragen voor de basisset? En hoe verhoudt dat zich tot het onderzoek (bron, toestemming)?
-6. **Onderzoek.** De teamlagen zelf zijn interessante data: welke kaarten voegen adviseurs toe, welke verbergen ze? Afspraken over inzage en toestemming moeten we vooraf maken.
+**Besluiten (oktober 2026):**
+
+- **Kenmerk eigen kaarten:** niet nodig om op te vallen; een subtiel onderscheid volstaat (bijvoorbeeld een klein teken in de balk of op de website een fijne lijn).
+- **Taal:** eigen kaarten alleen in het Nederlands.
+- **Intranetlinks:** toegestaan, met een melding "alleen bereikbaar via intranet" waar dat geldt.
+- **Terugstromen naar de basis:** ja, goede teamkaarten kunnen worden voorgedragen voor de basisset.
+
+**Nog open:**
+
+
+- **Aanpassen van basiskaarten.** Mag elk veld, of alleen titel en korte tekst? (Minder velden = minder kans dat de kaart iets anders gaat betekenen.)
+- **Voordragen voor de basis:** hoe gaat dat in zijn werk, en hoe verhoudt het zich tot het onderzoek (bron, toestemming)?
+- **Onderzoek.** De teamlagen zelf zijn interessante data: welke kaarten voegen adviseurs toe, welke verbergen ze? Afspraken over inzage en toestemming moeten we vooraf maken.
