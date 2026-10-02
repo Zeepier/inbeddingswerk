@@ -144,8 +144,8 @@ const tensions = [
     values: ['v1','v10'], phase: 'aanloop' },
 
   { id: 't8',
-    title: 'Beleving in praktijk tegengesteld met perspectief van experts',
-    body: 'Bewoners ervaren iets anders dan rapporten of metingen aangeven — denk aan geluidsoverlast die "binnen de norm" valt, of veiligheid die statistisch is verbeterd maar gevoelsmatig niet. Het rationele bewijs staat haaks op de geleefde werkelijkheid.',
+    title: 'Ervaringskennis van bewoners botst met vakkennis van de gemeente',
+    body: 'Bewoners ervaren iets anders dan rapporten, metingen of vakspecialisten aangeven — denk aan geluidsoverlast die "binnen de norm" valt, of veiligheid die statistisch is verbeterd maar gevoelsmatig niet. Het rationele bewijs staat haaks op de geleefde werkelijkheid.',
     interventions: ['i7','i14','i12','i8'],
     cases: ['c4'],
     values: ['v2','v12'], phase: 'doorloop' },
