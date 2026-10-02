@@ -305,6 +305,42 @@
     font-size: 14px; color: var(--mod-waarden); flex-shrink: 0; min-width: 16px;
   }
   .hl-modlist strong { color: var(--ink); font-weight: 600; }
+  /* Draaiboek */
+  .hl-core {
+    font-family: 'Cormorant Garamond', serif; font-size: 26px !important; line-height: 1.25;
+    color: var(--ink) !important; border-left: 3px solid var(--coral); padding: 4px 0 4px 16px; margin: 6px 0 18px;
+  }
+  .hl-say { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.12em; color: var(--ink); }
+  .hl-time { display: flex; gap: 4px; margin: 6px 0 14px; flex-wrap: wrap; }
+  .hl-time > div {
+    flex: 1 1 0; min-width: 84px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+    padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;
+  }
+  .hl-time > div.slack { flex: 0.6 1 0; min-width: 64px; background: transparent; border-style: dashed; }
+  .hl-time .t { font-family: 'Cormorant Garamond', serif; font-size: 24px; line-height: 1; color: var(--ink); }
+  .hl-time .t::after { content: ' min'; font-family: 'Inter', sans-serif; font-size: 11px; color: var(--ink-muted); }
+  .hl-time .w { font-size: 13px; color: var(--ink-soft); }
+  .hl-phase {
+    display: flex; align-items: baseline; gap: 12px; margin: 34px 0 12px;
+    padding-top: 12px; border-top: 3px solid var(--ph, var(--ink-muted));
+  }
+  .hl-phase h4 { font-size: 22px; font-weight: 500; color: var(--ink); }
+  .hl-phase .min { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ph, var(--ink-muted)); min-width: 52px; }
+  .hl-phase.m-waarden { --ph: var(--mod-waarden); }
+  .hl-phase.m-spanningen { --ph: var(--mod-spanningen); }
+  .hl-phase.m-interventies { --ph: var(--mod-interventies); }
+  .hl-phase.m-leer { --ph: var(--coral); }
+  .hl-tip {
+    font-size: 15px !important; background: var(--bg-soft); border-radius: 6px; padding: 10px 14px; margin: 12px 0 !important;
+  }
+  .hl-ask { margin-top: 10px !important; }
+  .hl-ask::before {
+    content: var(--ask-label, 'Doorvragen als het vastloopt'); display: block;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; color: var(--ink-muted); margin-bottom: 8px;
+  }
+  html[lang="en"] .hl-ask { --ask-label: 'Follow-up questions if it stalls'; }
+  .hl-step .hl-ask li { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 6px; }
+  .hl-step .hl-ask li::before { background: var(--ink-muted); top: 12px; }
   .hl-todo {
     font-style: italic; color: var(--ink-muted); font-size: 15px;
   }
@@ -1015,7 +1051,7 @@
 <!-- ===== MODULE: HANDLEIDING ===== -->
 <section class="content module-panel" id="panel-handleiding">
   <h2 class="section-title" data-i18n="handleiding-title">Handleiding <span class="em">voor de coach</span></h2>
-  <p class="section-lead" data-i18n="handleiding-lead">Hoe gebruik je deze tool in een coachsessie?</p>
+  <p class="section-lead" data-i18n="handleiding-lead">Een draaiboek voor een gesprek van een uur — van voorbereiding tot afsluiting.</p>
 
   <div class="hl" data-i18n="handleiding-body">
     <div class="hl-step">
@@ -1023,12 +1059,11 @@
       <h3>Wat is dit?</h3>
       <p>Als we burgers vragen mee te denken, moeten we ook ruimte hebben om iets te doen met hun ideeën. Maar vaak blijkt die inbeddingsruimte naderhand beperkt, en gebeurt er daardoor vaak te weinig met de opbrengsten van participatieprocessen. Wanneer we participatie organiseren moeten we dus niet alleen zorgen voor een goed proces, maar ook dat die inbeddingsruimte er is.</p>
       <p>Het is echter eigen aan participatie dat we niet precies weten wat bewoners ons gaan vertellen – als dat zo zou zijn, zouden we het ze niet hoeven vragen. Het is daarom belangrijk om te anticiperen op de mogelijke inbreng van bewoners. Welke inbeddingsruimte zou er nodig zijn om die inbreng plek te geven? En hoe kunnen we die ruimte maken?</p>
-      <p><strong>Ruimte voor Participatie</strong> is ontwikkeld om dit gesprek te voeren. Met de tool kun je verkennen welke <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button> belangrijk zijn voor gemeente en voor bewoners, welke <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanningen</button> er te verwachten zijn, en welke <button class="ilink m-interventies" onclick="switchModule('interventies')">interventies</button> kunnen helpen om ruimte te maken. De tool wordt gevoed met <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> uit de praktijk, en leidt je vanzelf naar de <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> toe waar je voor jouw project inspiratie kunt vinden.</p>
-      <p>De tool is ontwikkeld voor één coach, en één of meerdere deelnemers.</p>
+      <p><strong>Ruimte voor Participatie</strong> is ontwikkeld om dit gesprek te voeren. Met de tool kun je verkennen welke <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button> belangrijk zijn voor gemeente en voor bewoners, welke <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanningen</button> er te verwachten zijn, en welke <button class="ilink m-interventies" onclick="switchModule('interventies')">interventies</button> kunnen helpen om ruimte te maken. De tool wordt gevoed met <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> uit de praktijk.</p>
       <ul>
-        <li>Bedoeld als <strong>gesprekshulp</strong> bij gesprekken over het inbedden van participatie.</li>
-        <li><strong>Modulair inzetbaar.</strong> De drie modules – <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button>, <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanningen</button> en <button class="ilink m-interventies" onclick="switchModule('interventies')">interventies</button> – zijn aan elkaar gekoppeld, maar ook los inzetbaar voor kortere sessies. De <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> vormen de onderlegger waaraan spanningen en interventies gekoppeld zijn.</li>
-        <li><strong>Online en fysiek.</strong> De fysieke component bestaat uit een kaartdeck per module, met de verhalenkaarten als onderlegger. Tijdens een sessie kunnen deelnemers en coach daar samen mee aan de slag. De onlinecomponent is deze site. Tijdens een sessie kan de coach deze gebruiken als referentie. Naderhand kan een deelnemer hem gebruiken om zich verder te verdiepen, of relevante casusverhalen te lezen.</li>
+        <li>Een <strong>gesprekshulp</strong> voor één adviseur en één casushouder: een ambtenaar die werkt aan een concreet, lopend project.</li>
+        <li><strong>Kaarten en website.</strong> Aan tafel werk je met de kaartdecks en een flip-over-vel. Deze website is de naslag: alle kaarten, de koppelingen ertussen en de verhalen. De casushouder kan er achteraf zelf verder in lezen.</li>
+        <li><strong>Modulair.</strong> De drie modules zijn aan elkaar gekoppeld, maar werken ook los.</li>
       </ul>
 
       <div class="hl-sub">De drie modules</div>
@@ -1064,27 +1099,119 @@
           <span class="fb-q">Praktijkcases waaraan de spanningen en interventies gekoppeld zijn — bron en inspiratie.</span>
         </button>
       </div>
-      <p class="flow-note">Je stapt bij elke module in; elke module werkt ook los. De verhalen liggen eronder als bron.</p>
     </div>
 
     <div class="hl-step">
       <div class="hl-step-num">02</div>
-      <h3>Hoe werkt het?</h3>
-      <p>Je begint bij een concreet project. Vaak ligt er al een participatieplan; dat vormt het startpunt van het gesprek. <strong>Ruimte voor Participatie</strong> vult daarop aan: waar het plan het proces beschrijft, helpt deze tool je vooruitkijken naar wat er nodig is om de opbrengsten van dat proces straks een plek te geven.</p>
-      <p>Je hoeft niet bij het begin te beginnen. Meestal helpt het om te verkennen welke <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button> spelen — voor de gemeente én voor bewoners — en waar die met elkaar botsen. Zo'n botsing is een <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanning</button>. Klik je op een <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanning</button>, dan laat de tool meteen zien welke <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button> eronder liggen, welke <button class="ilink m-interventies" onclick="switchModule('interventies')">interventies</button> kunnen helpen, en in welke <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> je iets soortgelijks terugziet.</p>
-      <p>Elke <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanning</button> en <button class="ilink m-interventies" onclick="switchModule('interventies')">interventie</button> hoort bij een fase: aanloop, doorloop of afloop. Zo kun je samen anticiperen — waar in het proces speelt dit, en wat kun je nú al doen om er ruimte voor te maken?</p>
-      <p>De tool schrijft geen route voor. Jij bepaalt wat past bij het gesprek en de tijd die er is — één kaartdeck als <span data-nogloss>korte interventie</span>, of de drie modules na elkaar. En je sluit niet af met een opgelost probleem, maar met nieuwsgierigheid: wat wil je verder uitzoeken, en wat zet je alvast in gang?</p>
+      <h3>De kernvraag</h3>
+      <p>Het hele gesprek draait om één vraag:</p>
+      <p class="hl-core">Is er voldoende ruimte voor deze participatie?</p>
+      <p>Die vraag opent de stap spanningen, keert terug bij de interventies en komt aan het eind nog één keer terug als reflectie. De tool schrijft geen oplossing voor. Je sluit niet af met een opgelost probleem, maar met nieuwsgierigheid: wat wil je verder uitzoeken?</p>
+    </div>
 
-      <div class="hl-sub">In een sessie — zo pak je het aan</div>
-      <p class="hl-note">Reken op ongeveer een half uur per module.</p>
+    <div class="hl-step">
+      <div class="hl-step-num">03</div>
+      <h3>Voorbereiding</h3>
+      <div class="hl-sub">De casushouder</div>
+      <p>Hoeft niets voor te bereiden. Je doet dit gesprek nooit uit het niets: er is altijd een eerder contact geweest, zoals een spreekuur, een canvassessie of een kennismaking.</p>
+      <div class="hl-sub">De adviseur</div>
+      <ul>
+        <li><strong>Minimale projectkennis</strong>: het eerdere contact, plus de projectpagina of het participatieplan.</li>
+        <li><strong>Materiaal</strong>: de drie kaartdecks (met de blanco kaarten), een leeg flip-over-vel en stiften. Meer is niet nodig; eigen creatieve materialen mogen.</li>
+        <li><strong>Kaartnummers</strong>: elke kaart heeft een vast nummer met het icoon van de set: een kompas voor waarden, twee pijlen voor spanningen en een moersleutel voor interventies. Op de achterkant staan verwijzingen naar verwante kaarten, zodat je snel kunt doorzoeken.</li>
+      </ul>
+      <div class="hl-sub">Opstelling</div>
+      <ul>
+        <li>Ga <strong>naast elkaar of op een hoek</strong> zitten, nooit tegenover elkaar. Tegenover elkaar voelt al snel als een bezoek aan de huisarts; naast elkaar is het een gezamenlijke zoektocht.</li>
+        <li>Leg de kaarten <strong>zichtbaar neer</strong> in plaats van ze voor te lezen.</li>
+        <li><strong>Geen laptop op tafel</strong>, tenzij je hem echt nodig hebt.</li>
+        <li>Leg het flip-over-vel in het midden en zeg aan het begin: <span class="hl-say">"Hier mag je op schrijven en de kaarten ordenen, op welke manier je wilt."</span></li>
+      </ul>
+    </div>
+
+    <div class="hl-step">
+      <div class="hl-step-num">04</div>
+      <h3>Het gesprek in 60 minuten</h3>
+      <p>Het standaarddraaiboek past in één agendablok van een uur, met alle drie de modules.</p>
+      <div class="hl-time">
+        <div><span class="t">5</span><span class="w">Opening</span></div>
+        <div><span class="t">10</span><span class="w">Waarden</span></div>
+        <div><span class="t">15</span><span class="w">Spanningen</span></div>
+        <div><span class="t">15</span><span class="w">Interventies</span></div>
+        <div><span class="t">10</span><span class="w">Afsluiting</span></div>
+        <div class="slack"><span class="t">5</span><span class="w">speling</span></div>
+      </div>
+      <p class="hl-note">Is er meer tijd? De uitgebreide variant duurt 90 minuten: 5 / 20 / 25 / 25 / 10.</p>
+      <p><strong>Suggereren is een aanbod.</strong> In de stappen spanningen en interventies schuift de adviseur een paar kaarten naar voren. Dat is een suggestie: de casushouder houdt altijd toegang tot alle kaarten, en wat hij of zij zelf kiest weegt zwaarder. Als je merkt dat de casushouder gaat afwachten, leg dan meer open en kijk samen.</p>
+
+      <div class="hl-phase"><span class="min">5 min</span><h4>Opening</h4></div>
+      <p>Startvraag: <span class="hl-say">"Hoe voel je je over het project?"</span></p>
+      <p>Blijft het antwoord aan de oppervlakte, vraag dan door. Het doel is dat jij als adviseur een gevoel krijgt bij het project, de status ervan en wat er onder de oppervlakte speelt. Ga na ongeveer vijf minuten door.</p>
+      <ul class="hl-ask">
+        <li>Wat maakt het leuk?</li>
+        <li>Waar kijk je naar uit, en waar zie je tegenop?</li>
+      </ul>
+
+      <div class="hl-phase m-waarden"><span class="min">10 min</span><h4>Waarden</h4></div>
       <ol class="hl-do">
-        <li><strong>Lees vooraf het participatieplan</strong> van het project, zodat je weet wat er speelt.</li>
-        <li><strong>Open een module</strong> die past bij het gesprek — meestal <button class="ilink m-waarden" onclick="switchModule('waarden')">Waarden</button> of <button class="ilink m-spanningen" onclick="switchModule('spanningen')">Spanningen</button>.</li>
-        <li><strong>Kies samen een paar <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanningen</button></strong> die herkenbaar zijn voor dit project. Filter op fase (aanloop, doorloop, afloop) om te focussen.</li>
-        <li><strong>Klik op een <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanning</button></strong> om de botsende <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button>, mogelijke <button class="ilink m-interventies" onclick="switchModule('interventies')">interventies</button> en verwante <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> te zien.</li>
-        <li><strong>Bespreek per <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanning</button>:</strong> welke <button class="ilink m-interventies" onclick="switchModule('interventies')">interventie</button> past hier, en bij welke fase? Wat kun je nú al doen om ruimte te maken?</li>
-        <li><strong>Sluit af met nieuwsgierigheid:</strong> wat wil de deelnemer verder uitzoeken of alvast in gang zetten?</li>
+        <li>Leg <strong>alle waardenkaarten</strong> tegelijk open.</li>
+        <li>Instructie: <span class="hl-say">"Neem rustig de tijd om ze te bekijken. Alles kan relevant zijn: kies de 5 à 6 die nu het meest urgent zijn."</span> Vijf à zes is een zacht maximum; rangschikken hoeft niet.</li>
+        <li>Vertelt de casushouder iets maar vindt hij of zij de kaart niet, dan mag je suggereren: <span class="hl-say">"Ik denk dat deze kaart erbij past — wat denk jij?"</span> Is het net iets anders, pak dan een blanco kaart.</li>
+        <li><strong>Houd het bij de waarden.</strong> Zet waarden nog niet tegenover elkaar als spanning: dat komt in de volgende stap.</li>
+        <li>Rond af met samenvatten: <span class="hl-say">"Dit zijn de waarden die je hebt gekozen."</span></li>
       </ol>
+      <p class="hl-tip">Maak tijdens deze stap alvast een voorselectie van spanningen voor de volgende stap. Gebruik de achterkant van de gekozen waardenkaarten (<em>speelt in spanningen</em>) en de kaartnummers.</p>
+      <ul class="hl-ask">
+        <li>Welke van deze kaarten herken je het sterkst in je project?</li>
+        <li>Mist er iets? Pak dan een blanco kaart.</li>
+      </ul>
+
+      <div class="hl-phase m-spanningen"><span class="min">15 min</span><h4>Spanningen</h4></div>
+      <ol class="hl-do">
+        <li>Open met de kernvraag: <span class="hl-say">"Is er genoeg ruimte voor deze participatie, en welke spanningen voel je daarbij?"</span> En: <span class="hl-say">"Welke spanningen verwacht je?"</span></li>
+        <li>Alle spanningskaarten liggen op tafel. Schuif de paar kaarten uit je voorselectie naar de casushouder toe als suggestie. De rest blijft binnen handbereik om door te bladeren.</li>
+        <li>Geef tijd om alles te bekijken.</li>
+        <li>Wijs expliciet op de <strong>blanco kaarten</strong>: de set is nooit compleet.</li>
+        <li>Rond af met samenvatten: <span class="hl-say">"Dit zijn de spanningen die we nu hebben."</span></li>
+      </ol>
+      <ul class="hl-ask">
+        <li>Waar zit de spanning precies — tussen welke waarden?</li>
+        <li>Wat gebeurt er als je deze spanning laat liggen?</li>
+        <li>Wie heeft hier last van?</li>
+      </ul>
+
+      <div class="hl-phase m-interventies"><span class="min">15 min</span><h4>Interventies</h4></div>
+      <ol class="hl-do">
+        <li>Open met de kernvraag: <span class="hl-say">"Welke interventies zouden de ruimte kunnen maken die er nu niet is?"</span></li>
+        <li>Werk <strong>per spanning</strong>: <span class="hl-say">"Welke spanning wil je als eerste aanpakken?"</span> En dan: <span class="hl-say">"Wat zou een mogelijke interventie zijn, en wat spreekt je daarin aan?"</span></li>
+        <li>Alle interventiekaarten liggen op tafel. Schuif er een paar naar voren als suggestie; de rest blijft binnen handbereik.</li>
+        <li>De kaarten geven richting, maar denk door naar wat in dit project past, en schrijf dat op het vel.</li>
+        <li>Blanco kaarten zijn beschikbaar.</li>
+      </ol>
+      <p class="hl-tip">In deze stap mag de adviseur directiever en creatiever zijn: je eigen ervaring inbrengen, voorbeelden uit andere projecten noemen, ideeën die niet in het deck staan.</p>
+      <ul class="hl-ask">
+        <li>Wie zou hierbij aan tafel moeten zitten?</li>
+        <li>Wat zou je als eerste kunnen doen?</li>
+      </ul>
+
+      <div class="hl-phase m-leer"><span class="min">10 min</span><h4>Afsluiting</h4></div>
+      <ul>
+        <li><span class="hl-say">"Hoe voel je je nu?"</span> Dat maakt een boog terug naar de opening.</li>
+        <li><span class="hl-say">"Wat wil je verder onderzoeken?"</span> Laat de vraag bewust open. "Ik moet meer weten over de rol van die collega" is ook een goede uitkomst; het hoeft niet morgen al tot actie te leiden.</li>
+        <li>Terug naar de kernvraag: is er genoeg ruimte gevonden, en waar moet die nog gemaakt worden?</li>
+        <li>Komt er iets concreets boven, vraag dan door: wat is een eerste stap, en met wie?</li>
+      </ul>
+      <p class="hl-note">Gehoopte uitkomst: één tot drie samenhangende lijnen van waarde → spanning → interventie die de casushouder mee kan nemen.</p>
+    </div>
+
+    <div class="hl-step">
+      <div class="hl-step-num">05</div>
+      <h3>Na het gesprek</h3>
+      <ul>
+        <li>Maak een <strong>foto</strong> van de gekozen kaarten en het vel, en deel die met de casushouder.</li>
+        <li>Leg de <strong>leervragen</strong> vast; voor nu is de foto genoeg.</li>
+        <li>De casushouder kan op deze website verder lezen: de gekozen kaarten, de koppelingen en de <button class="ilink m-verhalen" onclick="switchModule('verhalen')">verhalen</button> uit de praktijk.</li>
+      </ul>
     </div>
   </div>
 </section>

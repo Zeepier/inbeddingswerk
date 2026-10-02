@@ -281,7 +281,7 @@ const staticEN = {
   'verhalen-lead': `The foundation of the tool: practice cases to which the tensions and interventions are linked. Source and inspiration — you will mostly arrive here via the links in the cards, but you can also browse the stories on their own.`,
 
   'handleiding-title': `Guide <span class="em">for the coach</span>`,
-  'handleiding-lead': `How do you use this tool in a coaching session?`,
+  'handleiding-lead': `A script for a one-hour conversation — from preparation to closing.`,
 
   'handleiding-body': `
     <div class="hl-step">
@@ -289,12 +289,11 @@ const staticEN = {
       <h3>What is this?</h3>
       <p>When we ask citizens to think along with us, we also need room to do something with their ideas. But that embedding space often turns out to be limited after the fact, and as a result too little is done with the outcomes of participation processes. So when we organise participation, we need to ensure not only a good process, but also that this embedding space exists.</p>
       <p>Yet it is inherent to participation that we don’t know exactly what residents will tell us – if we did, we wouldn’t need to ask them. That is why it is important to anticipate residents’ possible input. What embedding space would be needed to give that input a place? And how can we create that space?</p>
-      <p><strong>Room for Participation</strong> was developed to have this conversation. With the tool you can explore which <button class="ilink m-waarden" onclick="switchModule('waarden')">values</button> matter to the municipality and to residents, which <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tensions</button> can be expected, and which <button class="ilink m-interventies" onclick="switchModule('interventies')">interventions</button> can help to create room. The tool is fed by <button class="ilink m-verhalen" onclick="switchModule('verhalen')">stories</button> from practice, and leads you naturally to the <button class="ilink m-verhalen" onclick="switchModule('verhalen')">stories</button> in which you can find inspiration for your project.</p>
-      <p>The tool is designed for one coach and one or more participants.</p>
+      <p><strong>Room for Participation</strong> was developed to have this conversation. With the tool you can explore which <button class="ilink m-waarden" onclick="switchModule('waarden')">values</button> matter to the municipality and to residents, which <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tensions</button> can be expected, and which <button class="ilink m-interventies" onclick="switchModule('interventies')">interventions</button> can help to create room. The tool is fed by <button class="ilink m-verhalen" onclick="switchModule('verhalen')">stories</button> from practice.</p>
       <ul>
-        <li>Intended as a <strong>conversation aid</strong> in discussions about embedding participation.</li>
-        <li><strong>Modular.</strong> The three modules – <button class="ilink m-waarden" onclick="switchModule('waarden')">values</button>, <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tensions</button> and <button class="ilink m-interventies" onclick="switchModule('interventies')">interventions</button> – are linked to one another, but can also be used separately for shorter sessions. The <button class="ilink m-verhalen" onclick="switchModule('verhalen')">stories</button> form the foundation to which tensions and interventions are linked.</li>
-        <li><strong>Online and physical.</strong> The physical component consists of a card deck per module, with the story cards as the foundation. During a session, participants and coach can work with these together. The online component is this site. During a session, the coach can use it as a reference. Afterwards, a participant can use it to explore further or to read relevant case stories.</li>
+        <li>A <strong>conversation aid</strong> for one adviser and one case holder: a civil servant working on a concrete, ongoing project.</li>
+        <li><strong>Cards and website.</strong> At the table you work with the card decks and a flip-chart sheet. This website is the reference: all cards, the links between them and the stories. Afterwards, the case holder can read on here.</li>
+        <li><strong>Modular.</strong> The three modules are linked to one another, but also work on their own.</li>
       </ul>
 
       <div class="hl-sub">The three modules</div>
@@ -330,28 +329,121 @@ const staticEN = {
           <span class="fb-q">Practice cases to which the tensions and interventions are linked — source and inspiration.</span>
         </button>
       </div>
-      <p class="flow-note">You can start with any module; each module also works on its own. The stories lie underneath as a source.</p>
     </div>
 
     <div class="hl-step">
       <div class="hl-step-num">02</div>
-      <h3>How does it work?</h3>
-      <p>You start from a concrete project. Often there is already a participation plan; that forms the starting point of the conversation. <strong>Room for Participation</strong> complements it: where the plan describes the process, this tool helps you look ahead to what is needed to give the outcomes of that process a place later on.</p>
-      <p>You don’t have to start at the beginning. It usually helps to explore which <button class="ilink m-waarden" onclick="switchModule('waarden')">values</button> are at play — for the municipality and for residents — and where they clash. Such a clash is a <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tension</button>. Click a <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tension</button> and the tool immediately shows which <button class="ilink m-waarden" onclick="switchModule('waarden')">values</button> underlie it, which <button class="ilink m-interventies" onclick="switchModule('interventies')">interventions</button> can help, and in which <button class="ilink m-verhalen" onclick="switchModule('verhalen')">stories</button> you can see something similar.</p>
-      <p>Every <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tension</button> and <button class="ilink m-interventies" onclick="switchModule('interventies')">intervention</button> belongs to a phase: preparation, engagement or follow-up. This lets you anticipate together — where in the process does this play out, and what can you do right now to make room for it?</p>
-      <p>The tool doesn’t prescribe a route. You decide what suits the conversation and the time available — one card deck as a <span data-nogloss>short intervention</span>, or the three modules one after another. And you don’t finish with a solved problem, but with curiosity: what do you want to find out more about, and what can you already set in motion?</p>
+      <h3>The core question</h3>
+      <p>The whole conversation revolves around one question:</p>
+      <p class="hl-core">Is there enough room for this participation?</p>
+      <p>It opens the tensions step, returns with the interventions, and comes back once more at the end as a reflection. The tool doesn’t prescribe a solution. You don’t finish with a solved problem, but with curiosity: what do you want to find out more about?</p>
+    </div>
 
-      <div class="hl-sub">In a session — how to go about it</div>
-      <p class="hl-note">Allow about half an hour per module.</p>
+    <div class="hl-step">
+      <div class="hl-step-num">03</div>
+      <h3>Preparation</h3>
+      <div class="hl-sub">The case holder</div>
+      <p>Doesn’t need to prepare anything. You never hold this conversation out of the blue: there has always been an earlier contact, such as a consultation hour, a canvas session or an introduction.</p>
+      <div class="hl-sub">The adviser</div>
+      <ul>
+        <li><strong>Minimal project knowledge</strong>: the earlier contact, plus the project page or the participation plan.</li>
+        <li><strong>Materials</strong>: the three card decks (with the blank cards), an empty flip-chart sheet and markers. Nothing more is needed; your own creative materials are welcome.</li>
+        <li><strong>Card numbers</strong>: every card has a fixed number with the icon of its set: a compass for values, two arrows for tensions and a wrench for interventions. The back lists related cards, so you can search quickly.</li>
+      </ul>
+      <div class="hl-sub">Setting</div>
+      <ul>
+        <li>Sit <strong>side by side or at a corner</strong>, never opposite each other. Sitting opposite quickly feels like a visit to the doctor; side by side it becomes a joint search.</li>
+        <li>Lay the cards out <strong>visibly</strong> instead of reading them aloud.</li>
+        <li><strong>No laptop on the table</strong>, unless you really need it.</li>
+        <li>Put the flip-chart sheet in the middle and say at the start: <span class="hl-say">“You can write on this and arrange the cards any way you like.”</span></li>
+      </ul>
+    </div>
+
+    <div class="hl-step">
+      <div class="hl-step-num">04</div>
+      <h3>The conversation in 60 minutes</h3>
+      <p>The standard script fits into one one-hour calendar slot, with all three modules.</p>
+      <div class="hl-time">
+        <div><span class="t">5</span><span class="w">Opening</span></div>
+        <div><span class="t">10</span><span class="w">Values</span></div>
+        <div><span class="t">15</span><span class="w">Tensions</span></div>
+        <div><span class="t">15</span><span class="w">Interventions</span></div>
+        <div><span class="t">10</span><span class="w">Closing</span></div>
+        <div class="slack"><span class="t">5</span><span class="w">slack</span></div>
+      </div>
+      <p class="hl-note">More time available? The extended version takes 90 minutes: 5 / 20 / 25 / 25 / 10.</p>
+      <p><strong>Suggesting is an offer.</strong> In the tensions and interventions steps, the adviser slides a few cards forward. That is a suggestion: the case holder always keeps access to all cards, and what they choose themselves carries more weight. If you notice the case holder starting to wait for you, lay more out and look together.</p>
+
+      <div class="hl-phase"><span class="min">5 min</span><h4>Opening</h4></div>
+      <p>Starting question: <span class="hl-say">“How do you feel about the project?”</span></p>
+      <p>If the answer stays on the surface, follow up. The aim is for you as adviser to get a feel for the project, its status and what is going on beneath the surface. Move on after about five minutes.</p>
+      <ul class="hl-ask">
+        <li>What makes it enjoyable?</li>
+        <li>What are you looking forward to, and what are you dreading?</li>
+      </ul>
+
+      <div class="hl-phase m-waarden"><span class="min">10 min</span><h4>Values</h4></div>
       <ol class="hl-do">
-        <li><strong>Read the project’s participation plan beforehand</strong>, so you know what is going on.</li>
-        <li><strong>Open a module</strong> that suits the conversation — usually <button class="ilink m-waarden" onclick="switchModule('waarden')">Values</button> or <button class="ilink m-spanningen" onclick="switchModule('spanningen')">Tensions</button>.</li>
-        <li><strong>Together, choose a few <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tensions</button></strong> that are recognisable for this project. Filter by phase (preparation, engagement, follow-up) to focus.</li>
-        <li><strong>Click a <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tension</button></strong> to see the clashing <button class="ilink m-waarden" onclick="switchModule('waarden')">values</button>, possible <button class="ilink m-interventies" onclick="switchModule('interventies')">interventions</button> and related <button class="ilink m-verhalen" onclick="switchModule('verhalen')">stories</button>.</li>
-        <li><strong>For each <button class="ilink m-spanningen" onclick="switchModule('spanningen')">tension</button>, discuss:</strong> which <button class="ilink m-interventies" onclick="switchModule('interventies')">intervention</button> fits here, and in which phase? What can you do right now to make room?</li>
-        <li><strong>Close with curiosity:</strong> what does the participant want to explore further or already set in motion?</li>
+        <li>Lay out <strong>all value cards</strong> at once.</li>
+        <li>Instruction: <span class="hl-say">“Take your time to look at them. Everything can be relevant: pick the 5 or 6 that are most urgent right now.”</span> Five or six is a soft maximum; no ranking needed.</li>
+        <li>If the case holder describes something but can’t find the card, you may suggest one: <span class="hl-say">“I think this card fits — what do you think?”</span> If it’s slightly different, take a blank card.</li>
+        <li><strong>Keep to the values.</strong> Don’t set values against each other as tensions yet: that comes in the next step.</li>
+        <li>Close by summarising: <span class="hl-say">“These are the values you’ve chosen.”</span></li>
       </ol>
-    </div>`,
+      <p class="hl-tip">During this step, already make a pre-selection of tensions for the next step. Use the back of the chosen value cards (<em>plays a part in tensions</em>) and the card numbers.</p>
+      <ul class="hl-ask">
+        <li>Which of these cards do you recognise most strongly in your project?</li>
+        <li>Is something missing? Then take a blank card.</li>
+      </ul>
+
+      <div class="hl-phase m-spanningen"><span class="min">15 min</span><h4>Tensions</h4></div>
+      <ol class="hl-do">
+        <li>Open with the core question: <span class="hl-say">“Is there enough room for this participation, and which tensions do you feel?”</span> And: <span class="hl-say">“Which tensions do you expect?”</span></li>
+        <li>All tension cards are on the table. Slide the few cards from your pre-selection towards the case holder as a suggestion. The rest stays within reach to browse.</li>
+        <li>Give time to look at everything.</li>
+        <li>Point explicitly to the <strong>blank cards</strong>: the set is never complete.</li>
+        <li>Close by summarising: <span class="hl-say">“These are the tensions we have now.”</span></li>
+      </ol>
+      <ul class="hl-ask">
+        <li>Where exactly is the tension — between which values?</li>
+        <li>What happens if you leave this tension alone?</li>
+        <li>Who suffers from this?</li>
+      </ul>
+
+      <div class="hl-phase m-interventies"><span class="min">15 min</span><h4>Interventions</h4></div>
+      <ol class="hl-do">
+        <li>Open with the core question: <span class="hl-say">“Which interventions could create the room that isn’t there now?”</span></li>
+        <li>Work <strong>one tension at a time</strong>: <span class="hl-say">“Which tension do you want to tackle first?”</span> And then: <span class="hl-say">“What could an intervention be, and what appeals to you in it?”</span></li>
+        <li>All intervention cards are on the table. Slide a few forward as a suggestion; the rest stays within reach.</li>
+        <li>The cards give direction, but think on to what fits this project, and write that on the sheet.</li>
+        <li>Blank cards are available.</li>
+      </ol>
+      <p class="hl-tip">In this step the adviser may be more directive and creative: bring in your own experience, mention examples from other projects, ideas that aren’t in the deck.</p>
+      <ul class="hl-ask">
+        <li>Who should be at the table for this?</li>
+        <li>What could you do first?</li>
+      </ul>
+
+      <div class="hl-phase m-leer"><span class="min">10 min</span><h4>Closing</h4></div>
+      <ul>
+        <li><span class="hl-say">“How do you feel now?”</span> This makes an arc back to the opening.</li>
+        <li><span class="hl-say">“What do you want to explore further?”</span> Keep the question deliberately open. “I need to know more about that colleague’s role” is a good outcome too; it doesn’t have to lead to action tomorrow.</li>
+        <li>Back to the core question: has enough room been found, and where does it still need to be made?</li>
+        <li>If something concrete surfaces, follow up: what is a first step, and with whom?</li>
+      </ul>
+      <p class="hl-note">Hoped-for outcome: one to three coherent lines of value → tension → intervention that the case holder can take away.</p>
+    </div>
+
+    <div class="hl-step">
+      <div class="hl-step-num">05</div>
+      <h3>After the conversation</h3>
+      <ul>
+        <li>Take a <strong>photo</strong> of the chosen cards and the sheet, and share it with the case holder.</li>
+        <li>Record the <strong>learning questions</strong>; for now the photo is enough.</li>
+        <li>The case holder can read on here: the chosen cards, the links and the <button class="ilink m-verhalen" onclick="switchModule('verhalen')">stories</button> from practice.</li>
+      </ul>
+    </div>
+    `,
 
   'begrippen-title': `Glossary <span class="em">for this tool</span>`,
   'begrippen-lead': `What do we mean by the terms that come up in the tool?`,
