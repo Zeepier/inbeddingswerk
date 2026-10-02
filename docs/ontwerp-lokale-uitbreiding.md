@@ -1,6 +1,8 @@
 # Ontwerp: lokale uitbreiding per team
 
-*Status: ontwerpvoorstel, nog niet gebouwd. Oktober 2026.*
+*Status: fase 1 en 2 gebouwd (teamlaag.js, teameditor.js). Oktober 2026.*
+
+**Gebruik in het kort:** open de site met `?beheer` (of via "Teamversie beheren" onderaan de pagina). Wijzigingen worden bewaard in de browser als werkversie. "Exporteer teamversie" levert `team.json` op; zet dat bestand naast de site (eigen kopie) om de teamversie voor iedereen te publiceren. "Printkaarten (PDF)" opent de printkaarten met de werkversie.
 
 ## 1. Doel
 
@@ -130,7 +132,7 @@ Eerst kijken of fase 1–3 in de praktijk volstaat.
 | Fase | Inhoud | Resultaat |
 |---|---|---|
 | **1. Datalaag** ✓ | Site en printkaarten laden `team.json` en verwerken toevoegen / verbergen / aanpassen / koppelen / verhalen; markering van lokale kaarten; handgeschreven voorbeeld-`team.json` | Teamversie werkt al, alleen nog met handmatig bewerken van het bestand |
-| **2. Editor** | Beheer-modus met formulieren, koppelingenkiezer, verbergen, aanpassen met originele tekst, export/import, validatie (ids, verweesde koppelingen, waarschuwing > 15 waarden); knop **Printkaarten (PDF)** die de printkaarten opent met de werkversie (ook niet-geëxporteerde wijzigingen), met printinstructie | Teambeheerder kan zonder code werken en direct een eigen deck printen |
+| **2. Editor** ✓ | Beheer-modus met formulieren, koppelingenkiezer, verbergen, aanpassen met originele tekst, export/import, validatie (ids, verweesde koppelingen, waarschuwing > 15 waarden); knop **Printkaarten (PDF)** die de printkaarten opent met de werkversie (ook niet-geëxporteerde wijzigingen), met printinstructie | Teambeheerder kan zonder code werken en direct een eigen deck printen |
 | **3. Publiceren** | Handleiding "een teamversie maken": kopie maken (a) of team-link (b); updates van de basis binnenhalen | Herhaalbare route voor andere gemeenten |
 | **4. (optioneel) Online opslag** | Centrale opslag + inloggen | Samen bewerken zonder bestanden |
 

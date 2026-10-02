@@ -928,6 +928,8 @@
   .value-chip.gemeente { border-top: 3px solid var(--val-dark); }
   .value-chip.gemeente .vc-dot { background: var(--val-dark); }
 
+  .beheer-link { display: block; margin-top: 8px; color: rgba(255,255,255,0.35); font-size: 11px; text-decoration: none; }
+  .beheer-link:hover { color: rgba(255,255,255,0.7); text-decoration: underline; }
   footer {
     background: var(--ink);
     color: rgba(255,255,255,0.5);
@@ -1299,8 +1301,9 @@
   </div>
 </section>
 
-<footer data-i18n="footer">
-  Ruimte voor participatie · Coach-tool · Voorbeeldversie · Gemaakt voor reflectie en gesprek
+<footer>
+  <span data-i18n="footer">Ruimte voor participatie · Coach-tool · Voorbeeldversie · Gemaakt voor reflectie en gesprek</span>
+  <a class="beheer-link" id="beheerLink" href="?beheer">Teamversie beheren</a>
 </footer>
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
@@ -1391,7 +1394,7 @@ document.querySelectorAll('[data-i18n]').forEach(el => i18nOriginal.set(el, el.i
 
 function buildValueCard(v) {
   const n = (v.tensions || []).length;
-  return `<button class="vcard ${v.group}" type="button" onclick="showValueModal('${v.id}')">
+  return `<button class="vcard ${v.group}" type="button" data-id="${v.id}" onclick="showValueModal('${v.id}')">
     <h4>${L(v, 'title')}</h4>
     <div class="vcard-foot">
       <span class="vcard-num">${cardCode(v)}</span>
@@ -1412,7 +1415,7 @@ function buildTensionCard(tn, idx) {
   const footer = (vals.length || tn.phase)
     ? `<div class="tcard-values" style="gap: 6px;">${vals.map((v, i) => `${i > 0 ? '<span class="tcard-vx">·</span>' : ''}<span class="tcard-vchip">${L(v, 'title')}</span>`).join('')}${phaseHtml}</div>`
     : '';
-  return `<button class="tcard" type="button" data-tphase="${tn.phase||''}" onclick="showTensionModal('${tn.id}')">
+  return `<button class="tcard" type="button" data-id="${tn.id}" data-tphase="${tn.phase||''}" onclick="showTensionModal('${tn.id}')">
     <div>
       <div class="tcard-num">${cardCode(tn)}</div>
       <h4>${L(tn, 'title')}</h4>
@@ -1439,7 +1442,7 @@ function buildCaseCard(c) {
   const photoHtml = c.photo
     ? `<div class="ccard-photo" style="background-image: url('${c.photo}')"></div>`
     : `<div class="ccard-photo ccard-photo-empty"><span>${c.link ? (lang === 'en' ? 'Link to example' : 'Link naar voorbeeld') : t('photoSoon')}</span></div>`;
-  return `<button class="ccard" type="button" onclick="showCaseModal('${c.id}')">
+  return `<button class="ccard" type="button" data-id="${c.id}" onclick="showCaseModal('${c.id}')">
     ${photoHtml}
     <div class="ccard-body">
       ${L(c, 'location') ? `<div class="ccard-location">${L(c, 'location')}</div>` : ''}
@@ -1780,6 +1783,7 @@ function applyLang(newLang) {
   tog.setAttribute('aria-label', t('switchTo'));
   tog.querySelectorAll('.lt-opt').forEach(o => o.classList.toggle('on', o.dataset.lang === lang));
   document.querySelector('.modal-close').setAttribute('aria-label', t('close'));
+  if (typeof window.afterSiteRender === 'function') window.afterSiteRender();
 }
 
 function toggleLang() {
@@ -1793,14 +1797,26 @@ function toggleLang() {
 }
 
 // Eerst de teamlaag (als die er is), dan sorteren en tekenen
+function sortCards() { values.sort(byNr); tensions.sort(byNr); interventions.sort(byNr); }
+function showTeamLine(layer) {
+  const el = document.getElementById('teamLine');
+  const naam = layer && layer.team && layer.team.naam;
+  el.textContent = naam ? 'Teamversie: ' + naam : '';
+  el.hidden = !naam;
+}
 teamReady.then(layer => {
-  values.sort(byNr); tensions.sort(byNr); interventions.sort(byNr);
-  if (layer && layer.team && layer.team.naam) {
-    const el = document.getElementById('teamLine');
-    el.textContent = 'Teamversie: ' + layer.team.naam;
-    el.hidden = false;
+  sortCards();
+  showTeamLine(layer);
+  // Beheer-link behoudt een eventuele ?team=…
+  try { const u = new URL(location.href); u.searchParams.set('beheer', ''); document.getElementById('beheerLink').href = u.search.replace('beheer=', 'beheer'); } catch (e) {}
+  if (teamState.beheer) {
+    const sc = document.createElement('script');
+    sc.src = 'teameditor.js';
+    sc.onload = () => applyLang(lang);
+    document.body.appendChild(sc);
+  } else {
+    applyLang(lang);
   }
-  applyLang(lang);
 });
 </script>
 

@@ -6,8 +6,12 @@
 //
 // Welke teamlaag?
 //   - ?team=<url>   in de adresbalk (bijv. ?team=team.voorbeeld.json)
+//   - ?team=draft   de werkversie uit de teameditor (opgeslagen in deze browser)
 //   - anders:       team.json naast deze pagina. In de basisversie is dat een
 //                   leeg bestand ({}); een teamkopie vervangt het door de eigen laag.
+//   - ?beheer       opent de teameditor (teameditor.js); die werkt altijd op de
+//                   werkversie, die bij de eerste keer start als kopie van de
+//                   gepubliceerde teamlaag.
 //
 // Na laden staat de samengevoegde inhoud in dezelfde globale arrays
 // (values, tensions, interventions, cases), zodat de pagina's er
@@ -17,37 +21,90 @@
 //   local: true          — eigen kaart van het team
 //   adjusted: true       — basiskaart met lokaal aangepaste velden
 //   orig: { veld: … }    — de originele basistekst van aangepaste velden
+//   teamHidden: true     — verborgen basiskaart (alleen in de editor; elders weggelaten)
 // =============================================================
 
 // Set van een kaart ('v' | 't' | 'i' | 'c'), ook voor teamkaarten met prefix ('x-t1' -> 't')
 const setKey = x => String(x.id || x).replace(/^[a-z0-9]+-/i, '')[0];
 
-let teamLayer = null;            // de geladen teamlaag (of null)
-const teamWarnings = [];         // meldingen bij het samenvoegen
+let teamLayer = null;            // de toegepaste teamlaag (of null)
+const teamWarnings = [];         // meldingen bij het (laatste) samenvoegen
+const teamState = { beheer: false, source: 'base', published: null };
+
+// Werkversie van de editor, bewaard in deze browser
+const TEAM_DRAFT_KEY = 'rvp-team-draft';
+const TEAM_DIRTY_KEY = 'rvp-team-dirty';
+function loadTeamDraft() {
+  try { const s = localStorage.getItem(TEAM_DRAFT_KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; }
+}
+function saveTeamDraft(layer, dirty = true) {
+  try {
+    localStorage.setItem(TEAM_DRAFT_KEY, JSON.stringify(layer));
+    localStorage.setItem(TEAM_DIRTY_KEY, dirty ? '1' : '0');
+  } catch (e) {}
+}
+function teamDraftDirty() {
+  try { return localStorage.getItem(TEAM_DIRTY_KEY) === '1'; } catch (e) { return false; }
+}
+
+// Ongewijzigde basisset, om na een wijziging in de editor opnieuw te kunnen samenvoegen
+const TEAM_BASE = JSON.parse(JSON.stringify({ values, tensions, interventions, cases }));
+function resetToBase() {
+  const fresh = JSON.parse(JSON.stringify(TEAM_BASE));
+  for (const [k, list] of [['values', values], ['tensions', tensions], ['interventions', interventions], ['cases', cases]]) {
+    list.length = 0;
+    list.push(...fresh[k]);
+  }
+}
+function rebuildTeam(layer, opts) {
+  resetToBase();
+  teamLayer = layer && Object.keys(layer).length ? layer : null;
+  if (teamLayer) applyTeamLayer(teamLayer, opts);
+  else teamWarnings.length = 0;
+}
 
 const teamReady = (async () => {
-  let url = null;
-  try { url = new URLSearchParams(location.search).get('team'); } catch (e) {}
-  const explicit = !!url;
-  url = url || 'team.json';
-  try {
-    const res = await fetch(url, { cache: 'no-cache' });
-    if (!res.ok) {
-      if (explicit) teamWarnings.push(`Teamlaag niet gevonden: ${url}`);
-      return null;
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(); }
+  teamState.beheer = params.has('beheer');
+  let url = params.get('team');
+
+  if (url === 'draft') {
+    teamState.source = 'draft';
+    rebuildTeam(loadTeamDraft());
+  } else {
+    const explicit = !!url;
+    url = url || 'team.json';
+    try {
+      const res = await fetch(url, { cache: 'no-cache' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Object.keys(data).length) { teamState.published = data; teamState.source = 'published'; }
+      } else if (explicit) {
+        teamWarnings.push(`Teamlaag niet gevonden: ${url}`);
+      }
+    } catch (e) {
+      if (explicit) teamWarnings.push(`Teamlaag kon niet worden geladen (${url}): ${e.message}`);
     }
-    const data = await res.json();
-    if (!data || !Object.keys(data).length) return null;   // leeg team.json = geen teamlaag
-    teamLayer = data;
-    applyTeamLayer(teamLayer);
-  } catch (e) {
-    if (explicit) teamWarnings.push(`Teamlaag kon niet worden geladen (${url}): ${e.message}`);
+    if (teamState.beheer) {
+      // De editor werkt op de werkversie; de eerste keer is dat een kopie van de gepubliceerde laag
+      let draft = loadTeamDraft();
+      if (!draft) {
+        draft = teamState.published ? JSON.parse(JSON.stringify(teamState.published)) : { team: { naam: '' } };
+        saveTeamDraft(draft, false);
+      }
+      teamState.source = 'draft';
+      rebuildTeam(draft, { keepHidden: true });
+    } else if (teamState.published) {
+      rebuildTeam(teamState.published);
+    }
   }
   if (teamWarnings.length) console.warn('Teamlaag:\n- ' + teamWarnings.join('\n- '));
   return teamLayer;
 })();
 
-function applyTeamLayer(layer) {
+function applyTeamLayer(layer, opts = {}) {
+  teamWarnings.length = 0;
   const sets = { v: values, t: tensions, i: interventions, c: cases };
   const all = () => [...values, ...tensions, ...interventions, ...cases];
   const find = id => all().find(x => x.id === id);
@@ -62,7 +119,7 @@ function applyTeamLayer(layer) {
       list.push({
         tensions: [], values: [], interventions: [], cases: [],
         ...(key === 'values' ? { group: 'beide' } : {}),
-        ...card, nr: ++nr, local: true,
+        ...JSON.parse(JSON.stringify(card)), nr: ++nr, local: true,
       });
     }
   }
@@ -74,7 +131,7 @@ function applyTeamLayer(layer) {
       id: v.id, local: true, link: !v.tekst && !!v.url,
       title: v.title || '', location: v.locatie || '', summary: v.samenvatting || '', full: v.tekst || '',
       url: v.url || '', intranet: !!v.intranet, photo: v.foto || '',
-      tensions: v.tensions || [], interventions: v.interventions || [],
+      tensions: [...(v.tensions || [])], interventions: [...(v.interventions || [])],
     });
   }
 
@@ -94,25 +151,28 @@ function applyTeamLayer(layer) {
   //    spanning–interventie op de spanning, verhaal–spanning/interventie op het verhaal,
   //    waarde–spanning op beide (zie stap 6)
   const field = { v: 'values', t: 'tensions', i: 'interventions', c: 'cases' };
-  const kind = id => String(id).replace(/^[a-z0-9]+-/i, '')[0];
   const owner = { 'i>t': true, 't>c': true, 'i>c': true, 'v>c': true };   // deze paren omdraaien
   for (const { van, naar } of layer.koppelen || []) {
     let a = find(van), b = find(naar);
     if (!a || !b) { teamWarnings.push(`Koppeling overgeslagen: ${van} → ${naar}`); continue; }
-    if (owner[kind(a.id) + '>' + kind(b.id)]) [a, b] = [b, a];
-    const f = field[kind(b.id)];
+    if (owner[setKey(a) + '>' + setKey(b)]) [a, b] = [b, a];
+    const f = field[setKey(b)];
     a[f] = [...(a[f] || []), b.id];
   }
 
-  // 5. Basiskaarten verbergen
+  // 5. Basiskaarten verbergen (in de editor alleen markeren, zodat ze weer te tonen zijn)
   const hidden = new Set(layer.verbergen || []);
   for (const id of hidden) if (!find(id)) teamWarnings.push(`Verbergen: kaart "${id}" bestaat niet`);
   for (const list of Object.values(sets)) {
-    for (let k = list.length - 1; k >= 0; k--) if (hidden.has(list[k].id)) list.splice(k, 1);
+    for (let k = list.length - 1; k >= 0; k--) {
+      if (!hidden.has(list[k].id)) continue;
+      if (opts.keepHidden) list[k].teamHidden = true;
+      else list.splice(k, 1);
+    }
   }
 
   // 6. Koppelingen in beide richtingen gelijk trekken en opschonen
-  //    waarde <-> spanning (values/tensions), spanning -> verhaal (cases), verhaal -> spanning/interventie
+  //    waarde <-> spanning (values/tensions), spanning <-> verhaal (cases/tensions)
   for (const v of values) for (const tid of v.tensions || []) {
     const t = tensions.find(x => x.id === tid); if (t) t.values = uniq([...(t.values || []), v.id]);
   }
@@ -137,5 +197,6 @@ function applyTeamLayer(layer) {
   }
 
   // 7. Waarschuwing bij meer dan 15 waarden (zie testrondes: liever niet boven de 15)
-  if (values.length > 15) teamWarnings.push(`De teamversie heeft ${values.length} waarden — liever niet meer dan 15.`);
+  const shown = values.filter(v => !v.teamHidden).length;
+  if (shown > 15) teamWarnings.push(`De teamversie heeft ${shown} waarden — liever niet meer dan 15.`);
 }
