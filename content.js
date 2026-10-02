@@ -56,7 +56,7 @@ const values = [
     desc: 'De inbreng van bewoners heeft daadwerkelijk gevolgen voor gemeentelijke plan- of besluitvorming.' },
   { id: 'v2',  title: 'Lokale kennis en geschiedenis meenemen', group: 'bewoners', tensions: ['t8','t11'],
     desc: 'De kennis en ervaring van bewoners over hun buurt, en wat er eerder op deze plek en in eerdere participatie is gebeurd, worden gekend en meegenomen.' },
-  { id: 'v3',  title: 'Erkenning perspectief bewoners',         group: 'bewoners', tensions: ['t6'],
+  { id: 'v3',  title: 'Erkenning perspectief bewoners',         group: 'bewoners', tensions: ['t6','t14'],
     desc: 'De manier waarop bewoners de situatie beleven wordt serieus genomen, ook als die afwijkt van het officiële beeld.' },
   { id: 'v4',  title: 'Bevorderen sociale cohesie in de buurt', group: 'bewoners', tensions: ['t12'],
     desc: 'Het proces versterkt de onderlinge verbondenheid en het contact tussen bewoners.' },
@@ -73,14 +73,14 @@ const values = [
     desc: 'Verschillende afdelingen en beleidsterreinen werken integraal aan de opgave in plaats van los van elkaar.' },
   { id: 'v10', title: 'Doelmatig omgaan met tijd en geld',      group: 'gemeente', tensions: ['t5','t7','t12'],
     desc: 'Tijd, inzet en geld worden zo besteed dat ze zo veel mogelijk opleveren, en de kosten van proces en uitkomsten blijven binnen haalbare grenzen.' },
-  { id: 'v12', title: 'Vakkennis tot zijn recht laten komen',   group: 'gemeente', tensions: ['t4','t8'],
+  { id: 'v12', title: 'Vakkennis tot zijn recht laten komen',   group: 'gemeente', tensions: ['t4','t8','t14'],
     desc: 'De expertise van vakspecialisten weegt mee in de uiteindelijke keuzes.' },
 
   { id: 'v13', title: '(Sociaal) leren',                        group: 'beide',    tensions: [],
     desc: 'Betrokkenen worden door het proces wijzer over zichzelf, elkaar en de opgave.' },
   { id: 'v15', title: 'Gelijke behandeling bewoners',           group: 'beide',    tensions: ['t13'],
     desc: 'De inbreng van alle bewoners weegt even zwaar, ongeacht of ze wel of niet zichtbaar zijn in het (participatie)proces.' },
-  { id: 'v16', title: 'Navolgbaar overheidshandelen',           group: 'beide',    tensions: [],
+  { id: 'v16', title: 'Navolgbaar overheidshandelen',           group: 'beide',    tensions: ['t14'],
     desc: 'Het is voor bewoners te volgen en te begrijpen hoe en waarom de gemeente tot een besluit komt.' },
   { id: 'v17', title: 'Vertrouwen',                             group: 'beide',    tensions: ['t9','t10','t11'],
     desc: 'Bewoners en gemeente kunnen op elkaar rekenen: afspraken worden nagekomen en inbreng wordt niet voor niets gevraagd.' },
@@ -89,7 +89,7 @@ const values = [
 
 
 // -------------------------------------------------------------
-// SPANNINGEN (12)
+// SPANNINGEN (14)
 // -------------------------------------------------------------
 
 const tensions = [
@@ -184,6 +184,13 @@ const tensions = [
     interventions: ['i14','i18','i19','i12'],
     cases: ['c3'],
     values: ['v1','v15'], phase: 'doorloop' },
+
+  { id: 't14',
+    title: 'Gemeente, bewoners en afdelingen praten langs elkaar heen',
+    body: 'Gemeente en bewoners — en ook afdelingen onderling — gebruiken dezelfde woorden, maar bedoelen er iets anders mee. Wat voor de één "gebiedsontwikkeling" of "participatie" is, betekent voor de ander iets heel anders. Zolang dat onbesproken blijft, praten mensen langs elkaar heen en lijkt er overeenstemming die er niet is.',
+    interventions: ['i7','i14','i12'],
+    cases: [],
+    values: ['v3','v12','v16'], phase: 'aanloop doorloop' },
 
 ];
 

@@ -76,6 +76,9 @@ const contentEN = {
   t13: { title: 'Granting influence versus treating everyone equally',
          body: 'Those who take part in participation gain influence — but that raises the question of whether government thereby favours active, vocal residents over the silent majority. How do you make room for participation without losing sight of the equal treatment of all residents?' },
 
+  t14: { title: 'Municipality, residents and departments talk past each other',
+         body: 'Municipality and residents — and departments among themselves — use the same words but mean different things by them. What one person calls “area development” or “participation” means something quite different to another. As long as this goes undiscussed, people talk past each other and there seems to be an agreement that isn’t there.' },
+
   // ----- INTERVENTIES / INTERVENTIONS -----
   i1:  { title: 'Administrative backing',
          short: 'A shared vision on the intended approach, with the support and mandate of the ultimately responsible administrators.',
