@@ -187,7 +187,7 @@ const tensions = [
     short: 'Eerdere mislukkingen en breuken in vertrouwen bepalen hoe een nieuw plan wordt ontvangen.',
     body: 'Eerdere mislukkingen, breuken in vertrouwen of onopgeloste kwesties uit het verleden bepalen hoe nieuwe initiatieven worden ontvangen — vaak voordat ze überhaupt zijn gestart. Wat eruit ziet als weerstand tegen het nieuwe plan, is soms een echo van het oude.',
     interventions: ['i7','i16','i12','i25'],
-    cases: ['c1'],
+    cases: ['c1','c4'],
     values: ['v2','v5','v6','v17'], phase: 'aanloop' },
 
   { id: 't12', nr: 5,
@@ -446,7 +446,7 @@ const cases = [
     photo: 'https://bereikbarestad.denhaag.nl/wp-content/uploads/2024/06/Centrum-Noord-11-scaled-e1718874471371.jpg',
     summary: 'In een gebied met veel uitgesproken belangen ontwikkelden bewoners en ondernemers zélf een pakket mobiliteitsmaatregelen, binnen heldere kaders van de gemeente.',
     full: 'Na een initiatiefvoorstel van de Haagse Stadspartij in 2016 gaf het college in 2018 opdracht om in coproductie met bewoners- en ondernemersgroepen tot maatregelen te komen voor de luchtkwaliteit en leefbaarheid van het noordelijke centrum. De projectleider had al vóór dat besluit uitgebreid met stakeholders in het gebied gesproken en geconcludeerd dat een sterk participatieve aanpak het meest kansrijk was — een ongebruikelijke keuze voor een project van deze omvang in Den Haag.\n\nWerkgroepen van bewoners en ondernemers ontwikkelden zelf oplossingen, die de gemeente vervolgens op haalbaarheid toetste. Ze kregen wel duidelijke kaders mee: een reductie van 15% in de verkeersdrukte, en een budget van 10 miljoen euro. Niet alle collega\'s waren meteen overtuigd — een deel had liever zelf oplossingen bedacht — maar doordat het collegebesluit er al lag, was het relatief eenvoudig om hen mee te krijgen.\n\nBehulpzaam was ook dat het budget vooraf in een "zeer algemeen gelabelde" pot zat, in plaats van dat het uit bestaande potjes moest komen. Wel wisselden de ingehuurde vakdeskundigen van de betrokken afdelingen regelmatig — vaak werden mobiliteitsdeskundigen voor een jaar of twee ingehuurd. Dat kostte telkens tijd om nieuwe collega\'s bij te praten, maar had ook een voordeel: eventuele weerstand tegen de aanpak was daardoor zelden van lange duur.',
-    tensions: ['t1','t2','t7','t9'],
+    tensions: ['t1','t2','t7','t9','t13'],
     interventions: ['i13','i12','i14','i6'] },
 
   { id: 'c4',
