@@ -76,21 +76,25 @@
 
   /* Voorkant: alleen de titel, groot */
   .front-body {
-    flex: 1; min-height: 0; padding: 5mm 4.5mm 3mm;
-    display: flex; flex-direction: column; justify-content: center;
+    flex: 1; min-height: 0; padding: 8mm 4.5mm 3mm;
+    display: flex; flex-direction: column; justify-content: flex-start;
+    position: relative; z-index: 1;
   }
   .front-body h3 {
     font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 24px; line-height: 1.12; color: var(--ink);   /* ≈18pt, minimum 16pt */
+    font-size: 30px; line-height: 1.1; color: var(--ink);    /* ≈22pt, minimum 16pt */
   }
+  /* Groot, vaag set-icoon rechtsonder: vult de voorkant en herhaalt de set ook zonder kleur */
+  .watermark { position: absolute; right: -6mm; bottom: 2mm; width: 34mm; height: 34mm; opacity: 0.09; color: var(--c); pointer-events: none; }
 
   /* Fase-balk: klein onderaan de voorkant */
   .phase-bar {
     padding: 0 3.5mm 3.2mm; display: flex; align-items: center; justify-content: center; gap: 1mm;
   }
+  .phase-bar { position: relative; z-index: 1; }
   .phase-bar .ph {
-    font-size: 7px; letter-spacing: 0.04em; text-transform: uppercase;
-    font-weight: 600; color: var(--ink-muted); opacity: 0.5;
+    font-size: 8px; letter-spacing: 0.04em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-muted); opacity: 0.6;
   }
   .phase-bar .ph.on { font-weight: 800; opacity: 1; }
   .phase-bar .ph.on.aanloop { color: var(--aanloop); }
@@ -108,14 +112,29 @@
   .back-body .meta {
     margin-top: 2.4mm; font-size: 11px; line-height: 1.35; color: var(--ink-muted); font-style: italic;
   }
-  .refs { margin-top: auto; padding-top: 2.4mm; border-top: 1px solid var(--line); }
-  .refs .lbl {
-    font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
-    color: var(--ink-muted); margin-bottom: 1mm;
+  /* Kaartcode = set-icoon + nummer (geen letter: de I las als een 1). In de balk
+     staat het icoon al links, dus daar alleen het nummer. */
+  .pill .ic { width: 3mm; height: 3mm; margin-right: 0.6mm; position: relative; top: 0.35mm; }
+
+  /* Verwijzingen: per doelset een regel met icoon + label, codes als gekleurde pillen */
+  .refs { margin-top: auto; padding-top: 2.2mm; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 1.8mm; }
+  .ref-row { display: flex; flex-direction: column; gap: 0.9mm; }
+  .ref-lbl {
+    display: flex; align-items: center; gap: 1.2mm;
+    font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--ink-muted);
   }
-  .refs .codes { font-size: 13.4px; font-weight: 600; color: var(--ink); line-height: 1.35; }
-  .refs .codes .x { font-weight: 400; color: var(--ink-muted); padding: 0 0.6mm; }
-  .refs + .refs { margin-top: 1.8mm; border-top: none; padding-top: 0; }
+  .pills { display: flex; flex-wrap: wrap; align-items: center; gap: 1mm; }
+  .pill {
+    display: inline-flex; align-items: center;
+    font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 14px; line-height: 1;
+    font-variant-numeric: lining-nums;
+    padding: 0.8mm 1.8mm 0.9mm; border-radius: 100px;
+    background: var(--rbg); color: var(--rc);
+  }
+  .pills .x { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--ink-muted); }
+  .ref-row.to-v { --rc: #23402F; --rbg: #E3ECE6; }
+  .ref-row.to-t { --rc: #6E4C0B; --rbg: #F6EBD3; }
+  .ref-row.to-i { --rc: #234A6C; --rbg: #E1EAF2; }
 
   /* Blanco kaarten */
   .blank-lines { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; padding: 4mm 4.5mm 0; }
@@ -170,7 +189,6 @@
     nl: {
       set: { v: 'Waarde', t: 'Spanning', i: 'Interventie' },
       deck: { v: 'Waarden', t: 'Spanningen', i: 'Interventies' },
-      prefix: { v: 'W', t: 'S', i: 'I' },
       phase: { aanloop: 'Aanloop', doorloop: 'Doorloop', afloop: 'Afloop' },
       lean: { bewoners: 'Wordt vaak vanuit bewoners ingebracht.', gemeente: 'Wordt vaak vanuit de gemeente ingebracht.', beide: 'Vaak voor bewoners én gemeente van belang.' },
       category: { powering: 'Doorzetten', puzzling: 'Verbinden', mediating: 'Afstemmen' },
@@ -182,7 +200,6 @@
     en: {
       set: { v: 'Value', t: 'Tension', i: 'Intervention' },
       deck: { v: 'Values', t: 'Tensions', i: 'Interventions' },
-      prefix: { v: 'V', t: 'T', i: 'I' },
       phase: { aanloop: 'Preparation', doorloop: 'Engagement', afloop: 'Follow-up' },
       lean: { bewoners: 'Often raised by residents.', gemeente: 'Often raised by the municipality.', beide: 'Often matters to residents and municipality alike.' },
       category: { powering: 'Powering', puzzling: 'Puzzling', mediating: 'Mediating' },
@@ -194,7 +211,8 @@
   };
   const T = () => TXT[lang];
   const L = (obj, f) => (lang === 'en' && contentEN[obj.id] && contentEN[obj.id][f]) || obj[f];
-  const code = x => T().prefix[x.id[0]] + x.nr;
+  const code = x => String(x.nr);                                    // in de balk
+  const icode = x => svg(x.id[0]) + x.nr;                             // in verwijzingen
   const esc = s => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const byNr = (a, b) => a.nr - b.nr;
 
@@ -221,20 +239,23 @@
     return `<div class="phase-bar">${PHASES.map((p, i) =>
       (i ? '<span class="arrow">→</span>' : '') + `<span class="ph${on.has(p) ? ' on ' + p : ''}">${T().phase[p]}</span>`).join('')}</div>`;
   };
-  const codes = (ids, list, sep) => ids.map(id => list.find(x => x.id === id)).filter(Boolean).sort(byNr)
-    .map(code).join(sep);
+  const pills = (ids, list, sep) => ids.map(id => list.find(x => x.id === id)).filter(Boolean).sort(byNr)
+    .map(x => `<span class="pill">${icode(x)}</span>`).join(sep);
+  // Eén verwijzingsregel: icoon + label van de doelset, dan de codes als pillen
+  const refRow = (k, label, html) => html ? `<div class="ref-row to-${k}"><div class="ref-lbl">${label}</div><div class="pills">${html}</div></div>` : '';
 
   // ---- Voorkanten ----
   const front = (k, x) => `
     <div class="card" style="${barStyle(k, x)}">
       ${bar(k, x)}
       <div class="front-body"><h3>${esc(L(x, 'title'))}</h3></div>
+      ${svg(k).replace('class="ic"', 'class="watermark"')}
       ${k !== 'v' ? phaseBar(x) : ''}
     </div>`;
 
   // ---- Achterkanten ----
   const backValue = v => {
-    const ts = codes(v.tensions || [], tensions, ', ');
+    const ts = pills(v.tensions || [], tensions, '');
     return `
     <div class="card" style="${barStyle('v', v)}">
       ${bar('v', v)}
@@ -242,26 +263,25 @@
         <h4>${esc(L(v, 'title'))}</h4>
         <div class="expl">${esc(L(v, 'desc'))}</div>
         <div class="meta">${T().lean[v.group] || ''}</div>
-        ${ts ? `<div class="refs"><div class="lbl">${T().playsIn}</div><div class="codes">${ts}</div></div>` : ''}
+        ${ts ? `<div class="refs">${refRow('t', T().playsIn, ts)}</div>` : ''}
       </div>
     </div>`;
   };
   const backTension = t => {
-    const vs = codes(t.values || [], values, '<span class="x">×</span>');
-    const is = codes(t.interventions || [], interventions, ', ');
+    const vs = pills(t.values || [], values, '<span class="x">×</span>');
+    const is = pills(t.interventions || [], interventions, '');
     return `
     <div class="card" style="${barStyle('t', t)}">
       ${bar('t', t)}
       <div class="back-body">
         <h4>${esc(L(t, 'title'))}</h4>
         <div class="expl">${esc(L(t, 'short'))}</div>
-        ${vs ? `<div class="refs"><div class="lbl">${T().links}</div><div class="codes">${vs}</div></div>` : ''}
-        ${is ? `<div class="refs"><div class="lbl">${T().ints}</div><div class="codes">${is}</div></div>` : ''}
+        ${vs || is ? `<div class="refs">${refRow('v', T().links, vs)}${refRow('i', T().ints, is)}</div>` : ''}
       </div>
     </div>`;
   };
   const backIntervention = i => {
-    const ts = codes(tensions.filter(t => t.interventions.includes(i.id)).map(t => t.id), tensions, ', ');
+    const ts = pills(tensions.filter(t => t.interventions.includes(i.id)).map(t => t.id), tensions, '');
     return `
     <div class="card" style="${barStyle('i', i)}">
       ${bar('i', i)}
@@ -269,7 +289,7 @@
         <h4>${esc(L(i, 'title'))}</h4>
         <div class="expl">${esc(L(i, 'short'))}</div>
         <div class="meta">${T().strategy}: ${T().category[i.category] || i.category}</div>
-        ${ts ? `<div class="refs"><div class="lbl">${T().fits}</div><div class="codes">${ts}</div></div>` : ''}
+        ${ts ? `<div class="refs">${refRow('t', T().fits, ts)}</div>` : ''}
       </div>
     </div>`;
   };
@@ -321,6 +341,21 @@
     deck('v', [...values].sort(byNr), backValue);
     deck('t', [...tensions].sort(byNr), backTension);
     deck('i', [...interventions].sort(byNr), backIntervention);
+    document.fonts.ready.then(fitTitles);
+  }
+
+  // Titels op de voorkant: verklein (vanaf 30px, niet onder 22px ≈ 16pt) tot het
+  // langste woord in de breedte past en de titel in de hoogte — nooit midden in een woord afbreken.
+  function fitTitles() {
+    document.querySelectorAll('.front-body h3').forEach(h => {
+      const box = h.parentElement;
+      let size = 30;
+      h.style.fontSize = size + 'px';
+      while (size > 22 && (h.scrollWidth > h.clientWidth + 0.5 || box.scrollHeight > box.clientHeight + 0.5)) {
+        size -= 1;
+        h.style.fontSize = size + 'px';
+      }
+    });
   }
 
   const flipSel = document.getElementById('flip'), langSel = document.getElementById('lang');
