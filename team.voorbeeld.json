@@ -1,0 +1,51 @@
+{
+  "team": {
+    "naam": "Voorbeeldteam (fictief)",
+    "contact": "Dit is een voorbeeld van een teamlaag — open de site met ?team=team.voorbeeld.json"
+  },
+  "basisVersie": "v3",
+  "bijgewerkt": "2026-10-02",
+
+  "toevoegen": {
+    "values": [
+      { "id": "x-v1", "title": "Zorgvuldig omgaan met persoonsgegevens", "group": "gemeente",
+        "desc": "Wat bewoners delen wordt alleen gebruikt waarvoor het is gevraagd, en blijft veilig.",
+        "tensions": ["t9"] }
+    ],
+    "tensions": [
+      { "id": "x-t1", "title": "Bewoners zijn participatiemoe",
+        "short": "Er is al zo vaak om inbreng gevraagd dat mensen niet meer willen meedoen.",
+        "body": "In sommige buurten lopen meerdere trajecten tegelijk of vlak na elkaar. Bewoners haken af, niet omdat het onderwerp ze niet raakt, maar omdat ze het gevoel hebben dat hun eerdere inbreng nergens is gebleven.",
+        "values": ["v17", "v1"], "interventions": ["i25", "x-i1"], "phase": "aanloop" }
+    ],
+    "interventions": [
+      { "id": "x-i1", "title": "Trajecten in de buurt bundelen",
+        "short": "Afstemmen met andere afdelingen die in dezelfde buurt participatie organiseren, zodat bewoners één keer worden gevraagd.",
+        "when": "Wanneer meerdere projecten tegelijk in hetzelfde gebied bewoners benaderen.",
+        "example": "Een gezamenlijke buurtavond voor de herinrichting van een straat en de vernieuwing van een speeltuin, met één terugkoppeling.",
+        "watch": "Bundelen vraagt dat afdelingen hun planning op elkaar afstemmen — begin daar vroeg mee.",
+        "phase": "aanloop", "category": "mediating" }
+    ]
+  },
+
+  "verhalen": [
+    { "id": "x-c1", "title": "Voorbeeld uit de eigen voorbeeldenbank",
+      "samenvatting": "Een korte samenvatting van het voorbeeld, met een link naar de volledige beschrijving op het intranet.",
+      "url": "https://intranet.example/voorbeeldenbank/123", "intranet": true,
+      "tensions": ["t5", "x-t1"], "interventions": ["i17"] },
+    { "id": "x-c2", "title": "Openbaar voorbeeld",
+      "samenvatting": "Een voorbeeld dat openbaar online staat.",
+      "url": "https://kennisknooppuntparticipatie.nl/",
+      "tensions": ["t7"], "interventions": ["i16"] }
+  ],
+
+  "verbergen": ["v13", "i20"],
+
+  "aanpassen": {
+    "t7": { "title": "Participatie start te laat of te vroeg" }
+  },
+
+  "koppelen": [
+    { "van": "t4", "naar": "i25" }
+  ]
+}

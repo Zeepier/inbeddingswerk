@@ -114,6 +114,7 @@
   }
   /* Kaartcode = set-icoon + nummer (geen letter: de I las als een 1). In de balk
      staat het icoon al links, dus daar alleen het nummer. */
+  .lc { font-family: 'Inter', sans-serif; font-size: 0.5em; margin-left: 0.25em; opacity: 0.75; position: relative; top: -0.3em; }
   .pill .ic { width: 3mm; height: 3mm; margin-right: 0.6mm; position: relative; top: 0.35mm; }
 
   /* Verwijzingen: per doelset een regel met icoon + label, codes als gekleurde pillen */
@@ -180,6 +181,7 @@
 
 <script src="content.js"></script>
 <script src="content_en.js"></script>
+<script src="teamlaag.js"></script>
 <script>
   const params = new URLSearchParams(location.search);
   let lang = params.get('lang') === 'en' ? 'en' : 'nl';
@@ -211,8 +213,10 @@
   };
   const T = () => TXT[lang];
   const L = (obj, f) => (lang === 'en' && contentEN[obj.id] && contentEN[obj.id][f]) || obj[f];
-  const code = x => String(x.nr);                                    // in de balk
-  const icode = x => svg(x.id[0]) + x.nr;                             // in verwijzingen
+  // Teamkaarten krijgen een subtiel ◆ naast het nummer
+  const lc = x => x.local ? '<span class="lc">◆</span>' : '';
+  const code = x => String(x.nr) + lc(x);                             // in de balk
+  const icode = x => svg(setKey(x)) + x.nr + lc(x);                   // in verwijzingen
   const esc = s => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const byNr = (a, b) => a.nr - b.nr;
 
@@ -362,7 +366,15 @@
   flipSel.value = flip; langSel.value = lang;
   flipSel.onchange = () => { flip = flipSel.value; render(); };
   langSel.onchange = () => { lang = langSel.value; render(); };
-  render();
+  teamReady.then(layer => {
+    if (layer && layer.team && layer.team.naam) {
+      const t = document.createElement('div');
+      t.style.marginTop = '6px';
+      t.innerHTML = '<strong>Teamversie:</strong> ' + layer.team.naam.replace(/</g, '&lt;') + ' — teamkaarten zijn gemarkeerd met ◆.';
+      document.querySelector('.toolbar').appendChild(t);
+    }
+    render();
+  });
 </script>
 </body>
 </html>
