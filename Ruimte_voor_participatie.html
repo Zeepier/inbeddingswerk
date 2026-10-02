@@ -496,6 +496,7 @@
     font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
   }
   .vcard-count { color: var(--ink-muted); }
+  .vcard-num { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--mod-waarden); }
   .vcard.hidden { display: none; }
 
   /* SPANNINGEN — okergele topbalk */
@@ -1234,6 +1235,9 @@ try {
 const t = key => UI[lang][key];
 // Tekst van een kaart in de gekozen taal (valt terug op Nederlands)
 const L = (obj, field) => (lang === 'en' && typeof contentEN !== 'undefined' && contentEN[obj.id] && contentEN[obj.id][field]) || obj[field];
+// Vast kaartnummer met set-letter: W/S/I (nl), V/T/I (en) — zie 'nr' in content.js
+const CODE_PREFIX = { nl: { v: 'W', t: 'S', i: 'I' }, en: { v: 'V', t: 'T', i: 'I' } };
+const cardCode = x => CODE_PREFIX[lang][x.id[0]] + x.nr;
 const phaseText = p => (p || '').split(' ').filter(Boolean).map(x => t('phase')[x] || x).join(' · ');
 
 // Originele (Nederlandse) HTML van alle vaste teksten bewaren vóór er iets aan verandert
@@ -1248,6 +1252,7 @@ function buildValueCard(v) {
   return `<button class="vcard ${v.group}" type="button" onclick="showValueModal('${v.id}')">
     <h4>${L(v, 'title')}</h4>
     <div class="vcard-foot">
+      <span class="vcard-num">${cardCode(v)}</span>
       <span class="vcard-count">${n} ${n === 1 ? t('tension') : t('tensions')}</span>
     </div>
   </button>`;
@@ -1260,7 +1265,6 @@ function buildValueChip(v) {
 }
 
 function buildTensionCard(tn, idx) {
-  const num = String(idx != null ? idx + 1 : tensions.findIndex(x => x.id === tn.id) + 1).padStart(2, '0');
   const vals = (tn.values || []).map(vid => values.find(v => v.id === vid)).filter(Boolean);
   const phaseHtml = (tn.phase || '').split(' ').filter(Boolean).map(p => `<span class="tcard-phase" data-phase="${p}">${t('phase')[p] || p}</span>`).join(' ');
   const footer = (vals.length || tn.phase)
@@ -1268,7 +1272,7 @@ function buildTensionCard(tn, idx) {
     : '';
   return `<button class="tcard" type="button" data-tphase="${tn.phase||''}" onclick="showTensionModal('${tn.id}')">
     <div>
-      <div class="tcard-num">${num}</div>
+      <div class="tcard-num">${cardCode(tn)}</div>
       <h4>${L(tn, 'title')}</h4>
     </div>
     ${footer}
@@ -1278,9 +1282,8 @@ function buildTensionCard(tn, idx) {
 const categoryLabel = new Proxy({}, { get: (_, c) => t('category')[c] });
 
 function buildInterventionCard(i, idx) {
-  const num = String(idx != null ? idx + 1 : interventions.findIndex(x => x.id === i.id) + 1).padStart(2, '0');
   return `<button class="icard" type="button" data-id="${i.id}" data-phase="${i.phase}" data-category="${i.category}" onclick="showInterventionModal('${i.id}')">
-    <div class="icard-num">${t('intervention')} ${num}</div>
+    <div class="icard-num">${cardCode(i)}</div>
     <h4>${L(i, 'title')}</h4>
     <p class="icard-desc">${L(i, 'short')}</p>
     <div class="icard-tags">
@@ -1334,7 +1337,7 @@ function showValueModal(id) {
   const linkedTensions = (v.tensions || []).map(tid => tensions.find(tn => tn.id === tid)).filter(Boolean);
   const desc = L(v, 'desc');
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">${t('value')}</div>
+    <div class="modal-eyebrow">${t('value')} · ${cardCode(v)}</div>
     <h2>${L(v, 'title')}</h2>
     ${desc ? `<p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${desc}</p>` : ''}
     <p style="color: var(--ink-soft); font-size: 14px;">${t('valueLean')[v.group] || ''} ${t('valueClash')}</p>
@@ -1353,7 +1356,6 @@ function showValueModal(id) {
 
 function showTensionModal(id) {
   const tn = tensions.find(x => x.id === id);
-  const idx = tensions.findIndex(x => x.id === id);
   const linkedInts = tn.interventions.map(iid => interventions.find(i => i.id === iid)).filter(Boolean);
   const linkedCases = tn.cases.map(cid => cases.find(c => c.id === cid)).filter(Boolean);
   const vals = (tn.values || []).map(vid => values.find(v => v.id === vid)).filter(Boolean);
@@ -1379,7 +1381,7 @@ function showTensionModal(id) {
   }
 
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">${t('tensionEyebrow')} · ${String(idx+1).padStart(2,'0')}</div>
+    <div class="modal-eyebrow">${t('tensionEyebrow')} · ${cardCode(tn)}</div>
     <h2>${L(tn, 'title')}</h2>
     <p style="color: var(--ink-soft); font-size: 16px; margin-bottom: 8px;">${L(tn, 'body')}</p>
     ${vals.length ? `
@@ -1403,11 +1405,10 @@ function showTensionModal(id) {
 
 function showInterventionModal(id) {
   const i = interventions.find(x => x.id === id);
-  const idx = interventions.findIndex(x => x.id === id);
   const linkedTensions = tensions.filter(tn => tn.interventions.includes(id));
   const linkedCases = cases.filter(c => c.interventions.includes(id));
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">${t('intervention')} ${String(idx+1).padStart(2,'0')} · ${categoryLabel[i.category]||i.category} · ${phaseText(i.phase)}</div>
+    <div class="modal-eyebrow">${t('intervention')} · ${cardCode(i)} · ${categoryLabel[i.category]||i.category} · ${phaseText(i.phase)}</div>
     <h2>${L(i, 'title')}</h2>
     <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${L(i, 'short')}</p>
     <div class="modal-section">
@@ -1504,13 +1505,11 @@ function closeModal() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Sorteer spanningen en interventies chronologisch: aanloop > doorloop > afloop.
-// Array.sort is stabiel, dus kaartjes binnen dezelfde fase houden hun onderlinge volgorde.
-const phaseOrder = { aanloop: 0, doorloop: 1, afloop: 2 };
-const firstPhase = x => Math.min(99, ...(x.phase || '').split(' ').filter(Boolean).map(p => phaseOrder[p] ?? 99));
-const byPhase = (a, b) => firstPhase(a) - firstPhase(b);
-tensions.sort(byPhase);
-interventions.sort(byPhase);
+// Toon de kaarten in de volgorde van hun vaste nummer — gelijk aan het fysieke deck.
+const byNr = (a, b) => a.nr - b.nr;
+values.sort(byNr);
+tensions.sort(byNr);
+interventions.sort(byNr);
 
 setupFilters();
 setupTensionFilters();

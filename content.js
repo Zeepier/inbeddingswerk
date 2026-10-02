@@ -20,13 +20,18 @@
 // Omgekeerde koppelingen (vanuit interventies naar spanningen) worden
 // automatisch berekend — die hoef je niet bij te houden.
 //
-// IDS
+// IDS EN NUMMERS
 // ───
 // Waarden:      v1, v2, v3, ... (voeg toe als v18, v19, enz.; v11 en v14 zijn
 //               samengevoegd met v10 en v5 — hergebruik die ids niet)
 // Spanningen:   t1, t2, t3, ... (voeg toe als t14, t15, enz.)
 // Interventies: i1, i2, i3, ... (voeg toe als i26, i27, enz.)
 // Verhalen:     c1, c2, c3, ... (voeg toe als c5, c6, enz.)
+//
+// nr: het VASTE kaartnummer (W1–W15, S1–S14, I1–I23; Engels V/T/I).
+//   Waarden en spanningen staan thematisch geordend, interventies op fase.
+//   Nooit hernummeren: een nieuwe kaart krijgt het volgende vrije nummer in
+//   zijn set, een verwijderd nummer wordt niet hergebruikt.
 //
 // WAARDE-VELDEN
 // ─────────────
@@ -52,37 +57,37 @@
 
 const values = [
 
-  { id: 'v1',  title: 'Invloed van bewoners',                   group: 'bewoners', tensions: ['t1','t2','t5','t7','t12','t13'],
+  { id: 'v1', nr: 1, title: 'Invloed van bewoners',                   group: 'bewoners', tensions: ['t1','t2','t5','t7','t12','t13'],
     desc: 'De inbreng van bewoners heeft daadwerkelijk gevolgen voor gemeentelijke plan- of besluitvorming.' },
-  { id: 'v2',  title: 'Lokale kennis en geschiedenis meenemen', group: 'bewoners', tensions: ['t8','t11'],
+  { id: 'v2', nr: 3, title: 'Lokale kennis en geschiedenis meenemen', group: 'bewoners', tensions: ['t8','t11'],
     desc: 'De kennis en ervaring van bewoners over hun buurt, en wat er eerder op deze plek en in eerdere participatie is gebeurd, worden gekend en meegenomen.' },
-  { id: 'v3',  title: 'Erkenning perspectief bewoners',         group: 'bewoners', tensions: ['t6','t14'],
+  { id: 'v3', nr: 2, title: 'Erkenning perspectief bewoners',         group: 'bewoners', tensions: ['t6','t14'],
     desc: 'De manier waarop bewoners de situatie beleven wordt serieus genomen, ook als die afwijkt van het officiële beeld.' },
-  { id: 'v4',  title: 'Bevorderen sociale cohesie in de buurt', group: 'bewoners', tensions: ['t12'],
+  { id: 'v4', nr: 4, title: 'Bevorderen sociale cohesie in de buurt', group: 'bewoners', tensions: ['t12'],
     desc: 'Het proces versterkt de onderlinge verbondenheid en het contact tussen bewoners.' },
-  { id: 'v5',  title: 'Ruimte voor een open gesprek en tegenspraak', group: 'bewoners', tensions: ['t3','t9','t11'],
+  { id: 'v5', nr: 6, title: 'Ruimte voor een open gesprek en tegenspraak', group: 'bewoners', tensions: ['t3','t9','t11'],
     desc: 'Er is ruimte voor een eerlijk gesprek, ook over lastige of ongemakkelijke onderwerpen, en voor afwijkende meningen en kritische geluiden.' },
 
-  { id: 'v6',  title: 'Uitvoeren staand beleid',                group: 'gemeente', tensions: ['t2','t6','t11'],
+  { id: 'v6', nr: 13, title: 'Uitvoeren staand beleid',                group: 'gemeente', tensions: ['t2','t6','t11'],
     desc: 'Vastgesteld beleid en eerder gemaakte afspraken worden uitgevoerd.' },
-  { id: 'v7',  title: 'Ambtelijke loyaliteit',                  group: 'gemeente', tensions: ['t3'],
+  { id: 'v7', nr: 14, title: 'Ambtelijke loyaliteit',                  group: 'gemeente', tensions: ['t3'],
     desc: 'Ambtenaren handelen in lijn met de koers en besluiten van bestuur en organisatie.' },
-  { id: 'v8',  title: 'Politiek risico beheersen',              group: 'gemeente', tensions: ['t1','t3','t9'],
+  { id: 'v8', nr: 15, title: 'Politiek risico beheersen',              group: 'gemeente', tensions: ['t1','t3','t9'],
     desc: 'Bestuurlijke en politieke gevoeligheden als gevolg van de participatie worden tijdig herkend en beheerst.' },
-  { id: 'v9',  title: 'Domeinoverstijgende samenwerking',       group: 'gemeente', tensions: ['t4'],
+  { id: 'v9', nr: 10, title: 'Domeinoverstijgende samenwerking',       group: 'gemeente', tensions: ['t4'],
     desc: 'Verschillende afdelingen en beleidsterreinen werken integraal aan de opgave in plaats van los van elkaar.' },
-  { id: 'v10', title: 'Doelmatig omgaan met tijd en geld',      group: 'gemeente', tensions: ['t5','t7','t12'],
+  { id: 'v10', nr: 12, title: 'Doelmatig omgaan met tijd en geld',      group: 'gemeente', tensions: ['t5','t7','t12'],
     desc: 'Tijd, inzet en geld worden zo besteed dat ze zo veel mogelijk opleveren, en de kosten van proces en uitkomsten blijven binnen haalbare grenzen.' },
-  { id: 'v12', title: 'Vakkennis tot zijn recht laten komen',   group: 'gemeente', tensions: ['t4','t8','t14'],
+  { id: 'v12', nr: 11, title: 'Vakkennis tot zijn recht laten komen',   group: 'gemeente', tensions: ['t4','t8','t14'],
     desc: 'De expertise van vakspecialisten weegt mee in de uiteindelijke keuzes.' },
 
-  { id: 'v13', title: '(Sociaal) leren',                        group: 'beide',    tensions: [],
+  { id: 'v13', nr: 9, title: '(Sociaal) leren',                        group: 'beide',    tensions: [],
     desc: 'Betrokkenen worden door het proces wijzer over zichzelf, elkaar en de opgave.' },
-  { id: 'v15', title: 'Gelijke behandeling bewoners',           group: 'beide',    tensions: ['t13'],
+  { id: 'v15', nr: 5, title: 'Gelijke behandeling bewoners',           group: 'beide',    tensions: ['t13'],
     desc: 'De inbreng van alle bewoners weegt even zwaar, ongeacht of ze wel of niet zichtbaar zijn in het (participatie)proces.' },
-  { id: 'v16', title: 'Navolgbaar overheidshandelen',           group: 'beide',    tensions: ['t14'],
+  { id: 'v16', nr: 8, title: 'Navolgbaar overheidshandelen',           group: 'beide',    tensions: ['t14'],
     desc: 'Het is voor bewoners te volgen en te begrijpen hoe en waarom de gemeente tot een besluit komt.' },
-  { id: 'v17', title: 'Vertrouwen',                             group: 'beide',    tensions: ['t9','t10','t11'],
+  { id: 'v17', nr: 7, title: 'Vertrouwen',                             group: 'beide',    tensions: ['t9','t10','t11'],
     desc: 'Bewoners en gemeente kunnen op elkaar rekenen: afspraken worden nagekomen en inbreng wordt niet voor niets gevraagd.' },
 
 ];
@@ -94,98 +99,98 @@ const values = [
 
 const tensions = [
 
-  { id: 't1',
+  { id: 't1', nr: 1,
     title: 'Verschil in interpretatie van ruimte voor invloed',
     body: 'Deelnemers en organisatie hanteren verschillende beelden van wat "meedoen" betekent. Wat voor de één raadpleging is, is voor de ander medebeslissen. Zonder expliciete afstemming groeit dit verschil tijdens het traject uit tot teleurstelling. In termen van de participatieladder zit hier vaak een onuitgesproken sprong tussen "informeren" en "coproduceren".',
     interventions: ['i13','i1','i12','i14'],
     cases: ['c3'],
     values: ['v1','v8'], phase: 'aanloop' },
 
-  { id: 't2',
+  { id: 't2', nr: 2,
     title: 'Impact van een ontwikkeling niet passend bij ruimte voor invloed',
     body: 'De voorgenomen ingreep raakt mensen ingrijpend in hun woon- of leefkwaliteit, terwijl de aangeboden invloed beperkt is tot bijvoorbeeld inrichtingsdetails. De mismatch tussen impact en zeggenschap voedt wantrouwen en maakt de uitkomst kwetsbaar voor procedureel verzet (zienswijzen, beroep).',
     interventions: ['i6','i14','i7','i20','i21'],
     cases: ['c2','c3'],
     values: ['v1','v6'], phase: 'aanloop' },
 
-  { id: 't3',
+  { id: 't3', nr: 13,
     title: 'Wijze van omgang met weerstand en conflict',
     body: 'Weerstand wordt vaak gezien als hindernis, terwijl het waardevolle informatie bevat over wat er werkelijk speelt. Hoe zorg je dat conflict productief wordt benut zonder dat het proces vastloopt of escaleert in de pers?',
     interventions: ['i2','i7','i19','i14'],
     cases: ['c4'],
     values: ['v5','v8','v7'], phase: 'doorloop' },
 
-  { id: 't4',
+  { id: 't4', nr: 7,
     title: 'Tegenstrijdig beleid of wetgeving maakt keuzes lastig',
     body: 'Wettelijke kaders en beleidsdoelen botsen in dezelfde opgave — denk aan woningbouwopgave versus klimaatadaptatie of stikstofruimte. Keuzes worden uitgesteld omdat geen enkel kader leidend is, en juridische onzekerheid stuurt het proces.',
     interventions: ['i8','i6','i11','i14'],
     cases: ['c2'],
     values: ['v9','v12'], phase: 'aanloop' },
 
-  { id: 't5',
+  { id: 't5', nr: 9,
     title: 'Gekaderde financiering maakt beweegruimte ingewikkeld',
     body: 'Subsidies en budgetten zijn vaak geoormerkt voor specifieke doelen, terwijl participatie juist vraagt om reageren op wat opkomt. Wat doe je als de bewonersinbreng buiten de financiële kaders valt — van de subsidie of zelfs van de begrotingsperiode?',
     interventions: ['i17','i10','i1','i11'],
     cases: ['c1'],
     values: ['v1','v10'], phase: 'aanloop' },
 
-  { id: 't6',
+  { id: 't6', nr: 8,
     title: 'Scope van beleid niet passend bij belangen in het leefgebied',
     body: 'Beleid is vaak thematisch georganiseerd (groen, mobiliteit, wonen, sociaal), terwijl bewoners hun leefomgeving integraal beleven. Gemeentelijke afdelingen werken langs elkaar heen en plekken vallen tussen wal en schip.',
     interventions: ['i8','i6','i3','i11'],
     cases: ['c2'],
     values: ['v3','v6'], phase: 'aanloop' },
 
-  { id: 't7',
+  { id: 't7', nr: 4,
     title: 'Timing van participatie niet passend bij fase van ontwikkeling',
     body: 'Participatie wordt te laat georganiseerd — na een principebesluit waar nauwelijks meer aan te schroeven valt — of juist te vroeg, zonder concreet aangrijpingspunt. Beide leiden tot frustratie aan beide kanten van de tafel.',
     interventions: ['i16','i13','i7','i21','i22','i23'],
     cases: ['c3'],
     values: ['v1','v10'], phase: 'aanloop' },
 
-  { id: 't8',
+  { id: 't8', nr: 10,
     title: 'Ervaringskennis van bewoners botst met vakkennis van de gemeente',
     body: 'Bewoners ervaren iets anders dan rapporten, metingen of vakspecialisten aangeven — denk aan geluidsoverlast die "binnen de norm" valt, of veiligheid die statistisch is verbeterd maar gevoelsmatig niet. Het rationele bewijs staat haaks op de geleefde werkelijkheid.',
     interventions: ['i7','i14','i12','i8','i24'],
     cases: ['c4'],
     values: ['v2','v12'], phase: 'doorloop' },
 
-  { id: 't9',
+  { id: 't9', nr: 12,
     title: 'Behoefte aan transparantie bij gesloten besluitvorming',
     body: 'Sommige besluiten worden om bestuurlijke, juridische of onderhandelingstechnische redenen achter gesloten deuren genomen. Hoe communiceer je daar transparant over zonder vertrouwen te verliezen — en zonder de onderhandelingsruimte weg te geven?',
     interventions: ['i12','i14','i1'],
     cases: ['c3'],
     values: ['v5','v8','v17'], phase: 'doorloop afloop' },
 
-  { id: 't10',
+  { id: 't10', nr: 6,
     title: 'Bestuurlijke of ambtelijke wisselingen in langlopende ontwikkeling',
     body: 'Wethouders, projectleiders of dossierhouders wisselen tijdens het traject — zeker rond verkiezingen of reorganisaties. Afspraken raken in de mist en deelnemers moeten hun verhaal opnieuw vertellen aan een nieuwe gesprekspartner.',
     interventions: ['i1','i12','i25'],
     cases: ['c4'],
     values: ['v17'], phase: 'doorloop afloop' },
 
-  { id: 't11',
+  { id: 't11', nr: 14,
     title: 'Geschiedenis en context omgeving van invloed op nieuwe initiatieven',
     body: 'Eerdere mislukkingen, breuken in vertrouwen of onopgeloste kwesties uit het verleden bepalen hoe nieuwe initiatieven worden ontvangen — vaak voordat ze überhaupt zijn gestart. Wat eruit ziet als weerstand tegen het nieuwe plan, is soms een echo van het oude.',
     interventions: ['i7','i16','i12','i25'],
     cases: ['c1'],
     values: ['v2','v5','v6','v17'], phase: 'aanloop' },
 
-  { id: 't12',
+  { id: 't12', nr: 5,
     title: 'Beperkt responsief samenwerken door prestatiegerichte aanpak',
     body: 'KPI\'s, deadlines en verantwoordingseisen sturen het werk zo strak dat er weinig ruimte is om te reageren op wat opkomt. Het traject loopt door volgens planning, ook als signalen aangeven dat het niet meer klopt.',
     interventions: ['i16','i17','i10','i1','i22','i23','i24'],
     cases: ['c1'],
     values: ['v1','v4','v10'], phase: 'doorloop afloop' },
 
-  { id: 't13',
+  { id: 't13', nr: 3,
     title: 'Invloed geven versus iedereen gelijk behandelen',
     body: 'Wie meedoet aan participatie krijgt invloed — maar dat roept de vraag op of de overheid daarmee de actieve, mondige bewoners voortrekt boven de zwijgende meerderheid. Hoe geef je ruimte aan participatie zonder de rechtsgelijkheid van alle inwoners uit het oog te verliezen?',
     interventions: ['i14','i18','i19','i12'],
     cases: ['c3'],
     values: ['v1','v15'], phase: 'doorloop' },
 
-  { id: 't14',
+  { id: 't14', nr: 11,
     title: 'Gemeente, bewoners en afdelingen praten langs elkaar heen',
     body: 'Gemeente en bewoners — en ook afdelingen onderling — gebruiken dezelfde woorden, maar bedoelen er iets anders mee. Wat voor de één "gebiedsontwikkeling" of "participatie" is, betekent voor de ander iets heel anders. Zolang dat onbesproken blijft, praten mensen langs elkaar heen en lijkt er overeenstemming die er niet is.',
     interventions: ['i7','i14','i12'],
@@ -201,7 +206,7 @@ const tensions = [
 
 const interventions = [
 
-  { id: 'i1',
+  { id: 'i1', nr: 1,
     title: 'Bestuurlijke rugdekking',
     short: 'Gezamenlijke visie met draagvlak en mandaat van eindverantwoordelijke bestuurders op de beoogde aanpak.',
     when: 'Aan het begin van een traject, en bij elk kantelpunt waar de aanpak fundamenteel verandert.',
@@ -209,7 +214,7 @@ const interventions = [
     watch: 'Rugdekking is geen eenmalig moment. Bestuurders wisselen, prioriteiten verschuiven. Onderhoud de afspraak.',
     phase: 'aanloop', category: 'powering' },
 
-  { id: 'i2',
+  { id: 'i2', nr: 2,
     title: 'Tegenspraak opzoeken',
     short: 'Op zoek naar potentieel kritische stemmen binnen de gemeente — wie verwacht je weerstand van? Ga met hen in gesprek en neem hun twijfels mee.',
     when: 'In de voorbereidende fase, vóór je een aanpak vaststelt — niet om te overtuigen, maar om de redenering te begrijpen.',
@@ -217,7 +222,7 @@ const interventions = [
     watch: 'Tegenspraak organiseren is geen vinkjes-ritueel. Echte tegenspraak voelt oncomfortabel.',
     phase: 'aanloop', category: 'mediating' },
 
-  { id: 'i3',
+  { id: 'i3', nr: 3,
     title: 'Bondgenoten opzoeken',
     short: 'Zoeken naar potentieel sympathieke stemmen binnen de organisatie — van welke afdelingen heb je steun nodig? Maak vroeg de connectie.',
     when: 'Vroeg in het traject, en steeds wanneer je een nieuwe fase ingaat.',
@@ -225,7 +230,7 @@ const interventions = [
     watch: 'Bondgenoten worden geen mede-verantwoordelijken zonder dat ze daar iets voor terugzien.',
     phase: 'aanloop doorloop', category: 'mediating' },
 
-  { id: 'i4',
+  { id: 'i4', nr: 10,
     title: 'Vernieuwende werkwijze',
     short: 'Experimenteren met een vernieuwde werkwijze en verkennen van nieuwe samenwerkingsvormen of constructies.',
     when: 'Wanneer bestaande routines aantoonbaar niet werken voor deze opgave — en niemand iets verliest bij een experiment.',
@@ -233,7 +238,7 @@ const interventions = [
     watch: 'Experimenteren vraagt om expliciete afspraken: wat leren we, en wanneer evalueren we?',
     phase: 'doorloop', category: 'puzzling' },
 
-  { id: 'i5',
+  { id: 'i5', nr: 11,
     title: 'Scenariovorming',
     short: 'Het ontwikkelen van verschillende toekomstscenario\'s om keuzes en gevolgen inzichtelijk te maken.',
     when: 'Bij complexe opgaven waar één toekomstbeeld te beperkend is en de keuze nog open ligt.',
@@ -241,7 +246,7 @@ const interventions = [
     watch: 'Scenario\'s mogen geen verkapte voorkeursoptie zijn. Twee fictieve naast één echte ondermijnt het instrument.',
     phase: 'doorloop', category: 'puzzling' },
 
-  { id: 'i6',
+  { id: 'i6', nr: 4,
     title: 'Wenkend perspectief',
     short: 'Articuleren van een visie op de opgave waarin de belangen en perspectieven van verschillende afdelingen verwerkt zijn.',
     when: 'Wanneer afdelingen langs elkaar heen werken of de opgave fragmentarisch oogt.',
@@ -249,7 +254,7 @@ const interventions = [
     watch: 'Een wenkend perspectief verliest zijn werking als het te abstract blijft. Maak het concreet aan een plek of moment.',
     phase: 'aanloop doorloop', category: 'puzzling' },
 
-  { id: 'i7',
+  { id: 'i7', nr: 12,
     title: 'Meenemen in belevingswereld',
     short: 'Weg van bureau en vergaderkamer — naar het persoonlijk beleven van een situatie en het zien van ontwikkelingen in een gebied.',
     when: 'Wanneer er een groot verschil is tussen rapport-werkelijkheid en geleefde werkelijkheid.',
@@ -257,7 +262,7 @@ const interventions = [
     watch: 'Niet ensceneren. De waarde zit in wat je niet had verwacht tegen te komen.',
     phase: 'doorloop', category: 'mediating' },
 
-  { id: 'i8',
+  { id: 'i8', nr: 13,
     title: 'Beleidsspiegel',
     short: 'Het inzichtelijk maken van al het beleid dat in een gebied samenkomt, om zo een nieuw integraal perspectief te scheppen.',
     when: 'In gebieden waar veel beleid samenvalt en niemand het overzicht heeft.',
@@ -265,7 +270,7 @@ const interventions = [
     watch: 'Een beleidsspiegel kan verlammend werken als hij zonder duiding wordt gepresenteerd. Zorg voor begeleiding bij het lezen.',
     phase: 'doorloop', category: 'puzzling' },
 
-  { id: 'i10',
+  { id: 'i10', nr: 14,
     title: 'Opplussen',
     short: 'Organiseren van benodigde extra capaciteit, expertise, betrokkenheid, geld of tijd — of een rol die ontbreekt — op het moment dat blijkt dat de basisopzet ontoereikend is.',
     when: 'Wanneer duidelijk wordt dat de basisopzet niet toereikend is voor de complexiteit.',
@@ -273,7 +278,7 @@ const interventions = [
     watch: 'Opplussen is geen oplossing voor onduidelijkheid over de opgave. Eerst scherper, dan opschalen.',
     phase: 'doorloop', category: 'powering' },
 
-  { id: 'i11',
+  { id: 'i11', nr: 15,
     title: 'Beleidshaakjes zoeken',
     short: 'Het verbinden van nieuwe initiatieven aan bestaand beleid om ze beter te verankeren in financiering, mandaat en uitvoeringsagenda\'s.',
     when: 'Bij initiatieven die buiten de gangbare kaders vallen maar wel passen bij ambities.',
@@ -281,7 +286,7 @@ const interventions = [
     watch: 'Een haakje is geen volledige inbedding. Houd in de gaten of het haakje stevig genoeg is.',
     phase: 'doorloop afloop', category: 'puzzling' },
 
-  { id: 'i12',
+  { id: 'i12', nr: 16,
     title: 'Opbrengst inzichtelijk maken',
     short: 'Het duidelijk en herleidbaar communiceren van de perspectieven, inzichten en context uit het participatieproces — zodat de inbreng traceerbaar is.',
     when: 'Na elke participatieronde, vóór bestuurlijke besluitvorming.',
@@ -289,7 +294,7 @@ const interventions = [
     watch: 'Opbrengst zonder traceerbaarheid (wat is er met welke inbreng gedaan?) verliest zijn functie.',
     phase: 'doorloop afloop', category: 'puzzling' },
 
-  { id: 'i13',
+  { id: 'i13', nr: 5,
     title: 'Kaders formuleren',
     short: 'Het vaststellen van duidelijke grenzen en richtlijnen waarbinnen het proces plaatsvindt — wat ligt vast, wat is onderhandelbaar.',
     when: 'Aan het begin van een traject. Kaders die later komen voelen als verschuiving.',
@@ -297,7 +302,7 @@ const interventions = [
     watch: 'Kaders moeten te dragen zijn. Te strakke kaders maken participatie schijn; te losse kaders zorgen voor teleurstelling achteraf.',
     phase: 'aanloop', category: 'powering' },
 
-  { id: 'i14',
+  { id: 'i14', nr: 17,
     title: 'Dilemma\'s op tafel',
     short: 'Het expliciet benoemen en bespreken van lastige keuzes of tegenstrijdige belangen op het moment dat ze zichtbaar worden — niet later.',
     when: 'Op het moment dat een schuring zichtbaar wordt — niet later.',
@@ -305,7 +310,7 @@ const interventions = [
     watch: 'Dilemma\'s presenteren als zwart-wit keuzes versimpelt de werkelijkheid. Toon de gradaties.',
     phase: 'doorloop afloop', category: 'puzzling' },
 
-  { id: 'i16',
+  { id: 'i16', nr: 18,
     title: 'Vertraging als investering',
     short: 'Het bewust vertragen van het proces om meer tijd te nemen voor ontwikkeling, kwaliteit en draagvlak — en die keuze publiek verantwoorden.',
     when: 'Wanneer de planning de inhoud begint te dicteren en kwaliteit eronder lijdt.',
@@ -313,7 +318,7 @@ const interventions = [
     watch: 'Vertraging zonder duidelijk doel ondermijnt vertrouwen. Maak het verschil tussen "stilstand" en "investering" expliciet.',
     phase: 'doorloop', category: 'puzzling' },
 
-  { id: 'i17',
+  { id: 'i17', nr: 6,
     title: 'Breed inzetbaar budget',
     short: 'Het beschikbaar stellen van flexibele middelen die voor verschillende doelen binnen het proces kunnen worden gebruikt — om te kunnen reageren op wat opkomt.',
     when: 'In open trajecten waar je vooraf niet weet wat nodig is.',
@@ -321,7 +326,7 @@ const interventions = [
     watch: 'Flexibele budgetten vragen om vertrouwen vanuit de organisatie. Bouw dat vertrouwen actief op.',
     phase: 'aanloop', category: 'powering' },
 
-  { id: 'i18',
+  { id: 'i18', nr: 19,
     title: 'Afgevaardigd comité',
     short: 'Het vormen van een groep vertegenwoordigers die namens een bredere groep meedenkt of beslist — met mandaat en terugkoppelingsstructuur.',
     when: 'In trajecten waar continu intensief overleg met de hele groep niet werkbaar is.',
@@ -329,7 +334,7 @@ const interventions = [
     watch: 'Vertegenwoordiging vraagt om mandaat én terugkoppeling. Zonder dat verliest het comité legitimiteit.',
     phase: 'doorloop', category: 'mediating' },
 
-  { id: 'i19',
+  { id: 'i19', nr: 20,
     title: 'Deliberatie als ingreep',
     short: 'Het organiseren van gestructureerde discussies — bijvoorbeeld in de vorm van een burgerberaad — om tot gezamenlijke inzichten en oplossingen te komen.',
     when: 'Bij vraagstukken waar verschillende waarden tegenover elkaar staan en de gemeente niet alleen mag of wil beslissen.',
@@ -337,7 +342,7 @@ const interventions = [
     watch: 'Deliberatie is geen toverstaf. Zonder bestuurlijk commitment vooraf wordt het een dure exercitie.',
     phase: 'doorloop', category: 'mediating' },
 
-  { id: 'i20',
+  { id: 'i20', nr: 23,
     title: 'Powerplay',
     short: 'Het strategisch inzetten van politieke invloed op het juiste moment — zelden, maar wanneer een principiële kwestie op het spel staat.',
     when: 'Zelden — maar wanneer een principiële kwestie op het spel staat en andere wegen niet werken.',
@@ -345,7 +350,7 @@ const interventions = [
     watch: 'Powerplay verbruikt politiek kapitaal. Te vaak inzetten ondermijnt geloofwaardigheid; te zelden inzetten ondermijnt afspraken.',
     phase: 'afloop', category: 'powering' },
 
-  { id: 'i21',
+  { id: 'i21', nr: 7,
     title: 'Vlekken in het ontwerp',
     short: 'Bewust delen van het ontwerp openlaten, zodat er nog ruimte is om de opbrengst van participatie een plek te geven.',
     when: 'Wanneer het ontwerp al ver is, maar de participatie nog loopt of nog moet beginnen.',
@@ -353,7 +358,7 @@ const interventions = [
     watch: 'Een vlek moet echt open zijn — en klein genoeg om haalbaar te blijven. Spreek vooraf af wanneer en door wie de vlek wordt ingevuld.',
     phase: 'aanloop doorloop', category: 'puzzling' },
 
-  { id: 'i22',
+  { id: 'i22', nr: 8,
     title: 'Opknippen',
     short: 'Het project opdelen in delen met elk een eigen tempo, zodat wat vastligt door kan en wat ruimte nodig heeft meer tijd krijgt.',
     when: 'Wanneer een strakke planning en ruimte voor participatie niet samengaan in één traject.',
@@ -361,7 +366,7 @@ const interventions = [
     watch: 'Opknippen kan ook versnipperen. Houd zicht op hoe de delen samenhangen, en maak voor bewoners duidelijk over welk deel het gesprek gaat.',
     phase: 'aanloop doorloop', category: 'puzzling' },
 
-  { id: 'i23',
+  { id: 'i23', nr: 21,
     title: 'Go/no-go-moment',
     short: 'Vooraf een expliciet beslismoment inbouwen waarop wordt besloten of het proces doorgaat zoals gepland, wordt bijgesteld of stopt.',
     when: 'Wanneer de planning optimistisch is en het onzeker is of er genoeg tijd is voor een zorgvuldig proces.',
@@ -369,7 +374,7 @@ const interventions = [
     watch: 'Een go/no-go zonder echte \'no\' is schijn. Leg vooraf vast op basis waarvan je beslist, en wie beslist.',
     phase: 'doorloop', category: 'powering' },
 
-  { id: 'i24',
+  { id: 'i24', nr: 22,
     title: 'Snelkookpansessie',
     short: 'Een intensieve werksessie waarin projectteam en experts samen alle opbrengsten doornemen en ter plekke scenario\'s of ontwerpvoorstellen maken.',
     when: 'Wanneer er veel opbrengst ligt, maar weinig tijd om die zorgvuldig te verwerken.',
@@ -377,7 +382,7 @@ const interventions = [
     watch: 'Voorbereiding is alles: wie moet erbij zijn, wat moet er op tafel liggen, en waar moet je mee weglopen?',
     phase: 'doorloop afloop', category: 'mediating' },
 
-  { id: 'i25',
+  { id: 'i25', nr: 9,
     title: 'Sleutelfiguur zoeken',
     short: 'Iemand vinden die de geschiedenis van de plek en van eerdere participatie kent — en die meenemen in het proces.',
     when: 'Wanneer je instapt in een gebied met een voorgeschiedenis die je zelf niet kent.',
