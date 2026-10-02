@@ -145,7 +145,6 @@ Fase 1 is klein en laat al zien of het model klopt. Fase 2 is het meeste werk.
 
 **Nog open:**
 
-
 - **Aanpassen van basiskaarten.** Mag elk veld, of alleen titel en korte tekst? (Minder velden = minder kans dat de kaart iets anders gaat betekenen.)
 - **Voordragen voor de basis:** hoe gaat dat in zijn werk, en hoe verhoudt het zich tot het onderzoek (bron, toestemming)?
 - **Onderzoek.** De teamlagen zelf zijn interessante data: welke kaarten voegen adviseurs toe, welke verbergen ze? Afspraken over inzage en toestemming moeten we vooraf maken.
