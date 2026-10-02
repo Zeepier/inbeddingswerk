@@ -60,7 +60,6 @@
     letter-spacing: -0.01em;
   }
   .serif { font-family: 'Cormorant Garamond', serif; }
-  .em-italic { font-style: italic; color: var(--coral); }
 
   /* ----- HEADER ----- */
   header.app-header {
@@ -139,6 +138,7 @@
     display: inline-block; border: 1px solid var(--line); border-radius: 100px; padding: 3px 10px;
   }
   .app-team::before { content: '◆ '; color: var(--coral); }
+  .app-team[hidden] { display: none; }
   /* Teamkaarten: subtiel kenmerk naast het nummer */
   .lc { font-size: 0.6em; margin-left: 0.3em; opacity: 0.7; }
   details.adj { margin: -6px 0 14px; font-size: 13px; color: var(--ink-muted); }
@@ -305,19 +305,7 @@
     display: flex; align-items: center; justify-content: center;
   }
   .hl-do li strong { color: var(--ink); font-weight: 600; }
-  .hl-modlist { list-style: none; margin: 4px 0 0; padding: 0; }
-  .hl-modlist li {
-    display: flex; gap: 10px; align-items: baseline;
-    padding-left: 0; margin-bottom: 10px;
-    font-size: 16px; line-height: 1.5; color: var(--ink-soft);
-  }
-  .hl-modlist li::before { content: none; }
-  .hl-modlist li:last-child { margin-bottom: 0; }
-  .hl-modlist .hl-mod-num {
-    font-family: 'Cormorant Garamond', serif; font-style: italic;
-    font-size: 14px; color: var(--mod-waarden); flex-shrink: 0; min-width: 16px;
-  }
-  .hl-modlist strong { color: var(--ink); font-weight: 600; }
+
   /* Draaiboek */
   .hl-core {
     font-family: 'Cormorant Garamond', serif; font-size: 26px !important; line-height: 1.25;
@@ -354,9 +342,7 @@
   html[lang="en"] .hl-ask { --ask-label: 'Follow-up questions if it stalls'; }
   .hl-step .hl-ask li { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 6px; }
   .hl-step .hl-ask li::before { background: var(--ink-muted); top: 12px; }
-  .hl-todo {
-    font-style: italic; color: var(--ink-muted); font-size: 15px;
-  }
+
   .ilink {
     background: none; border: none; padding: 0; font: inherit;
     cursor: pointer; font-weight: 600;
@@ -408,10 +394,7 @@
     font-family: 'Cormorant Garamond', serif; font-style: italic;
     font-size: 14px; white-space: nowrap; color: var(--ink-soft);
   }
-  .flow-note {
-    font-family: 'Cormorant Garamond', serif; font-style: italic;
-    font-size: 17px !important; color: var(--ink-soft);
-  }
+
   .fs-leer { --fs-c: var(--coral); --fs-bg: #F7E7E1; }
   .flow-end { cursor: default; }
   .flow-end:hover { background: var(--paper); border-color: var(--line); border-top-color: var(--fs-c); }
@@ -719,48 +702,6 @@
   .filter-btn:hover { border-color: var(--green); color: var(--green); }
   .filter-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
 
-  /* ----- REFLECTION TOOL ----- */
-  .reflect {
-    background: var(--paper);
-    padding: 44px 40px;
-    margin-top: 48px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-  }
-  .reflect-label {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--coral);
-    margin-bottom: 12px;
-    font-weight: 600;
-  }
-  .reflect h3 { font-size: 32px; margin-bottom: 14px; color: var(--ink); }
-  .reflect-intro { color: var(--ink-soft); margin-bottom: 28px; max-width: 680px; }
-  .reflect-question { margin-bottom: 20px; }
-  .reflect-question label {
-    display: block;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 19px;
-    font-style: italic;
-    color: var(--ink);
-    margin-bottom: 10px;
-  }
-  .reflect-question textarea {
-    width: 100%;
-    min-height: 64px;
-    padding: 13px 15px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    color: var(--ink);
-    resize: vertical;
-    transition: border 0.2s;
-    border-radius: 4px;
-  }
-  .reflect-question textarea:focus { outline: none; border-color: var(--green); }
-  .reflect-actions { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
   .btn {
     padding: 13px 26px;
     border: 1px solid var(--ink);
@@ -774,43 +715,6 @@
     border-radius: 4px;
   }
   .btn:hover { background: var(--ink); color: #fff; }
-  .btn-primary { background: var(--green); border-color: var(--green); color: #fff; }
-  .btn-primary:hover { background: var(--ink); border-color: var(--ink); }
-
-  /* ----- SYNTHESIS OUTPUT ----- */
-  .synthesis { margin-top: 28px; padding: 0; display: none; }
-  .synthesis.show { display: block; animation: fadeIn 0.5s ease; }
-  .synth-block { background: var(--bg-soft); margin-bottom: 12px; border-left: 3px solid var(--coral); border-radius: 0 4px 4px 0; overflow: hidden; }
-  .synth-block summary {
-    padding: 20px 26px;
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    user-select: none;
-  }
-  .synth-block summary::-webkit-details-marker { display: none; }
-  .synth-block summary:hover { background: rgba(0,0,0,0.02); }
-  .synth-block-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 21px; color: var(--ink); margin: 0; flex-grow: 1; }
-  .synth-block-chevron {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: var(--paper);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--ink-soft); font-size: 12px; flex-shrink: 0;
-    transition: transform 0.25s ease;
-  }
-  .synth-block[open] .synth-block-chevron { transform: rotate(180deg); }
-  .synth-block-body { padding: 0 26px 22px; }
-  .synth-block-intro { font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; }
-  .synth-answers { background: var(--paper); padding: 22px 26px; margin-bottom: 16px; border: 1px solid var(--line); border-radius: 4px; }
-  .synth-answer { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
-  .synth-answer:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
-  .synth-answer-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: var(--green); margin-bottom: 4px; }
-  .synth-answer-a { font-size: 14px; color: var(--ink-soft); }
-  .synth-empty { font-style: italic; color: var(--ink-muted); padding: 24px; background: var(--bg-soft); text-align: center; border-radius: 4px; }
 
   /* ----- MODAL ----- */
   .modal {
@@ -877,17 +781,6 @@
     background-position: center;
     background-color: var(--green-pale);
   }
-  .fictief-label {
-    display: inline-block;
-    background: var(--illust);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    padding: 6px 14px;
-    margin-bottom: 14px;
-    border-radius: 100px;
-  }
 
   /* botsende waarden in spanning-modal */
   .clash {
@@ -946,14 +839,18 @@
     .modal-content { padding: 40px 24px; }
     .modal-photo { width: calc(100% + 48px); margin: -40px -24px 24px; height: 200px; }
     section.content { padding: 36px 24px 70px; }
-    .reflect { padding: 30px 22px; }
+
     .clash-vs { align-self: flex-start; }
   }
   @media (max-width: 900px) {
     .switcher { grid-template-columns: repeat(3, 1fr); }
   }
+  /* Smal scherm: modulekiezer compact houden (hij blijft bovenaan plakken) */
   @media (max-width: 700px) {
-    .switcher { grid-template-columns: repeat(2, 1fr); }
+    .switcher { grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 16px; }
+    .module-btn { padding: 8px 10px; gap: 0; }
+    .module-btn .mb-title { font-size: 17px; }
+    .module-btn .mb-num, .module-btn .mb-count { display: none; }
   }
   @media (max-width: 560px) {
     .grid-tensions { grid-template-columns: 1fr; }
