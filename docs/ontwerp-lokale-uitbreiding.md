@@ -127,8 +127,8 @@ Eerst kijken of fase 1–3 in de praktijk volstaat.
 
 | Fase | Inhoud | Resultaat |
 |---|---|---|
-| **1. Datalaag** | Site en printkaarten laden `team.json` en verwerken toevoegen / verbergen / aanpassen / koppelen / verhalen; markering van lokale kaarten; handgeschreven voorbeeld-`team.json` | Teamversie werkt al, alleen nog met handmatig bewerken van het bestand |
-| **2. Editor** | Beheer-modus met formulieren, koppelingenkiezer, verbergen, aanpassen met originele tekst, export/import, validatie (ids, verweesde koppelingen, waarschuwing > 15 waarden) | Teambeheerder kan zonder code werken |
+| **1. Datalaag** ✓ | Site en printkaarten laden `team.json` en verwerken toevoegen / verbergen / aanpassen / koppelen / verhalen; markering van lokale kaarten; handgeschreven voorbeeld-`team.json` | Teamversie werkt al, alleen nog met handmatig bewerken van het bestand |
+| **2. Editor** | Beheer-modus met formulieren, koppelingenkiezer, verbergen, aanpassen met originele tekst, export/import, validatie (ids, verweesde koppelingen, waarschuwing > 15 waarden); knop **Printkaarten (PDF)** die de printkaarten opent met de werkversie (ook niet-geëxporteerde wijzigingen), met printinstructie | Teambeheerder kan zonder code werken en direct een eigen deck printen |
 | **3. Publiceren** | Handleiding "een teamversie maken": kopie maken (a) of team-link (b); updates van de basis binnenhalen | Herhaalbare route voor andere gemeenten |
 | **4. (optioneel) Online opslag** | Centrale opslag + inloggen | Samen bewerken zonder bestanden |
 
@@ -142,6 +142,8 @@ Fase 1 is klein en laat al zien of het model klopt. Fase 2 is het meeste werk.
 - **Taal:** eigen kaarten alleen in het Nederlands.
 - **Intranetlinks:** toegestaan, met een melding "alleen bereikbaar via intranet" waar dat geldt.
 - **Terugstromen naar de basis:** ja, goede teamkaarten kunnen worden voorgedragen voor de basisset.
+
+**Geparkeerd:** de handouts (Begrippen, Verhalen) lezen de teamlaag nog niet.
 
 **Nog open:**
 
