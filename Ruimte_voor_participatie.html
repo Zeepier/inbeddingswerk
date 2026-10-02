@@ -31,25 +31,16 @@
     /* module-kleuren — één kleur per kaarttype */
     --mod-waarden: #2C4F3E;       /* donkergroen */
     --mod-waarden-hover: #1E3A2C;
-    --mod-spanningen: #C9902A;    /* okergeel */
-    --mod-spanningen-bg: #FDF3DC;
+    /* setkleuren gelijk aan de speelkaarten — kleurenblind-veilig (geen rood/groen) */
+    --mod-spanningen: #A87412;    /* oker */
+    --mod-spanningen-bg: #FBF1DC;
     --mod-spanningen-ink: #5C3D0A;
     --mod-spanningen-line: #DFC08A;
-    --mod-interventies: #C2553B;  /* roestrood */
-    --mod-interventies-bg: #F5E2DB;
-    --mod-interventies-ink: #8A3A26;
-    --mod-verhalen: #3E6B8C;      /* blauw */
-    --mod-verhalen-bg: #DDE8F0;
-    /* interventie-categorieën (badge-kleuren) */
-    --cat-pow: #C2553B;
-    --cat-pow-bg: #F5E2DB;
-    --cat-pow-ink: #8A3A26;
-    --cat-puz: #2C7A5B;
-    --cat-puz-bg: #DCEDE4;
-    --cat-puz-ink: #1C5740;
-    --cat-med: #3E6B8C;
-    --cat-med-bg: #DDE8F0;
-    --cat-med-ink: #284E68;
+    --mod-interventies: #2F5F8A;  /* blauw */
+    --mod-interventies-bg: #E1EAF2;
+    --mod-interventies-ink: #234A6C;
+    --mod-verhalen: #6E4A7E;      /* pruim — onderlegger, los van de drie sets */
+    --mod-verhalen-bg: #EEE6F1;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -383,7 +374,7 @@
     display: flex; flex-direction: column; gap: 3px;
     transition: background 0.15s ease;
   }
-  .flow-base-card:hover { background: #CFE0EC; }
+  .flow-base-card:hover { background: #E4D8EA; }
   .fb-eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--mod-verhalen); }
   .fb-title { font-size: 18px; font-weight: 600; color: var(--ink); }
   .fb-q { font-size: 14px; line-height: 1.45; color: var(--ink-soft); }
@@ -403,7 +394,7 @@
   .gl-group { margin-bottom: 8px; }
   .gl-group.c-kern  { --gl-accent: #E27A60; }
   .gl-group.c-werk  { --gl-accent: #2C4F3E; }
-  .gl-group.c-strat { --gl-accent: #3E6B8C; }
+  .gl-group.c-strat { --gl-accent: var(--mod-interventies); }
   .gl-group.c-fase  { --gl-accent: #9A6B10; }
   .gl-group-label {
     display: flex; align-items: center; gap: 9px;
@@ -445,8 +436,8 @@
   }
   .gl-golink:hover { text-decoration: underline; }
   .gl-golink.m-waarden { color: #2C4F3E; }
-  .gl-golink.m-spanningen { color: #9A6B10; }
-  .gl-golink.m-interventies { color: #8A3A26; }
+  .gl-golink.m-spanningen { color: #8A5F0E; }
+  .gl-golink.m-interventies { color: #234A6C; }
   .gl-source { display: block; margin-top: 8px; font-size: 12.5px; color: var(--ink-muted); }
   .gl-group-source { margin-top: 14px; }
   .gl-source a { color: var(--mod-verhalen); text-decoration: none; }
@@ -457,9 +448,9 @@
     font-size: 17px; line-height: 1.5; color: var(--ink-soft);
   }
   .ilink.m-waarden { color: #2C4F3E; }
-  .ilink.m-spanningen { color: #9A6B10; }
-  .ilink.m-interventies { color: #8A3A26; }
-  .ilink.m-verhalen { color: #3E6B8C; }
+  .ilink.m-spanningen { color: #8A5F0E; }
+  .ilink.m-interventies { color: #234A6C; }
+  .ilink.m-verhalen { color: #6E4A7E; }
 
   /* ============================================================
      CARD STYLES — gedeelde basis
@@ -555,9 +546,8 @@
     font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
     padding: 3px 9px; font-weight: 600; border-radius: 100px;
   }
-  .catbadge.powering { background: var(--cat-pow-bg); color: var(--cat-pow-ink); }
-  .catbadge.puzzling { background: var(--cat-puz-bg); color: var(--cat-puz-ink); }
-  .catbadge.mediating { background: var(--cat-med-bg); color: var(--cat-med-ink); }
+  /* Strategie zonder eigen kleur (zoals op de kaarten): neutraal label */
+  .catbadge { background: rgba(31,42,38,0.07); color: var(--ink-soft); }
 
   /* VERHALEN — blauwe topbalk */
   .ccard {
@@ -1550,7 +1540,7 @@ const glossaryTermsByLang = {
   ]
 };
 const glossaryRe = () => new RegExp('(?<!\\p{L})(' + glossaryTermsByLang[lang].map(g => g[0]).join('|') + ')(?![\\p{L}-])', 'iu');
-const glossarySkip = 'button, a, [onclick]:not(#modal), h1, h2, h3, h4, dt, label, [data-nogloss], .glink, .modal-eyebrow, .modal-section-label, .section-num, .filter-label, #panel-begrippen, .switcher-wrap';
+const glossarySkip = 'button, a, [onclick]:not(#modal), h1, h2, h3, h4, dt, label, [data-nogloss], .glink, .modal-eyebrow, .modal-section-label, .section-num, .filter-label, #panel-begrippen, .switcher-wrap, .app-logo';
 
 function linkGlossary(root) {
   if (!root) return;
