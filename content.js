@@ -22,7 +22,8 @@
 //
 // IDS
 // ───
-// Waarden:      v1, v2, v3, ... (voeg toe als v17, v18, enz.)
+// Waarden:      v1, v2, v3, ... (voeg toe als v18, v19, enz.; v11 en v14 zijn
+//               samengevoegd met v10 en v5 — hergebruik die ids niet)
 // Spanningen:   t1, t2, t3, ... (voeg toe als t14, t15, enz.)
 // Interventies: i1, i2, i3, ... (voeg toe als i21, i22, enz.)
 // Verhalen:     c1, c2, c3, ... (voeg toe als c5, c6, enz.)
@@ -44,7 +45,7 @@
 
 
 // -------------------------------------------------------------
-// WAARDEN (16) — de fundamentele bouwstenen
+// WAARDEN (15) — de fundamentele bouwstenen
 // Spanningen zijn conflicten tussen twee (of meer) waarden.
 // -------------------------------------------------------------
 
@@ -52,14 +53,14 @@ const values = [
 
   { id: 'v1',  title: 'Invloed van bewoners',                   group: 'bewoners', tensions: ['t1','t2','t5','t7','t12','t13'],
     desc: 'De inbreng van bewoners heeft daadwerkelijk gevolgen voor gemeentelijke plan- of besluitvorming.' },
-  { id: 'v2',  title: 'Meenemen lokale kennis',                 group: 'bewoners', tensions: ['t8'],
-    desc: 'De kennis en ervaring van bewoners over hun eigen buurt wordt op waarde geschat.' },
+  { id: 'v2',  title: 'Lokale kennis en geschiedenis meenemen', group: 'bewoners', tensions: ['t8','t11'],
+    desc: 'De kennis en ervaring van bewoners over hun buurt, en wat er eerder op deze plek en in eerdere participatie is gebeurd, worden gekend en meegenomen.' },
   { id: 'v3',  title: 'Erkenning perspectief bewoners',         group: 'bewoners', tensions: ['t6'],
     desc: 'De manier waarop bewoners de situatie beleven wordt serieus genomen, ook als die afwijkt van het officiële beeld.' },
   { id: 'v4',  title: 'Bevorderen sociale cohesie in de buurt', group: 'bewoners', tensions: ['t12'],
     desc: 'Het proces versterkt de onderlinge verbondenheid en het contact tussen bewoners.' },
-  { id: 'v5',  title: 'Een open gesprek mogelijk maken',        group: 'bewoners', tensions: ['t3','t9','t11'],
-    desc: 'Er is ruimte voor een eerlijk gesprek, ook over lastige of ongemakkelijke onderwerpen.' },
+  { id: 'v5',  title: 'Ruimte voor een open gesprek en tegenspraak', group: 'bewoners', tensions: ['t3','t9','t11'],
+    desc: 'Er is ruimte voor een eerlijk gesprek, ook over lastige of ongemakkelijke onderwerpen, en voor afwijkende meningen en kritische geluiden.' },
 
   { id: 'v6',  title: 'Uitvoeren staand beleid',                group: 'gemeente', tensions: ['t2','t6','t11'],
     desc: 'Vastgesteld beleid en eerder gemaakte afspraken worden uitgevoerd.' },
@@ -69,21 +70,19 @@ const values = [
     desc: 'Bestuurlijke en politieke gevoeligheden als gevolg van de participatie worden tijdig herkend en beheerst.' },
   { id: 'v9',  title: 'Domeinoverstijgende samenwerking',       group: 'gemeente', tensions: ['t4'],
     desc: 'Verschillende afdelingen en beleidsterreinen werken integraal aan de opgave in plaats van los van elkaar.' },
-  { id: 'v10', title: 'Efficiëntie & effectiviteit bevorderen', group: 'gemeente', tensions: ['t7','t12'],
-    desc: 'Tijd en inzet worden zo besteed dat ze zo efficiënt mogelijk resultaat opleveren.' },
-  { id: 'v11', title: 'Betaalbaarheid bewaken',                 group: 'gemeente', tensions: ['t5'],
-    desc: 'De kosten van het proces en de uitkomsten blijven binnen haalbare grenzen.' },
+  { id: 'v10', title: 'Doelmatig omgaan met tijd en geld',      group: 'gemeente', tensions: ['t5','t7','t12'],
+    desc: 'Tijd, inzet en geld worden zo besteed dat ze zo veel mogelijk opleveren, en de kosten van proces en uitkomsten blijven binnen haalbare grenzen.' },
   { id: 'v12', title: 'Vakkennis tot zijn recht laten komen',   group: 'gemeente', tensions: ['t4','t8'],
     desc: 'De expertise van vakspecialisten weegt mee in de uiteindelijke keuzes.' },
 
   { id: 'v13', title: '(Sociaal) leren',                        group: 'beide',    tensions: [],
     desc: 'Betrokkenen worden door het proces wijzer over zichzelf, elkaar en de opgave.' },
-  { id: 'v14', title: 'Ruimte (maken) voor tegenspraak',        group: 'beide',    tensions: ['t3'],
-    desc: 'Het proces biedt ruimte voor afwijkende meningen en kritische geluiden.' },
   { id: 'v15', title: 'Gelijke behandeling bewoners',           group: 'beide',    tensions: ['t13'],
     desc: 'De inbreng van alle bewoners weegt even zwaar, ongeacht of ze wel of niet zichtbaar zijn in het (participatie)proces.' },
   { id: 'v16', title: 'Navolgbaar overheidshandelen',           group: 'beide',    tensions: [],
     desc: 'Het is voor bewoners te volgen en te begrijpen hoe en waarom de gemeente tot een besluit komt.' },
+  { id: 'v17', title: 'Vertrouwen',                             group: 'beide',    tensions: ['t9','t10','t11'],
+    desc: 'Bewoners en gemeente kunnen op elkaar rekenen: afspraken worden nagekomen en inbreng wordt niet voor niets gevraagd.' },
 
 ];
 
@@ -113,7 +112,7 @@ const tensions = [
     body: 'Weerstand wordt vaak gezien als hindernis, terwijl het waardevolle informatie bevat over wat er werkelijk speelt. Hoe zorg je dat conflict productief wordt benut zonder dat het proces vastloopt of escaleert in de pers?',
     interventions: ['i2','i7','i19','i14'],
     cases: ['c4'],
-    values: ['v5','v14','v8','v7'], phase: 'doorloop' },
+    values: ['v5','v8','v7'], phase: 'doorloop' },
 
   { id: 't4',
     title: 'Tegenstrijdig beleid of wetgeving maakt keuzes lastig',
@@ -127,7 +126,7 @@ const tensions = [
     body: 'Subsidies en budgetten zijn vaak geoormerkt voor specifieke doelen, terwijl participatie juist vraagt om reageren op wat opkomt. Wat doe je als de bewonersinbreng buiten de financiële kaders valt — van de subsidie of zelfs van de begrotingsperiode?',
     interventions: ['i17','i10','i1','i11'],
     cases: ['c1'],
-    values: ['v1','v11'], phase: 'aanloop' },
+    values: ['v1','v10'], phase: 'aanloop' },
 
   { id: 't6',
     title: 'Scope van beleid niet passend bij belangen in het leefgebied',
@@ -155,21 +154,21 @@ const tensions = [
     body: 'Sommige besluiten worden om bestuurlijke, juridische of onderhandelingstechnische redenen achter gesloten deuren genomen. Hoe communiceer je daar transparant over zonder vertrouwen te verliezen — en zonder de onderhandelingsruimte weg te geven?',
     interventions: ['i12','i14','i1'],
     cases: ['c3'],
-    values: ['v5','v8'], phase: 'doorloop afloop' },
+    values: ['v5','v8','v17'], phase: 'doorloop afloop' },
 
   { id: 't10',
     title: 'Bestuurlijke of ambtelijke wisselingen in langlopende ontwikkeling',
     body: 'Wethouders, projectleiders of dossierhouders wisselen tijdens het traject — zeker rond verkiezingen of reorganisaties. Afspraken raken in de mist en deelnemers moeten hun verhaal opnieuw vertellen aan een nieuwe gesprekspartner.',
     interventions: ['i1','i12'],
     cases: ['c4'],
-    values: [], phase: 'doorloop afloop' },
+    values: ['v17'], phase: 'doorloop afloop' },
 
   { id: 't11',
     title: 'Geschiedenis en context omgeving van invloed op nieuwe initiatieven',
     body: 'Eerdere mislukkingen, breuken in vertrouwen of onopgeloste kwesties uit het verleden bepalen hoe nieuwe initiatieven worden ontvangen — vaak voordat ze überhaupt zijn gestart. Wat eruit ziet als weerstand tegen het nieuwe plan, is soms een echo van het oude.',
     interventions: ['i7','i16','i12'],
     cases: ['c1'],
-    values: ['v5','v6'], phase: 'aanloop' },
+    values: ['v2','v5','v6','v17'], phase: 'aanloop' },
 
   { id: 't12',
     title: 'Beperkt responsief samenwerken door prestatiegerichte aanpak',
