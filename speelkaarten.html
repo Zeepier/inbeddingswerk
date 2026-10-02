@@ -6,321 +6,328 @@
 <title>Speelkaarten — Ruimte voor Participatie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* Drie setkleuren, kleurenblind-veilig: verschillen in tint én lichtheid
+     (geen rood/groen). De setnaam staat altijd als woord in de balk, dus
+     kleur is nooit de enige drager van informatie. */
   :root {
-    --waarden: #2C4F3E; --spanningen: #C9902A; --interventies: #C2553B;
-    --waarden-bg: #EAE5DA; --spanningen-bg: #FBF0D9; --interventies-bg: #F6E3DC;
-    --ink: #1F2A26; --ink-soft: #4A554F; --ink-muted: #8A938E; --line: #E2DACA;
-    --coral: #E27A60;
-    --bewoners: #6B5BA6; --bewoners-bg: #EBE8F2;
-    --gemeente: #B68B3F; --gemeente-bg: #F1E9D3;
-    --aanloop: #2C7A5B; --doorloop: #9A6B10; --afloop: #8A3A26;
-    --pow-bg: #F5E2DB; --pow-ink: #8A3A26;
-    --puz-bg: #DCEDE4; --puz-ink: #1C5740;
-    --med-bg: #DDE8F0; --med-ink: #284E68;
+    --waarden: #2C4F3E;      /* donkergroen */
+    --spanningen: #A87412;   /* oker */
+    --interventies: #2F5F8A; /* blauw */
+    /* Waarden: licht / middel / donker = vaak vanuit bewoners / beide / gemeente */
+    --val-light: #84AC95; --val-mid: #5E8A73; --val-dark: #2C4F3E;
+    --ink: #1F2A26; --ink-soft: #4A554F; --ink-muted: #7C857F; --line: #E2DACA;
+    --aanloop: #2C7A5B; --doorloop: #8A5F0E; --afloop: #8A3A26;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #d9d4c7; font-family: 'Inter', sans-serif; color: var(--ink); }
 
-  /* Scherm: lichte werkbalk */
   .toolbar {
     background: #fff; border-bottom: 1px solid var(--line); padding: 12px 20px;
-    font-size: 13px; color: var(--ink-soft); position: sticky; top: 0; z-index: 5;
+    font-size: 13px; line-height: 1.5; color: var(--ink-soft); position: sticky; top: 0; z-index: 5;
   }
   .toolbar strong { color: var(--ink); }
+  .toolbar .opts { margin-top: 8px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .toolbar select { font: inherit; padding: 4px 6px; border: 1px solid var(--line); border-radius: 4px; }
   .toolbar button {
-    font: inherit; font-weight: 600; cursor: pointer; margin-left: 12px;
+    font: inherit; font-weight: 600; cursor: pointer;
     background: var(--waarden); color: #fff; border: none; border-radius: 6px; padding: 7px 14px;
   }
 
-  /* Raster staat verticaal gecentreerd op het vel, zodat voor- en achterkant
-     uitlijnen ongeacht of de printer langs de lange of korte zijde omslaat. */
+  /* Raster staat gecentreerd op het vel, zodat voor- en achterkant uitlijnen. */
   .sheet {
     width: 210mm; height: 297mm; background: #fff; margin: 12px auto;
     overflow: hidden; position: relative;
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   }
-  /* Vaste 3×3-hoogte, ook bij een half gevuld vel: anders verschuift het
-     raster en lijnt de achterkant niet meer uit met de voorkant. */
+  /* Vaste 3×3, ook bij een half gevuld vel: anders lijnt de achterkant niet uit. */
   .card-grid {
     display: grid; grid-template-columns: repeat(3, 63mm); grid-template-rows: repeat(3, 88mm);
     justify-content: center; align-content: start; gap: 2.5mm;
   }
-  /* Staat in de snijmarge boven het raster — wordt weggeknipt. */
+  .slot-empty { width: 63mm; height: 88mm; }
   .deck-head {
     position: absolute; top: 5mm; left: 8mm;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 17px; font-weight: 600; color: var(--ink);
+    font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600;
     display: flex; align-items: baseline; gap: 10px;
   }
   .deck-head .cnt { font-size: 11px; font-family: 'Inter'; color: var(--ink-muted); font-weight: 500; }
 
-  /* ---- Kaart ---- */
+  /* ---- Kaart (voor- en achterkant) ---- */
   .card {
-    width: 63mm; height: 88mm; border: 1px solid var(--line);
-    border-top: 3mm solid var(--c, var(--line));
-    padding: 3.5mm 4mm 0;
-    display: flex; flex-direction: column; overflow: hidden;
-    position: relative; background: var(--bg, #fff);
+    width: 63mm; height: 88mm; border: 1px solid var(--line); background: #fff;
+    display: flex; flex-direction: column; overflow: hidden; position: relative;
   }
-  .row-top { display: flex; align-items: center; justify-content: space-between; gap: 2mm; }
-  .card .num {
-    font-family: 'Cormorant Garamond', serif; font-style: italic;
-    font-size: 14px; color: var(--c); line-height: 1;
+  /* Balk: op voor- en achterkant op dezelfde plek, in de setkleur.
+     Inhoud: set-icoon, setnaam als woord, kaartnummer. */
+  .bar {
+    background: var(--c); color: var(--bar-ink, #fff);
+    height: 9mm; padding: 0 3.5mm; flex-shrink: 0;
+    display: flex; align-items: center; gap: 1.8mm;
   }
-  .c-icon { width: 6mm; height: 6mm; display: block; flex-shrink: 0; }
-  .persp {
-    display: flex; align-items: center; gap: 1.3mm;
-    font-size: 7.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
-    margin-bottom: 1.8mm;
-  }
-  .eyebrow {
-    font-size: 7.5px; letter-spacing: 0.08em; text-transform: uppercase;
-    font-weight: 700; color: var(--c, var(--ink-muted));
+  .bar .ic { width: 4.6mm; height: 4.6mm; flex-shrink: 0; }
+  .bar .set { font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; }
+  .bar .code {
+    margin-left: auto; font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    font-size: 17px; line-height: 1; font-variant-numeric: lining-nums;
   }
 
-  .card-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
-  .card-mid.top-align { justify-content: flex-start; padding-top: 1mm; }
-  .rule { width: 7mm; height: 0.5mm; background: var(--c); margin-bottom: 2.4mm; border-radius: 1px; }
-  .card h3 {
+  /* Voorkant: alleen de titel, groot */
+  .front-body {
+    flex: 1; min-height: 0; padding: 5mm 4.5mm 3mm;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .front-body h3 {
     font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 19px; line-height: 1.14; color: var(--ink); margin-bottom: 2.6mm;
-  }
-  .card-tension h3 { font-size: 16.5px; }
-  .card .desc { font-size: 10.5px; line-height: 1.42; color: var(--ink-soft); }
-  .card-intervention .card-mid.top-align { padding-top: 2mm; }
-  .card-intervention .persp { margin-bottom: 2.6mm; }
-  .card-intervention h3 { margin-bottom: 3.2mm; }
-  .vals-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
-  .vals { display: flex; flex-direction: column; align-items: center; width: 100%; gap: 1.2mm; }
-  .chip {
-    display: inline-block; font-size: 10.5px; font-weight: 600; line-height: 1.3;
-    padding: 1.1mm 3mm; border-radius: 100px;
-    white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
-  }
-  .vx {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 17px; color: var(--ink-muted); line-height: 1;
+    font-size: 24px; line-height: 1.12; color: var(--ink);   /* ≈18pt, minimum 16pt */
   }
 
-
-  /* Fase-balk: aanloop -> doorloop -> afloop, relevante fase(n) gemarkeerd */
+  /* Fase-balk: klein onderaan de voorkant */
   .phase-bar {
-    margin-top: auto; padding-top: 2mm;
-    display: flex; align-items: center; justify-content: center; gap: 0.9mm;
+    padding: 0 3.5mm 3.2mm; display: flex; align-items: center; justify-content: center; gap: 1mm;
   }
   .phase-bar .ph {
-    font-size: 6.6px; letter-spacing: 0.03em; text-transform: uppercase;
-    font-weight: 600; color: var(--ink-muted); opacity: 0.55;
+    font-size: 7px; letter-spacing: 0.04em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-muted); opacity: 0.5;
   }
-  .phase-bar .ph.active { font-weight: 800; opacity: 1; }
-  .phase-bar .ph.active.aanloop { color: var(--aanloop); }
-  .phase-bar .ph.active.doorloop { color: var(--doorloop); }
-  .phase-bar .ph.active.afloop { color: var(--afloop); }
+  .phase-bar .ph.on { font-weight: 800; opacity: 1; }
+  .phase-bar .ph.on.aanloop { color: var(--aanloop); }
+  .phase-bar .ph.on.doorloop { color: var(--doorloop); }
+  .phase-bar .ph.on.afloop { color: var(--afloop); }
   .phase-bar .arrow { font-size: 7px; color: var(--ink-muted); opacity: 0.4; }
 
-  /* Merk-footer: consistent op alle kaarten */
-  .foot-brand {
-    padding: 1.6mm 0 2.2mm; border-top: 1px solid rgba(31,42,38,0.08);
-    display: flex; align-items: center; gap: 1.5mm;
+  /* Achterkant: titel klein, toelichting, verwijzingen */
+  .back-body { flex: 1; min-height: 0; padding: 3.5mm 4.5mm 3mm; display: flex; flex-direction: column; }
+  .back-body h4 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    font-size: 15px; line-height: 1.15; color: var(--ink); margin-bottom: 2.2mm;
   }
-  .foot-brand .mark { width: 3mm; height: 0.45mm; background: var(--coral); flex-shrink: 0; }
-  .foot-brand .word {
-    font-size: 5.3px; letter-spacing: 0.09em; text-transform: uppercase;
-    color: var(--ink-muted); font-weight: 600; white-space: nowrap;
+  .back-body .expl { font-size: 13.4px; line-height: 1.38; color: var(--ink-soft); }   /* ≈10pt */
+  .back-body .meta {
+    margin-top: 2.4mm; font-size: 11px; line-height: 1.35; color: var(--ink-muted); font-style: italic;
   }
-  .foot-brand .credit {
-    margin-left: auto; font-size: 5.3px; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--ink-muted); font-weight: 600; white-space: nowrap; flex-shrink: 0;
+  .refs { margin-top: auto; padding-top: 2.4mm; border-top: 1px solid var(--line); }
+  .refs .lbl {
+    font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
+    color: var(--ink-muted); margin-bottom: 1mm;
   }
+  .refs .codes { font-size: 13.4px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+  .refs .codes .x { font-weight: 400; color: var(--ink-muted); padding: 0 0.6mm; }
+  .refs + .refs { margin-top: 1.8mm; border-top: none; padding-top: 0; }
 
-  /* ---- Achterkant: egale modulekleur, identiek op elke kaart van het vel ---- */
-  .card-back {
-    background: var(--c); border: none; padding: 0; color: #fff;
-    align-items: center; justify-content: center;
-  }
-  .back-inner { display: flex; flex-direction: column; align-items: center; gap: 2.4mm; }
-  .back-mark { width: 9mm; height: 0.6mm; background: rgba(255,255,255,0.65); }
-  .back-word {
-    font-family: 'Cormorant Garamond', serif; font-weight: 500;
-    font-size: 16px; line-height: 1.16; text-align: center; color: #fff;
-  }
-  .back-deck {
-    font-size: 6.8px; letter-spacing: 0.2em; text-transform: uppercase;
-    font-weight: 700; color: rgba(255,255,255,0.72);
-  }
-  .back-credit {
-    position: absolute; bottom: 4mm; left: 0; right: 0; text-align: center;
-    font-size: 5.3px; letter-spacing: 0.1em; text-transform: uppercase;
-    font-weight: 600; color: rgba(255,255,255,0.45);
+  /* Blanco kaarten */
+  .blank-lines { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; padding: 4mm 4.5mm 0; }
+  .blank-lines span { display: block; border-bottom: 1px solid var(--line); height: 0; }
+  .blank-prompt {
+    padding: 2mm 4.5mm 3.5mm; font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 13px; color: var(--ink-muted);
   }
 
   @media print {
     body { background: #fff; }
     .toolbar { display: none; }
-    .sheet { margin: 0; box-shadow: none; width: 100%; height: 297mm; page-break-after: always; }
+    .sheet { margin: 0; box-shadow: none; page-break-after: always; }
     .sheet:last-child { page-break-after: auto; }
     @page { size: A4; margin: 0; }
-    .card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card, .bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
 </head>
 <body>
 <div class="toolbar">
   <strong>Speelkaarten — Ruimte voor Participatie.</strong>
-  63×88 mm · 9 per A4 · knip langs de kaartranden. Print op stevig papier (≥200 g),
-  schaal 100% en zonder marges. Dubbelzijdig: oneven pagina's zijn voorkanten,
-  even pagina's de bijbehorende achterkanten.
-  <button onclick="window.print()">Print / opslaan als PDF</button>
+  63×88 mm · 9 per A4 · dubbelzijdig. Print op stevig papier (≥200 g), schaal 100%, zonder marges.
+  Oneven pagina's zijn voorkanten, even pagina's de bijbehorende achterkanten.
+  <div class="opts">
+    <label>Dubbelzijdig omslaan langs
+      <select id="flip">
+        <option value="long">lange zijde (standaard)</option>
+        <option value="short">korte zijde</option>
+      </select>
+    </label>
+    <label>Taal
+      <select id="lang">
+        <option value="nl">Nederlands</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+    <button onclick="window.print()">Print / opslaan als PDF</button>
+  </div>
 </div>
 
 <div id="root"></div>
 
 <script src="content.js"></script>
+<script src="content_en.js"></script>
 <script>
-  const groupLabel = { bewoners: 'Bewoners', gemeente: 'Gemeente', beide: 'Gemeente & Bewoners' };
-  const groupColor = { bewoners: 'var(--bewoners)', gemeente: 'var(--gemeente)', beide: 'var(--waarden)' };
-  const groupBg = { bewoners: 'var(--bewoners-bg)', gemeente: 'var(--gemeente-bg)', beide: 'var(--waarden-bg)' };
-  const categoryLabel = { powering: 'Doorzetten', puzzling: 'Verbinden', mediating: 'Afstemmen' };
-  const phaseOrder = { aanloop: 0, doorloop: 1, afloop: 2 };
-  const phases = x => (x.phase || '').split(' ').filter(Boolean);
-  const firstPhase = x => Math.min(99, ...phases(x).map(p => phaseOrder[p] ?? 99));
-  const byPhase = (a, b) => firstPhase(a) - firstPhase(b);
-  const esc = s => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const PHASE_ORDER = ['aanloop', 'doorloop', 'afloop'];
+  const params = new URLSearchParams(location.search);
+  let lang = params.get('lang') === 'en' ? 'en' : 'nl';
+  let flip = params.get('flip') === 'short' ? 'short' : 'long';
+
+  const TXT = {
+    nl: {
+      set: { v: 'Waarde', t: 'Spanning', i: 'Interventie' },
+      deck: { v: 'Waarden', t: 'Spanningen', i: 'Interventies' },
+      prefix: { v: 'W', t: 'S', i: 'I' },
+      phase: { aanloop: 'Aanloop', doorloop: 'Doorloop', afloop: 'Afloop' },
+      lean: { bewoners: 'Wordt vaak vanuit bewoners ingebracht.', gemeente: 'Wordt vaak vanuit de gemeente ingebracht.', beide: 'Vaak voor bewoners én gemeente van belang.' },
+      category: { powering: 'Doorzetten', puzzling: 'Verbinden', mediating: 'Afstemmen' },
+      strategy: 'Strategie',
+      playsIn: 'Speelt in spanningen', links: 'Mogelijke verbanden', ints: 'Passende interventies', fits: 'Past bij spanningen',
+      blankPrompt: { v: 'Welke waarde mis je?', t: 'Welke spanning mis je?', i: 'Welke interventie mis je?' },
+      cards: 'kaarten', back: 'achterkant', blank: 'blanco',
+    },
+    en: {
+      set: { v: 'Value', t: 'Tension', i: 'Intervention' },
+      deck: { v: 'Values', t: 'Tensions', i: 'Interventions' },
+      prefix: { v: 'V', t: 'T', i: 'I' },
+      phase: { aanloop: 'Preparation', doorloop: 'Engagement', afloop: 'Follow-up' },
+      lean: { bewoners: 'Often raised by residents.', gemeente: 'Often raised by the municipality.', beide: 'Often matters to residents and municipality alike.' },
+      category: { powering: 'Powering', puzzling: 'Puzzling', mediating: 'Mediating' },
+      strategy: 'Strategy',
+      playsIn: 'Plays a part in tensions', links: 'Possible links', ints: 'Suitable interventions', fits: 'Fits tensions',
+      blankPrompt: { v: 'Which value are you missing?', t: 'Which tension are you missing?', i: 'Which intervention are you missing?' },
+      cards: 'cards', back: 'back', blank: 'blank',
+    },
+  };
+  const T = () => TXT[lang];
+  const L = (obj, f) => (lang === 'en' && contentEN[obj.id] && contentEN[obj.id][f]) || obj[f];
+  const code = x => T().prefix[x.id[0]] + x.nr;
+  const esc = s => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const byNr = (a, b) => a.nr - b.nr;
+
+  // Eén icoon per set — Lucide (lucide.dev), ISC-licentie; geen AI-gegenereerde beelden.
+  const ICON = {
+    v: '<circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/>',           // compass
+    t: '<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>',                                                         // arrow-right-left
+    i: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', // wrench
+  };
+  const svg = k => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON[k]}</svg>`;
+
+  // Setkleur per kaart; waarden krijgen een tint naar 'group' (licht/middel/donker)
+  const VAL_TINT = { bewoners: ['var(--val-light)', '#13261C'], beide: ['var(--val-mid)', '#fff'], gemeente: ['var(--val-dark)', '#fff'] };
+  const barStyle = (k, item) => {
+    if (k === 'v' && item && VAL_TINT[item.group]) return `--c:${VAL_TINT[item.group][0]};--bar-ink:${VAL_TINT[item.group][1]}`;
+    return `--c:var(--${{ v: 'waarden', t: 'spanningen', i: 'interventies' }[k]})`;
+  };
+  const bar = (k, item) =>
+    `<div class="bar">${svg(k)}<span class="set">${T().set[k]}</span>${item ? `<span class="code">${code(item)}</span>` : ''}</div>`;
+
+  const PHASES = ['aanloop', 'doorloop', 'afloop'];
   const phaseBar = x => {
-    const active = new Set(phases(x));
-    const parts = PHASE_ORDER.map((p, i) => {
-      const cls = 'ph' + (active.has(p) ? ' active ' + p : '');
-      const word = `<span class="${cls}">${p.charAt(0).toUpperCase() + p.slice(1)}</span>`;
-      return (i > 0 ? '<span class="arrow">→</span>' : '') + word;
-    }).join('');
-    return `<div class="phase-bar">${parts}</div>`;
+    const on = new Set((x.phase || '').split(' ').filter(Boolean));
+    return `<div class="phase-bar">${PHASES.map((p, i) =>
+      (i ? '<span class="arrow">→</span>' : '') + `<span class="ph${on.has(p) ? ' on ' + p : ''}">${T().phase[p]}</span>`).join('')}</div>`;
   };
-  const footBrand = `<div class="foot-brand"><span class="mark"></span><span class="word">Ruimte voor Participatie</span><span class="credit">STP × HvA</span></div>`;
+  const codes = (ids, list, sep) => ids.map(id => list.find(x => x.id === id)).filter(Boolean).sort(byNr)
+    .map(code).join(sep);
 
-  // Iconen: Lucide (lucide.dev), ISC-licentie — geen AI-gegenereerde beelden.
-  const ICON_PATHS = {
-    bewoners: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
-    gemeente: '<path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/>',
-    beide: '<path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>',
-    powering: '<path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3l8.384-8.381"/><path d="m16 16 6-6"/><path d="m21.5 10.5-8-8"/><path d="m8 8 6-6"/><path d="m8.5 7.5 8 8"/>',
-    puzzling: '<path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/>',
-    mediating: '<path d="M2 12q2.5 2 5 0t5 0 5 0 5 0"/><path d="M2 19q2.5 2 5 0t5 0 5 0 5 0"/><path d="M2 5q2.5 2 5 0t5 0 5 0 5 0"/>',
-    spanning: '<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>'
-  };
-  const categoryInk = { powering: 'var(--pow-ink)', puzzling: 'var(--puz-ink)', mediating: 'var(--med-ink)' };
-  const icon = (key, color) => `<svg class="c-icon" style="color:${color || 'var(--c)'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS[key]}</svg>`;
-
-  const root = document.getElementById('root');
-
-  const backCard = (deckKey, deckName) => `
-    <div class="card card-back" style="--c: var(--${deckKey})">
-      <div class="back-inner">
-        <span class="back-mark"></span>
-        <span class="back-word">Ruimte voor<br>Participatie</span>
-        <span class="back-deck">${deckName}</span>
-      </div>
-      <span class="back-credit">STP × HvA</span>
+  // ---- Voorkanten ----
+  const front = (k, x) => `
+    <div class="card" style="${barStyle(k, x)}">
+      ${bar(k, x)}
+      <div class="front-body"><h3>${esc(L(x, 'title'))}</h3></div>
+      ${k !== 'v' ? phaseBar(x) : ''}
     </div>`;
 
-  function makeSheet(headHtml, headColor) {
-    const sheet = document.createElement('div');
-    sheet.className = 'sheet';
-    const head = document.createElement('div');
-    head.className = 'deck-head';
-    head.style.color = headColor;
-    head.innerHTML = headHtml;
-    sheet.appendChild(head);
-    const grid = document.createElement('div');
-    grid.className = 'card-grid';
-    sheet.appendChild(grid);
-    root.appendChild(sheet);
-    return grid;
-  }
-
-  // Verdeel kaarten over A4-vellen (9 per vel), per deck. Na elk voorvel volgt
-  // direct het achtervel, zodat oneven pagina's = voorkanten en even = achterkanten.
-  function renderDeck(title, deckKey, items, cardFn) {
-    const color = `var(--${deckKey})`;
-    let i = 0;
-    while (i < items.length) {
-      const grid = makeSheet(`${title} <span class="cnt">${items.length} kaarten</span>`, color);
-      for (let n = 0; n < 9 && i < items.length; n++, i++) {
-        const wrap = document.createElement('div');
-        wrap.innerHTML = cardFn(items[i], i);
-        grid.appendChild(wrap.firstElementChild);
-      }
-      // Altijd 9 achterkanten: zo heeft elke kaartpositie een achterkant,
-      // ook als het vel spiegelt bij dubbelzijdig printen.
-      const backGrid = makeSheet(`${title} <span class="cnt">achterkant</span>`, color);
-      for (let n = 0; n < 9; n++) {
-        const wrap = document.createElement('div');
-        wrap.innerHTML = backCard(deckKey, title);
-        backGrid.appendChild(wrap.firstElementChild);
-      }
-    }
-  }
-
-  // WAARDEN
-  renderDeck('Waarden', 'waarden', values, (v, idx) => `
-    <div class="card" style="--c: var(--waarden); --bg: ${groupBg[v.group]}">
-      <div class="row-top">
-        <span class="num">${String(idx + 1).padStart(2, '0')}</span>
-        ${icon(v.group, groupColor[v.group])}
-      </div>
-      <div class="card-mid">
-        <span class="persp" style="color:${groupColor[v.group]}">${groupLabel[v.group]}</span>
-        <div class="rule"></div>
-        <h3>${esc(v.title)}</h3>
-        ${v.desc ? `<div class="desc">${esc(v.desc)}</div>` : ''}
-      </div>
-      ${footBrand}
-    </div>`);
-
-  // SPANNINGEN — genummerd in fase-volgorde (zoals de online tool)
-  const tSorted = [...tensions].sort(byPhase);
-  renderDeck('Spanningen', 'spanningen', tSorted, (t, idx) => {
-    const vals = (t.values || []).map(id => values.find(v => v.id === id)).filter(Boolean);
-    const chips = vals.map((v, i) => {
-      const chip = `<span class="chip" style="background:${groupBg[v.group]};color:${groupColor[v.group]}">${esc(v.title)}</span>`;
-      return i > 0 ? `<span class="vx">×</span>${chip}` : chip;
-    }).join('');
+  // ---- Achterkanten ----
+  const backValue = v => {
+    const ts = codes(v.tensions || [], tensions, ', ');
     return `
-    <div class="card card-tension" style="--c: var(--spanningen); --bg: var(--spanningen-bg)">
-      <div class="row-top">
-        <span class="num">${String(idx + 1).padStart(2, '0')}</span>
-        ${icon('spanning')}
+    <div class="card" style="${barStyle('v', v)}">
+      ${bar('v', v)}
+      <div class="back-body">
+        <h4>${esc(L(v, 'title'))}</h4>
+        <div class="expl">${esc(L(v, 'desc'))}</div>
+        <div class="meta">${T().lean[v.group] || ''}</div>
+        ${ts ? `<div class="refs"><div class="lbl">${T().playsIn}</div><div class="codes">${ts}</div></div>` : ''}
       </div>
-      <div class="card-mid top-align">
-        <div class="rule"></div>
-        <h3>${esc(t.title)}</h3>
-        ${vals.length ? `<div class="vals-wrap"><div class="vals">${chips}</div></div>` : ''}
-      </div>
-      ${phaseBar(t)}
-      ${footBrand}
     </div>`;
-  });
+  };
+  const backTension = t => {
+    const vs = codes(t.values || [], values, '<span class="x">×</span>');
+    const is = codes(t.interventions || [], interventions, ', ');
+    return `
+    <div class="card" style="${barStyle('t', t)}">
+      ${bar('t', t)}
+      <div class="back-body">
+        <h4>${esc(L(t, 'title'))}</h4>
+        <div class="expl">${esc(L(t, 'short'))}</div>
+        ${vs ? `<div class="refs"><div class="lbl">${T().links}</div><div class="codes">${vs}</div></div>` : ''}
+        ${is ? `<div class="refs"><div class="lbl">${T().ints}</div><div class="codes">${is}</div></div>` : ''}
+      </div>
+    </div>`;
+  };
+  const backIntervention = i => {
+    const ts = codes(tensions.filter(t => t.interventions.includes(i.id)).map(t => t.id), tensions, ', ');
+    return `
+    <div class="card" style="${barStyle('i', i)}">
+      ${bar('i', i)}
+      <div class="back-body">
+        <h4>${esc(L(i, 'title'))}</h4>
+        <div class="expl">${esc(L(i, 'short'))}</div>
+        <div class="meta">${T().strategy}: ${T().category[i.category] || i.category}</div>
+        ${ts ? `<div class="refs"><div class="lbl">${T().fits}</div><div class="codes">${ts}</div></div>` : ''}
+      </div>
+    </div>`;
+  };
 
-  // INTERVENTIES — genummerd in fase-volgorde
-  const iSorted = [...interventions].sort(byPhase);
-  renderDeck('Interventies', 'interventies', iSorted, (i, idx) => `
-    <div class="card card-intervention" style="--c: var(--interventies); --bg: var(--interventies-bg)">
-      <div class="row-top">
-        <span class="num">${String(idx + 1).padStart(2, '0')}</span>
-        ${icon(i.category, categoryInk[i.category])}
-      </div>
-      <div class="card-mid top-align">
-        <span class="persp" style="color:${categoryInk[i.category]}">${categoryLabel[i.category] || i.category}</span>
-        <div class="rule"></div>
-        <h3>${esc(i.title)}</h3>
-        <div class="desc">${esc(i.short)}</div>
-      </div>
-      ${phaseBar(i)}
-      ${footBrand}
-    </div>`);
+  // ---- Blanco's: balk zonder nummer, schrijflijnen, prompt ----
+  const blankFront = k => `
+    <div class="card" style="${barStyle(k)}">
+      ${bar(k)}
+      <div class="blank-lines"><span></span><span></span><span></span></div>
+      <div class="blank-prompt">${T().blankPrompt[k]}</div>
+    </div>`;
+  const blankBack = k => `
+    <div class="card" style="${barStyle(k)}">
+      ${bar(k)}
+      <div class="blank-lines"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="blank-prompt">&nbsp;</div>
+    </div>`;
+
+  // ---- Vellen ----
+  const root = document.getElementById('root');
+  function sheet(head, color, cells) {
+    const s = document.createElement('div');
+    s.className = 'sheet';
+    s.innerHTML = `<div class="deck-head" style="color:${color}">${head}</div><div class="card-grid">${cells.join('')}</div>`;
+    root.appendChild(s);
+  }
+  // Achterkant-volgorde per vel: bij omslaan langs de lange zijde spiegelen de
+  // kolommen (per rij omgekeerd), langs de korte zijde de rijen.
+  function mirror(cells) {
+    const c = [...cells]; while (c.length < 9) c.push('<div class="slot-empty"></div>');
+    const rows = [c.slice(0, 3), c.slice(3, 6), c.slice(6, 9)];
+    return (flip === 'long' ? rows.map(r => r.reverse()) : rows.reverse()).flat();
+  }
+  function deck(k, items, backFn) {
+    const color = `var(--${{ v: 'waarden', t: 'spanningen', i: 'interventies' }[k]})`;
+    const name = T().deck[k];
+    for (let p = 0; p * 9 < items.length; p++) {
+      const page = items.slice(p * 9, p * 9 + 9);
+      sheet(`${name} <span class="cnt">${items.length} ${T().cards}</span>`, color, page.map(x => front(k, x)));
+      sheet(`${name} <span class="cnt">${T().back}</span>`, color, mirror(page.map(backFn)));
+    }
+    sheet(`${name} <span class="cnt">${T().blank}</span>`, color, Array(9).fill(blankFront(k)));
+    sheet(`${name} <span class="cnt">${T().blank} · ${T().back}</span>`, color, Array(9).fill(blankBack(k)));
+  }
+
+  function render() {
+    document.documentElement.lang = lang;
+    root.innerHTML = '';
+    deck('v', [...values].sort(byNr), backValue);
+    deck('t', [...tensions].sort(byNr), backTension);
+    deck('i', [...interventions].sort(byNr), backIntervention);
+  }
+
+  const flipSel = document.getElementById('flip'), langSel = document.getElementById('lang');
+  flipSel.value = flip; langSel.value = lang;
+  flipSel.onchange = () => { flip = flipSel.value; render(); };
+  langSel.onchange = () => { lang = langSel.value; render(); };
+  render();
 </script>
 </body>
 </html>
