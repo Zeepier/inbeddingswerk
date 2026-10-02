@@ -1383,6 +1383,7 @@ function showTensionModal(id) {
   document.getElementById('modalBody').innerHTML = `
     <div class="modal-eyebrow">${t('tensionEyebrow')} · ${cardCode(tn)}</div>
     <h2>${L(tn, 'title')}</h2>
+    ${tn.short ? `<p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 12px;">${L(tn, 'short')}</p>` : ''}
     <p style="color: var(--ink-soft); font-size: 16px; margin-bottom: 8px;">${L(tn, 'body')}</p>
     ${vals.length ? `
       <div class="modal-section">

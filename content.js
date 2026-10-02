@@ -12,6 +12,8 @@
 //
 // KOPPELINGEN
 // ───────────
+// Spanningen hebben een 'short' (één zin, voor de kaart-achterkant) en een
+// 'body' (lange tekst, alleen op de website).
 // Spanningen verwijzen naar interventies via interventions: ['i1','i2',...]
 // Spanningen verwijzen naar verhalen via cases: ['c1','c2',...]
 // Spanningen verwijzen naar de botsende waarden via values: ['v1','v8',...]
@@ -101,20 +103,23 @@ const tensions = [
 
   { id: 't1', nr: 1,
     title: 'Verschil in interpretatie van ruimte voor invloed',
+    short: 'Wat voor de één raadpleging is, is voor de ander medebeslissen — en dat verschil blijft vaak onuitgesproken.',
     body: 'Deelnemers en organisatie hanteren verschillende beelden van wat "meedoen" betekent. Wat voor de één raadpleging is, is voor de ander medebeslissen. Zonder expliciete afstemming groeit dit verschil tijdens het traject uit tot teleurstelling. In termen van de participatieladder zit hier vaak een onuitgesproken sprong tussen "informeren" en "coproduceren".',
     interventions: ['i13','i1','i12','i14'],
     cases: ['c3'],
     values: ['v1','v8'], phase: 'aanloop' },
 
   { id: 't2', nr: 2,
-    title: 'Impact van een ontwikkeling niet passend bij ruimte voor invloed',
-    body: 'De voorgenomen ingreep raakt mensen ingrijpend in hun woon- of leefkwaliteit, terwijl de aangeboden invloed beperkt is tot bijvoorbeeld inrichtingsdetails. De mismatch tussen impact en zeggenschap voedt wantrouwen en maakt de uitkomst kwetsbaar voor procedureel verzet (zienswijzen, beroep).',
+    title: 'Impact staat niet in verhouding tot invloed',
+    short: 'De ontwikkeling raakt mensen ingrijpend in hun woon- of leefomgeving, maar de geboden invloed reikt niet verder dan details.',
+    body: 'De voorgenomen ontwikkeling raakt mensen ingrijpend in hun woon- of leefkwaliteit, terwijl de aangeboden invloed beperkt is tot bijvoorbeeld inrichtingsdetails. De mismatch tussen impact en zeggenschap voedt wantrouwen en maakt de uitkomst kwetsbaar voor procedureel verzet (zienswijzen, beroep).',
     interventions: ['i6','i14','i7','i20','i21'],
     cases: ['c2','c3'],
     values: ['v1','v6'], phase: 'aanloop' },
 
   { id: 't3', nr: 13,
-    title: 'Wijze van omgang met weerstand en conflict',
+    title: 'Ruimte voor tegenspraak versus bestuurlijke rust',
+    short: 'Kritiek en weerstand laten zien wat er werkelijk speelt, maar brengen ook politiek risico met zich mee — hoeveel ruimte geef je ze?',
     body: 'Weerstand wordt vaak gezien als hindernis, terwijl het waardevolle informatie bevat over wat er werkelijk speelt. Hoe zorg je dat conflict productief wordt benut zonder dat het proces vastloopt of escaleert in de pers?',
     interventions: ['i2','i7','i19','i14'],
     cases: ['c4'],
@@ -122,34 +127,39 @@ const tensions = [
 
   { id: 't4', nr: 7,
     title: 'Tegenstrijdig beleid of wetgeving maakt keuzes lastig',
+    short: 'Wettelijke kaders en beleidsdoelen botsen, en geen enkel kader is leidend.',
     body: 'Wettelijke kaders en beleidsdoelen botsen in dezelfde opgave — denk aan woningbouwopgave versus klimaatadaptatie of stikstofruimte. Keuzes worden uitgesteld omdat geen enkel kader leidend is, en juridische onzekerheid stuurt het proces.',
     interventions: ['i8','i6','i11','i14'],
     cases: ['c2'],
     values: ['v9','v12'], phase: 'aanloop' },
 
   { id: 't5', nr: 9,
-    title: 'Gekaderde financiering maakt beweegruimte ingewikkeld',
+    title: 'Geoormerkt geld beperkt de beweegruimte',
+    short: 'Budgetten zijn geoormerkt, terwijl participatie vraagt om te reageren op wat opkomt.',
     body: 'Subsidies en budgetten zijn vaak geoormerkt voor specifieke doelen, terwijl participatie juist vraagt om reageren op wat opkomt. Wat doe je als de bewonersinbreng buiten de financiële kaders valt — van de subsidie of zelfs van de begrotingsperiode?',
     interventions: ['i17','i10','i1','i11'],
     cases: ['c1'],
     values: ['v1','v10'], phase: 'aanloop' },
 
   { id: 't6', nr: 8,
-    title: 'Scope van beleid niet passend bij belangen in het leefgebied',
+    title: 'Beleid is verkokerd, de leefomgeving niet',
+    short: 'Beleid is per thema georganiseerd, terwijl bewoners hun leefomgeving als geheel beleven.',
     body: 'Beleid is vaak thematisch georganiseerd (groen, mobiliteit, wonen, sociaal), terwijl bewoners hun leefomgeving integraal beleven. Gemeentelijke afdelingen werken langs elkaar heen en plekken vallen tussen wal en schip.',
     interventions: ['i8','i6','i3','i11'],
     cases: ['c2'],
     values: ['v3','v6'], phase: 'aanloop' },
 
   { id: 't7', nr: 4,
-    title: 'Timing van participatie niet passend bij fase van ontwikkeling',
+    title: 'Participatie komt te vroeg of te laat',
+    short: 'Participatie komt na een besluit waar weinig meer aan te veranderen valt, of juist vóórdat er iets concreets ligt.',
     body: 'Participatie wordt te laat georganiseerd — na een principebesluit waar nauwelijks meer aan te schroeven valt — of juist te vroeg, zonder concreet aangrijpingspunt. Beide leiden tot frustratie aan beide kanten van de tafel.',
     interventions: ['i16','i13','i7','i21','i22','i23'],
     cases: ['c3'],
     values: ['v1','v10'], phase: 'aanloop' },
 
   { id: 't8', nr: 10,
-    title: 'Ervaringskennis van bewoners botst met vakkennis van de gemeente',
+    title: 'Ervaringskennis botst met vakkennis',
+    short: 'Wat bewoners ervaren strookt niet met wat rapporten, metingen of vakspecialisten zeggen.',
     body: 'Bewoners ervaren iets anders dan rapporten, metingen of vakspecialisten aangeven — denk aan geluidsoverlast die "binnen de norm" valt, of veiligheid die statistisch is verbeterd maar gevoelsmatig niet. Het rationele bewijs staat haaks op de geleefde werkelijkheid.',
     interventions: ['i7','i14','i12','i8','i24'],
     cases: ['c4'],
@@ -157,27 +167,31 @@ const tensions = [
 
   { id: 't9', nr: 12,
     title: 'Behoefte aan transparantie bij gesloten besluitvorming',
+    short: 'Sommige besluiten worden achter gesloten deuren genomen — hoe blijf je daarover transparant?',
     body: 'Sommige besluiten worden om bestuurlijke, juridische of onderhandelingstechnische redenen achter gesloten deuren genomen. Hoe communiceer je daar transparant over zonder vertrouwen te verliezen — en zonder de onderhandelingsruimte weg te geven?',
     interventions: ['i12','i14','i1'],
     cases: ['c3'],
     values: ['v5','v8','v17'], phase: 'doorloop afloop' },
 
   { id: 't10', nr: 6,
-    title: 'Bestuurlijke of ambtelijke wisselingen in langlopende ontwikkeling',
+    title: 'Wisselingen van bestuurders of ambtenaren',
+    short: 'Wethouders, projectleiders of dossierhouders wisselen, en afspraken raken in de mist.',
     body: 'Wethouders, projectleiders of dossierhouders wisselen tijdens het traject — zeker rond verkiezingen of reorganisaties. Afspraken raken in de mist en deelnemers moeten hun verhaal opnieuw vertellen aan een nieuwe gesprekspartner.',
     interventions: ['i1','i12','i25'],
     cases: ['c4'],
     values: ['v17'], phase: 'doorloop afloop' },
 
   { id: 't11', nr: 14,
-    title: 'Geschiedenis en context omgeving van invloed op nieuwe initiatieven',
+    title: 'Het verleden kleurt hoe nieuwe plannen landen',
+    short: 'Eerdere mislukkingen en breuken in vertrouwen bepalen hoe een nieuw plan wordt ontvangen.',
     body: 'Eerdere mislukkingen, breuken in vertrouwen of onopgeloste kwesties uit het verleden bepalen hoe nieuwe initiatieven worden ontvangen — vaak voordat ze überhaupt zijn gestart. Wat eruit ziet als weerstand tegen het nieuwe plan, is soms een echo van het oude.',
     interventions: ['i7','i16','i12','i25'],
     cases: ['c1'],
     values: ['v2','v5','v6','v17'], phase: 'aanloop' },
 
   { id: 't12', nr: 5,
-    title: 'Beperkt responsief samenwerken door prestatiegerichte aanpak',
+    title: 'Procesdruk laat weinig ruimte om bij te sturen',
+    short: 'KPI\'s, deadlines en verantwoording sturen zo strak dat er weinig ruimte is om te reageren op wat opkomt.',
     body: 'KPI\'s, deadlines en verantwoordingseisen sturen het werk zo strak dat er weinig ruimte is om te reageren op wat opkomt. Het traject loopt door volgens planning, ook als signalen aangeven dat het niet meer klopt.',
     interventions: ['i16','i17','i10','i1','i22','i23','i24'],
     cases: ['c1'],
@@ -185,6 +199,7 @@ const tensions = [
 
   { id: 't13', nr: 3,
     title: 'Invloed geven versus iedereen gelijk behandelen',
+    short: 'Wie meedoet krijgt invloed — maar hoe weegt de stem van wie niet meedoet?',
     body: 'Wie meedoet aan participatie krijgt invloed — maar dat roept de vraag op of de overheid daarmee de actieve, mondige bewoners voortrekt boven de zwijgende meerderheid. Hoe geef je ruimte aan participatie zonder de rechtsgelijkheid van alle inwoners uit het oog te verliezen?',
     interventions: ['i14','i18','i19','i12'],
     cases: ['c3'],
@@ -192,6 +207,7 @@ const tensions = [
 
   { id: 't14', nr: 11,
     title: 'Gemeente, bewoners en afdelingen praten langs elkaar heen',
+    short: 'Iedereen gebruikt dezelfde woorden, maar bedoelt er iets anders mee.',
     body: 'Gemeente en bewoners — en ook afdelingen onderling — gebruiken dezelfde woorden, maar bedoelen er iets anders mee. Wat voor de één "gebiedsontwikkeling" of "participatie" is, betekent voor de ander iets heel anders. Zolang dat onbesproken blijft, praten mensen langs elkaar heen en lijkt er overeenstemming die er niet is.',
     interventions: ['i7','i14','i12'],
     cases: [],
