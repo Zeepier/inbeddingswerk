@@ -34,27 +34,34 @@
     background: var(--waarden); color: #fff; border: none; border-radius: 6px; padding: 7px 14px;
   }
 
+  /* Raster staat verticaal gecentreerd op het vel, zodat voor- en achterkant
+     uitlijnen ongeacht of de printer langs de lange of korte zijde omslaat. */
   .sheet {
     width: 210mm; height: 297mm; background: #fff; margin: 12px auto;
-    padding: 7mm; overflow: hidden;
+    overflow: hidden; position: relative;
+    display: flex; align-items: center; justify-content: center;
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   }
+  /* Vaste 3×3-hoogte, ook bij een half gevuld vel: anders verschuift het
+     raster en lijnt de achterkant niet meer uit met de voorkant. */
   .card-grid {
-    display: grid; grid-template-columns: repeat(3, 63mm); grid-auto-rows: 88mm;
-    justify-content: center; gap: 2.5mm;
+    display: grid; grid-template-columns: repeat(3, 63mm); grid-template-rows: repeat(3, 88mm);
+    justify-content: center; align-content: start; gap: 2.5mm;
   }
+  /* Staat in de snijmarge boven het raster — wordt weggeknipt. */
   .deck-head {
+    position: absolute; top: 5mm; left: 8mm;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 19px; font-weight: 600; color: var(--ink);
-    margin: 0 0 3mm; display: flex; align-items: baseline; gap: 10px;
+    font-size: 17px; font-weight: 600; color: var(--ink);
+    display: flex; align-items: baseline; gap: 10px;
   }
-  .deck-head .cnt { font-size: 12px; font-family: 'Inter'; color: var(--ink-muted); font-weight: 500; }
+  .deck-head .cnt { font-size: 11px; font-family: 'Inter'; color: var(--ink-muted); font-weight: 500; }
 
   /* ---- Kaart ---- */
   .card {
     width: 63mm; height: 88mm; border: 1px solid var(--line);
     border-top: 3mm solid var(--c, var(--line));
-    border-radius: 2mm; padding: 3.5mm 4mm 0;
+    padding: 3.5mm 4mm 0;
     display: flex; flex-direction: column; overflow: hidden;
     position: relative; background: var(--bg, #fff);
   }
@@ -129,6 +136,27 @@
     color: var(--ink-muted); font-weight: 600; white-space: nowrap; flex-shrink: 0;
   }
 
+  /* ---- Achterkant: egale modulekleur, identiek op elke kaart van het vel ---- */
+  .card-back {
+    background: var(--c); border: none; padding: 0; color: #fff;
+    align-items: center; justify-content: center;
+  }
+  .back-inner { display: flex; flex-direction: column; align-items: center; gap: 2.4mm; }
+  .back-mark { width: 9mm; height: 0.6mm; background: rgba(255,255,255,0.65); }
+  .back-word {
+    font-family: 'Cormorant Garamond', serif; font-weight: 500;
+    font-size: 16px; line-height: 1.16; text-align: center; color: #fff;
+  }
+  .back-deck {
+    font-size: 6.8px; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 700; color: rgba(255,255,255,0.72);
+  }
+  .back-credit {
+    position: absolute; bottom: 4mm; left: 0; right: 0; text-align: center;
+    font-size: 5.3px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; color: rgba(255,255,255,0.45);
+  }
+
   @media print {
     body { background: #fff; }
     .toolbar { display: none; }
@@ -142,7 +170,9 @@
 <body>
 <div class="toolbar">
   <strong>Speelkaarten — Ruimte voor Participatie.</strong>
-  63×88 mm · 9 per A4 · knip langs de kaartranden. Print op stevig papier (≥200 g).
+  63×88 mm · 9 per A4 · knip langs de kaartranden. Print op stevig papier (≥200 g),
+  schaal 100% en zonder marges. Dubbelzijdig: oneven pagina's zijn voorkanten,
+  even pagina's de bijbehorende achterkanten.
   <button onclick="window.print()">Print / opslaan als PDF</button>
 </div>
 
@@ -186,31 +216,56 @@
 
   const root = document.getElementById('root');
 
-  // Verdeel kaarten over A4-vellen (9 per vel), per deck.
-  function renderDeck(title, color, items, cardFn) {
+  const backCard = (deckKey, deckName) => `
+    <div class="card card-back" style="--c: var(--${deckKey})">
+      <div class="back-inner">
+        <span class="back-mark"></span>
+        <span class="back-word">Ruimte voor<br>Participatie</span>
+        <span class="back-deck">${deckName}</span>
+      </div>
+      <span class="back-credit">STP × HvA</span>
+    </div>`;
+
+  function makeSheet(headHtml, headColor) {
+    const sheet = document.createElement('div');
+    sheet.className = 'sheet';
+    const head = document.createElement('div');
+    head.className = 'deck-head';
+    head.style.color = headColor;
+    head.innerHTML = headHtml;
+    sheet.appendChild(head);
+    const grid = document.createElement('div');
+    grid.className = 'card-grid';
+    sheet.appendChild(grid);
+    root.appendChild(sheet);
+    return grid;
+  }
+
+  // Verdeel kaarten over A4-vellen (9 per vel), per deck. Na elk voorvel volgt
+  // direct het achtervel, zodat oneven pagina's = voorkanten en even = achterkanten.
+  function renderDeck(title, deckKey, items, cardFn) {
+    const color = `var(--${deckKey})`;
     let i = 0;
     while (i < items.length) {
-      const sheet = document.createElement('div');
-      sheet.className = 'sheet';
-      const head = document.createElement('div');
-      head.className = 'deck-head';
-      head.style.color = color;
-      head.innerHTML = `${title} <span class="cnt">${items.length} kaarten</span>`;
-      sheet.appendChild(head);
-      const grid = document.createElement('div');
-      grid.className = 'card-grid';
+      const grid = makeSheet(`${title} <span class="cnt">${items.length} kaarten</span>`, color);
       for (let n = 0; n < 9 && i < items.length; n++, i++) {
         const wrap = document.createElement('div');
         wrap.innerHTML = cardFn(items[i], i);
         grid.appendChild(wrap.firstElementChild);
       }
-      sheet.appendChild(grid);
-      root.appendChild(sheet);
+      // Altijd 9 achterkanten: zo heeft elke kaartpositie een achterkant,
+      // ook als het vel spiegelt bij dubbelzijdig printen.
+      const backGrid = makeSheet(`${title} <span class="cnt">achterkant</span>`, color);
+      for (let n = 0; n < 9; n++) {
+        const wrap = document.createElement('div');
+        wrap.innerHTML = backCard(deckKey, title);
+        backGrid.appendChild(wrap.firstElementChild);
+      }
     }
   }
 
   // WAARDEN
-  renderDeck('Waarden', 'var(--waarden)', values, (v, idx) => `
+  renderDeck('Waarden', 'waarden', values, (v, idx) => `
     <div class="card" style="--c: var(--waarden); --bg: ${groupBg[v.group]}">
       <div class="row-top">
         <span class="num">${String(idx + 1).padStart(2, '0')}</span>
@@ -227,7 +282,7 @@
 
   // SPANNINGEN — genummerd in fase-volgorde (zoals de online tool)
   const tSorted = [...tensions].sort(byPhase);
-  renderDeck('Spanningen', 'var(--spanningen)', tSorted, (t, idx) => {
+  renderDeck('Spanningen', 'spanningen', tSorted, (t, idx) => {
     const vals = (t.values || []).map(id => values.find(v => v.id === id)).filter(Boolean);
     const chips = vals.map((v, i) => {
       const chip = `<span class="chip" style="background:${groupBg[v.group]};color:${groupColor[v.group]}">${esc(v.title)}</span>`;
@@ -251,7 +306,7 @@
 
   // INTERVENTIES — genummerd in fase-volgorde
   const iSorted = [...interventions].sort(byPhase);
-  renderDeck('Interventies', 'var(--interventies)', iSorted, (i, idx) => `
+  renderDeck('Interventies', 'interventies', iSorted, (i, idx) => `
     <div class="card card-intervention" style="--c: var(--interventies); --bg: var(--interventies-bg)">
       <div class="row-top">
         <span class="num">${String(idx + 1).padStart(2, '0')}</span>

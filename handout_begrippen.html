@@ -24,52 +24,91 @@
     font: inherit; font-weight: 600; cursor: pointer; margin-left: 12px;
     background: var(--c-werk); color: #fff; border: none; border-radius: 6px; padding: 7px 14px;
   }
-  .page {
-    width: 210mm; min-height: 297mm; background: var(--bg); margin: 12px auto;
-    padding: 18mm 22mm; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-  }
-  .doc-head { border-bottom: 2px solid var(--c-werk); padding-bottom: 10px; margin-bottom: 20px; }
-  .doc-head .kicker { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--c-werk); }
-  .doc-head h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 34px; color: var(--ink); margin-top: 4px; }
-  .doc-head p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--ink-soft); margin-top: 6px; }
 
-  .group { margin-top: 22px; break-inside: avoid; }
+  /* Each .page is exactly one A4 sheet; content is spread to fill it. */
+  .page {
+    width: 210mm; height: 297mm; overflow: hidden; background: var(--bg); margin: 12px auto;
+    padding: 17mm 20mm 12mm; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    display: flex; flex-direction: column;
+  }
+  .page-body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 8mm; }
+  .page-foot {
+    margin-top: 6mm; padding-top: 3mm; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+  }
+
+  .doc-head { border-bottom: 2px solid var(--c-werk); padding-bottom: 12px; margin-bottom: 7mm; }
+  .doc-head .kicker { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--c-werk); }
+  .doc-head h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 38px; line-height: 1.1; color: var(--ink); margin-top: 6px; }
+  .doc-head p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--ink-soft); margin-top: 6px; }
+
+  .group { display: flex; flex-direction: column; }
+  .group.grow { flex: 1; }
   .group-label {
     display: flex; align-items: center; gap: 9px;
     font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
-    color: var(--acc); margin-bottom: 6px;
+    color: var(--acc); margin-bottom: 7px;
   }
   .group-label::before { content: ''; width: 10px; height: 10px; border-radius: 2px; background: var(--acc); flex-shrink: 0; }
-  .group-intro { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; line-height: 1.5; color: var(--ink-soft); margin-bottom: 10px; }
+  .group-intro { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16.5px; line-height: 1.45; color: var(--ink-soft); margin-bottom: 4px; }
   .group.kern { --acc: var(--c-kern); }
   .group.werk { --acc: var(--c-werk); }
   .group.strat { --acc: var(--c-strat); }
   .group.fase { --acc: var(--c-fase); }
 
-  .term { padding: 10px 0; border-bottom: 1px solid var(--line); break-inside: avoid; }
-  .term:last-child { border-bottom: none; }
-  .term dt { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
-  .term dd { font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
-  .muse { display: block; margin-top: 8px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
-  .src { display: block; margin-top: 8px; font-size: 11.5px; color: var(--ink-muted); }
-  .src a { color: var(--verhalen); text-decoration: none; }
-  .group-src { margin-top: 10px; font-size: 11.5px; color: var(--ink-muted); }
-  .group-src a { color: var(--verhalen); text-decoration: none; }
+  dl.terms { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+  .term { padding: 7px 0 7px 16px; border-left: 3px solid var(--acc); margin: 5px 0; }
+  .term dt { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1.15; color: var(--ink); margin-bottom: 4px; }
+  .term dd { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+  .muse { display: block; margin-top: 7px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15.5px; line-height: 1.45; color: var(--ink-soft); }
+  .src { display: block; margin-top: 6px; font-size: 11px; color: var(--ink-muted); }
+  .src a, .group-src a { color: var(--verhalen); text-decoration: none; }
+  .group-src { margin-top: 10px; font-size: 11px; color: var(--ink-muted); }
+
+  /* Flow strip: waarden -> spanningen -> interventies */
+  .flow { display: flex; align-items: center; gap: 8px; margin: 8px 0 4px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-werk); }
+  .flow span.step { border: 1.5px solid var(--c-werk); border-radius: 999px; padding: 4px 12px; }
+  .flow span.arrow { color: var(--ink-muted); font-weight: 400; }
+
+  /* Strategies: three cards */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin-top: 12px; }
+  .card { background: #fff8; border: 1px solid var(--line); border-top: 4px solid var(--c-strat); border-radius: 4px; padding: 14px 14px 16px; }
+  .card .via { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--c-strat); }
+  .card h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--ink); margin: 4px 0 8px; }
+  .card p { font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+
+  /* Phases: timeline with soft, overlapping boundaries */
+  .timeline { margin: 18px 0 6px; }
+  .bar { display: flex; height: 44px; border-radius: 22px; overflow: hidden;
+    background: linear-gradient(90deg, #9A6B1033 0%, #9A6B1033 28%, #9A6B1066 38%, #9A6B1066 62%, #9A6B10AA 72%, #9A6B10AA 100%); }
+  .bar div { flex: 1; display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; color: var(--ink); }
+  .bar div:last-child { color: #fff; }
+  .phase-notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin-top: 10px; }
+  .phase-notes div { font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); text-align: center; }
+  .phase-notes b { display: block; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-fase); margin-bottom: 2px; }
+  .cycle { margin-top: 12px; text-align: center; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); }
+
+  .fase-text { margin-top: 14px; padding-left: 16px; border-left: 3px solid var(--c-fase); }
+  .fase-text p { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
 
   @media print {
     body { background: #fff; }
     .toolbar { display: none; }
-    .page { margin: 0; box-shadow: none; width: 100%; min-height: 100vh; padding: 15mm 18mm; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
     @page { size: A4; margin: 0; }
   }
 </style>
 </head>
 <body>
 <div class="toolbar">
-  <strong>Handout — Begrippen in deze tool.</strong> A4.
+  <strong>Handout — Begrippen in deze tool.</strong> A4, twee pagina's.
   <button onclick="window.print()">Print / opslaan als PDF</button>
 </div>
 
+<!-- PAGINA 1 -->
 <div class="page">
   <div class="doc-head">
     <div class="kicker">Ruimte voor Participatie</div>
@@ -77,43 +116,72 @@
     <p>Wat bedoelen we met de termen die in de tool terugkomen?</p>
   </div>
 
-  <div class="group kern">
-    <div class="group-label">Waar het over gaat</div>
-    <div class="group-intro">De begrippen waar de tool om draait: het inbedden van de opbrengsten van participatie, en de ruimte die daarvoor nodig is.</div>
-    <dl>
-      <div class="term"><dt>Inbedding</dt><dd>Het werk dat nodig is om de (verwachte) uitkomst van een participatieproces te verankeren in beleid- en besluitvorming.</dd></div>
-      <div class="term"><dt>Inbeddingsruimte</dt><dd>De beschikbare en verwachte mogelijkheden om uitkomsten van participatie in te (gaan) bedden.</dd></div>
-      <div class="term"><dt>Participatie</dt><dd>Participatie is een proces waarbij individuen, groepen en organisaties invloed uitoefenen op en controle delen over collectieve vraagstukken, beslissingen of diensten die hen aangaan.<span class="src">Bron: Kennisknooppunt Participatie — <a href="https://kennisknooppuntparticipatie.nl/themas/definitie-van-participatie">kennisknooppuntparticipatie.nl</a></span></dd></div>
-    </dl>
+  <div class="page-body">
+    <div class="group kern">
+      <div class="group-label">Waar het over gaat</div>
+      <div class="group-intro">De begrippen waar de tool om draait: het inbedden van de opbrengsten van participatie, en de ruimte die daarvoor nodig is.</div>
+      <dl class="terms">
+        <div class="term"><dt>Inbedding</dt><dd>Het werk dat nodig is om de (verwachte) uitkomst van een participatieproces te verankeren in beleid- en besluitvorming.</dd></div>
+        <div class="term"><dt>Inbeddingsruimte</dt><dd>De beschikbare en verwachte mogelijkheden om uitkomsten van participatie in te (gaan) bedden.</dd></div>
+        <div class="term"><dt>Participatie</dt><dd>Participatie is een proces waarbij individuen, groepen en organisaties invloed uitoefenen op en controle delen over collectieve vraagstukken, beslissingen of diensten die hen aangaan.<span class="src">Bron: Kennisknooppunt Participatie — <a href="https://kennisknooppuntparticipatie.nl/themas/definitie-van-participatie">kennisknooppuntparticipatie.nl</a></span></dd></div>
+      </dl>
+    </div>
+
+    <div class="group werk grow">
+      <div class="group-label">Waar je mee werkt</div>
+      <div class="group-intro">De drie bouwstenen waarmee je werkt: waarden botsen tot spanningen, en spanningen vragen om interventies.</div>
+      <div class="flow"><span class="step">Waarden</span><span class="arrow">→</span><span class="step">Spanningen</span><span class="arrow">→</span><span class="step">Interventies</span></div>
+      <dl class="terms">
+        <div class="term"><dt>Waarden</dt><dd>Wat je met het participatieproces wilt bereiken: de belangen en drijfveren die centraal staan, bezien vanuit het perspectief van bewoners, gemeente of beide. Waarden zijn de bouwstenen — door ze vooraf te benoemen zie je waar spanningen te verwachten zijn.<span class="muse">Vaak zijn binnen één proces meerdere waarden belangrijk, en zijn die niet vanzelfsprekend verenigbaar.</span></dd></div>
+        <div class="term"><dt>Spanningen</dt><dd>Wat kan ontstaan waar twee waarden botsen, bijvoorbeeld een waarde van bewoners tegenover een van de gemeente. Een spanning is geen los item, maar het schuren tussen twee dingen die allebei van belang zijn.<span class="muse">Deze spanningen zijn uitdagingen in een proces, maar ook belangrijke aanwijzingen: ze vertellen je waar de bestaande inbeddingsruimte mogelijk niet overeenkomt met de dingen die bewoners belangrijk vinden. Zo kun je er vooraf op anticiperen.</span></dd></div>
+      </dl>
+    </div>
   </div>
 
-  <div class="group werk">
-    <div class="group-label">Waar je mee werkt</div>
-    <div class="group-intro">De drie bouwstenen waarmee je werkt: waarden botsen tot spanningen, en spanningen vragen om interventies.</div>
-    <dl>
-      <div class="term"><dt>Waarden</dt><dd>Wat je met het participatieproces wilt bereiken: de belangen en drijfveren die centraal staan, bezien vanuit het perspectief van bewoners, gemeente of beide. Waarden zijn de bouwstenen — door ze vooraf te benoemen zie je waar spanningen te verwachten zijn.<span class="muse">Vaak zijn binnen één proces meerdere waarden belangrijk, en zijn die niet vanzelfsprekend verenigbaar.</span></dd></div>
-      <div class="term"><dt>Spanningen</dt><dd>Wat kan ontstaan waar twee waarden botsen, bijvoorbeeld een waarde van bewoners tegenover een van de gemeente. Een spanning is geen los item, maar het schuren tussen twee dingen die allebei van belang zijn.<span class="muse">Deze spanningen zijn uitdagingen in een proces, maar ook belangrijke aanwijzingen: ze vertellen je waar de bestaande inbeddingsruimte mogelijk niet overeenkomt met de dingen die bewoners belangrijk vinden. Zo kun je er vooraf op anticiperen.</span></dd></div>
-      <div class="term"><dt>Interventies</dt><dd>Wat je kunt doen om met een (verwachte) spanning om te gaan. Geen voorschrift, maar een stap die professionals in vergelijkbare projecten daadwerkelijk zetten — die helpt vooruit te kijken naar wat er nodig is om ruimte te maken. Geordend naar de strategie erachter (afstemmen, verbinden of doorzetten) en de fase waarin ze speelt.</dd></div>
-    </dl>
+  <div class="page-foot"><span>Ruimte voor Participatie · Begrippen</span><span>1 / 2</span></div>
+</div>
+
+<!-- PAGINA 2 -->
+<div class="page">
+  <div class="page-body">
+    <div class="group werk">
+      <div class="group-label">Waar je mee werkt — vervolg</div>
+      <dl class="terms">
+        <div class="term"><dt>Interventies</dt><dd>Wat je kunt doen om met een (verwachte) spanning om te gaan. Geen voorschrift, maar een stap die professionals in vergelijkbare projecten daadwerkelijk zetten — die helpt vooruit te kijken naar wat er nodig is om ruimte te maken. Geordend naar de strategie erachter (afstemmen, verbinden of doorzetten) en de fase waarin ze speelt.</dd></div>
+      </dl>
+    </div>
+
+    <div class="group strat">
+      <div class="group-label">Strategieën om ruimte te maken</div>
+      <div class="group-intro">We onderscheiden drie soorten strategieën die je kunt gebruiken om inbeddingsruimte te maken: afstemmen, verbinden en doorzetten. De interventies vallen elk onder één van deze strategieën.</div>
+      <div class="cards">
+        <div class="card"><div class="via">Via de relatie</div><h3>Afstemmen</h3><p>Ruimte maken via de relatie: vroeg vertrouwen en gedeelde betekenis opbouwen en partijen bij elkaar brengen rond een gedeeld belang.</p></div>
+        <div class="card"><div class="via">Vooruit schakelen</div><h3>Verbinden</h3><p>Ruimte maken door vooruit te schakelen: uitkomsten herkaderen en aanhaken op beleidskansen en vensters die eraan komen, zodat je barrières vóór bent.</p></div>
+        <div class="card"><div class="via">Via macht of positie</div><h3>Doorzetten</h3><p>Ruimte maken via formele macht of positie: op tijd escaleren, een knoop doorhakken of een barrière doorbreken, zodat een verwachte uitkomst straks een plek heeft.</p></div>
+      </div>
+      <div class="group-src">Bron: Nederhand, Van der Steen &amp; Van Twist (2018), Local Government Studies — <a href="https://doi.org/10.1080/03003930.2018.1546172">doi.org/10.1080/03003930.2018.1546172</a></div>
+    </div>
+
+    <div class="group fase">
+      <div class="group-label">Fasen in het proces</div>
+      <div class="group-intro">Aanloop, doorloop en afloop: de fasen van een participatieproces.</div>
+      <div class="timeline">
+        <div class="bar"><div>Aanloop</div><div>Doorloop</div><div>Afloop</div></div>
+        <div class="phase-notes">
+          <div><b>Vóór</b>het begin van de (geplande) interacties met bewoners</div>
+          <div><b>Tijdens</b>de interacties met bewoners</div>
+          <div><b>Na</b>afronding van de interacties, als de uitkomsten moeten worden verwerkt</div>
+        </div>
+        <div class="cycle">↻ &nbsp;vaak meerdere cycli, bijvoorbeeld per fase van een planproces</div>
+      </div>
+      <div class="fase-text">
+        <span class="muse" style="margin-top:0">In veel processen zijn deze fases niet eenvoudig van elkaar te scheiden: vaak begint de verwerking van uitkomsten bijvoorbeeld al tijdens de doorloop, of zijn er al wat oriënterende gesprekken in de aanloopfase. Bovendien doorlopen projecten vaak meerdere cycli van aan-, door- en afloop, bijvoorbeeld in de verschillende fasen van een planproces.</span>
+        <span class="src">Bron: Kennisknooppunt Participatie — <a href="https://kennisknooppuntparticipatie.nl/publicaties/competentie-overzichten">kennisknooppuntparticipatie.nl</a></span>
+      </div>
+    </div>
   </div>
 
-  <div class="group strat">
-    <div class="group-label">Strategieën om ruimte te maken</div>
-    <div class="group-intro">We onderscheiden drie soorten strategieën die je kunt gebruiken om inbeddingsruimte te maken: afstemmen, verbinden en doorzetten. De interventies vallen elk onder één van deze strategieën.</div>
-    <dl>
-      <div class="term"><dt>Afstemmen</dt><dd>Ruimte maken via de relatie: vroeg vertrouwen en gedeelde betekenis opbouwen en partijen bij elkaar brengen rond een gedeeld belang.</dd></div>
-      <div class="term"><dt>Verbinden</dt><dd>Ruimte maken door vooruit te schakelen: uitkomsten herkaderen en aanhaken op beleidskansen en vensters die eraan komen, zodat je barrières vóór bent.</dd></div>
-      <div class="term"><dt>Doorzetten</dt><dd>Ruimte maken via formele macht of positie: op tijd escaleren, een knoop doorhakken of een barrière doorbreken, zodat een verwachte uitkomst straks een plek heeft.</dd></div>
-    </dl>
-    <div class="group-src">Bron: Nederhand, Van der Steen &amp; Van Twist (2018), Local Government Studies — <a href="https://doi.org/10.1080/03003930.2018.1546172">doi.org/10.1080/03003930.2018.1546172</a></div>
-  </div>
-
-  <div class="group fase">
-    <div class="group-label">Fasen in het proces</div>
-    <dl>
-      <div class="term"><dt>Aanloop, doorloop en afloop</dt><dd>De fasen van een participatieproces. De <strong>aanloop</strong> is de fase vóór het begin van de (geplande) interacties met bewoners, de <strong>doorloop</strong> is tijdens, en de <strong>afloop</strong> is nadat die interacties zijn afgerond en de uitkomsten moeten worden verwerkt.<span class="src">Bron: Kennisknooppunt Participatie — <a href="https://kennisknooppuntparticipatie.nl/publicaties/competentie-overzichten">kennisknooppuntparticipatie.nl</a></span><span class="muse">In veel processen zijn deze fases niet eenvoudig van elkaar te scheiden: vaak begint de verwerking van uitkomsten bijvoorbeeld al tijdens de doorloop, of zijn er al wat oriënterende gesprekken in de aanloopfase. Bovendien doorlopen projecten vaak meerdere cycli van aan-, door- en afloop, bijvoorbeeld in de verschillende fasen van een planproces.</span></dd></div>
-    </dl>
-  </div>
+  <div class="page-foot"><span>Ruimte voor Participatie · Begrippen</span><span>2 / 2</span></div>
 </div>
 </body>
 </html>

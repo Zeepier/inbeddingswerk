@@ -23,26 +23,34 @@
     font: inherit; font-weight: 600; cursor: pointer; margin-left: 12px;
     background: var(--verhalen); color: #fff; border: none; border-radius: 6px; padding: 7px 14px;
   }
+  /* Each .page is exactly one A4 sheet; links + footer sit at the bottom. */
   .page {
-    width: 210mm; min-height: 297mm; background: var(--bg); margin: 12px auto;
-    padding: 20mm 22mm; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    width: 210mm; height: 297mm; overflow: hidden; background: var(--bg); margin: 12px auto;
+    padding: 16mm 20mm 12mm; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    display: flex; flex-direction: column;
   }
-  .doc-head { border-bottom: 2px solid var(--verhalen); padding-bottom: 10px; margin-bottom: 22px; }
+  .page-foot {
+    margin-top: 6mm; padding-top: 3mm; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted);
+  }
+  .doc-head { border-bottom: 2px solid var(--verhalen); padding-bottom: 10px; margin-bottom: 16px; }
   .doc-head .kicker { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--verhalen); }
   .doc-head h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 34px; color: var(--ink); margin-top: 4px; }
-  .case { }
-  .case-photo { width: 100%; height: 62mm; object-fit: cover; border-radius: 8px; margin-bottom: 16px; background: var(--verhalen-bg); display: block; }
+  .case { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .case-photo { width: 100%; height: 66mm; object-fit: cover; border-radius: 8px; margin-bottom: 16px; background: var(--verhalen-bg); display: block; }
+  .page.first .case-photo { height: 50mm; }
   .case .loc { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--verhalen); }
   .case h2 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 28px; line-height: 1.1; color: var(--ink); margin: 4px 0 10px; }
   .case .summary { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; line-height: 1.4; color: var(--ink-soft); margin-bottom: 16px; }
-  .case .body p { font-size: 14px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 12px; }
-  .case .links { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-muted); }
+  .case .body p { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin-bottom: 11px; }
+  .case .links { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-muted); }
   .case .links b { color: var(--ink-soft); font-weight: 600; }
 
   @media print {
     body { background: #fff; }
     .toolbar { display: none; }
-    .page { margin: 0; box-shadow: none; width: 100%; min-height: 100vh; padding: 16mm 18mm; page-break-after: always; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
     .page:last-child { page-break-after: auto; }
     .case-photo { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     @page { size: A4; margin: 0; }
@@ -66,7 +74,7 @@
     const bodyHtml = (c.full || c.summary || '').split('\n\n').map(p => `<p>${esc(p)}</p>`).join('');
     const photoHtml = c.photo ? `<img class="case-photo" src="${c.photo}" alt="${esc(c.title)}">` : '';
     const page = document.createElement('div');
-    page.className = 'page';
+    page.className = idx === 0 ? 'page first' : 'page';
     page.innerHTML = `
       ${idx === 0 ? `<div class="doc-head"><div class="kicker">Ruimte voor Participatie · Onderlegger</div><h1>Verhalen uit de praktijk</h1></div>` : ''}
       <div class="case">
@@ -79,7 +87,8 @@
           ${linkedT.length ? `<div><b>Spanningen die speelden:</b> ${linkedT.map(esc).join(' · ')}</div>` : ''}
           ${linkedI.length ? `<div style="margin-top:4px;"><b>Ingezette interventies:</b> ${linkedI.map(esc).join(' · ')}</div>` : ''}
         </div>` : ''}
-      </div>`;
+      </div>
+      <div class="page-foot"><span>Ruimte voor Participatie · Verhalen uit de praktijk</span><span>${idx + 1} / ${cases.length}</span></div>`;
     root.appendChild(page);
   });
 </script>
