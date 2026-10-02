@@ -25,7 +25,7 @@
 // Waarden:      v1, v2, v3, ... (voeg toe als v18, v19, enz.; v11 en v14 zijn
 //               samengevoegd met v10 en v5 — hergebruik die ids niet)
 // Spanningen:   t1, t2, t3, ... (voeg toe als t14, t15, enz.)
-// Interventies: i1, i2, i3, ... (voeg toe als i21, i22, enz.)
+// Interventies: i1, i2, i3, ... (voeg toe als i26, i27, enz.)
 // Verhalen:     c1, c2, c3, ... (voeg toe als c5, c6, enz.)
 //
 // WAARDE-VELDEN
@@ -104,7 +104,7 @@ const tensions = [
   { id: 't2',
     title: 'Impact van een ontwikkeling niet passend bij ruimte voor invloed',
     body: 'De voorgenomen ingreep raakt mensen ingrijpend in hun woon- of leefkwaliteit, terwijl de aangeboden invloed beperkt is tot bijvoorbeeld inrichtingsdetails. De mismatch tussen impact en zeggenschap voedt wantrouwen en maakt de uitkomst kwetsbaar voor procedureel verzet (zienswijzen, beroep).',
-    interventions: ['i6','i14','i7','i20'],
+    interventions: ['i6','i14','i7','i20','i21'],
     cases: ['c2','c3'],
     values: ['v1','v6'], phase: 'aanloop' },
 
@@ -139,14 +139,14 @@ const tensions = [
   { id: 't7',
     title: 'Timing van participatie niet passend bij fase van ontwikkeling',
     body: 'Participatie wordt te laat georganiseerd — na een principebesluit waar nauwelijks meer aan te schroeven valt — of juist te vroeg, zonder concreet aangrijpingspunt. Beide leiden tot frustratie aan beide kanten van de tafel.',
-    interventions: ['i16','i13','i7'],
+    interventions: ['i16','i13','i7','i21','i22','i23'],
     cases: ['c3'],
     values: ['v1','v10'], phase: 'aanloop' },
 
   { id: 't8',
     title: 'Ervaringskennis van bewoners botst met vakkennis van de gemeente',
     body: 'Bewoners ervaren iets anders dan rapporten, metingen of vakspecialisten aangeven — denk aan geluidsoverlast die "binnen de norm" valt, of veiligheid die statistisch is verbeterd maar gevoelsmatig niet. Het rationele bewijs staat haaks op de geleefde werkelijkheid.',
-    interventions: ['i7','i14','i12','i8'],
+    interventions: ['i7','i14','i12','i8','i24'],
     cases: ['c4'],
     values: ['v2','v12'], phase: 'doorloop' },
 
@@ -160,21 +160,21 @@ const tensions = [
   { id: 't10',
     title: 'Bestuurlijke of ambtelijke wisselingen in langlopende ontwikkeling',
     body: 'Wethouders, projectleiders of dossierhouders wisselen tijdens het traject — zeker rond verkiezingen of reorganisaties. Afspraken raken in de mist en deelnemers moeten hun verhaal opnieuw vertellen aan een nieuwe gesprekspartner.',
-    interventions: ['i1','i12'],
+    interventions: ['i1','i12','i25'],
     cases: ['c4'],
     values: ['v17'], phase: 'doorloop afloop' },
 
   { id: 't11',
     title: 'Geschiedenis en context omgeving van invloed op nieuwe initiatieven',
     body: 'Eerdere mislukkingen, breuken in vertrouwen of onopgeloste kwesties uit het verleden bepalen hoe nieuwe initiatieven worden ontvangen — vaak voordat ze überhaupt zijn gestart. Wat eruit ziet als weerstand tegen het nieuwe plan, is soms een echo van het oude.',
-    interventions: ['i7','i16','i12'],
+    interventions: ['i7','i16','i12','i25'],
     cases: ['c1'],
     values: ['v2','v5','v6','v17'], phase: 'aanloop' },
 
   { id: 't12',
     title: 'Beperkt responsief samenwerken door prestatiegerichte aanpak',
     body: 'KPI\'s, deadlines en verantwoordingseisen sturen het werk zo strak dat er weinig ruimte is om te reageren op wat opkomt. Het traject loopt door volgens planning, ook als signalen aangeven dat het niet meer klopt.',
-    interventions: ['i16','i17','i10','i1'],
+    interventions: ['i16','i17','i10','i1','i22','i23','i24'],
     cases: ['c1'],
     values: ['v1','v4','v10'], phase: 'doorloop afloop' },
 
@@ -196,7 +196,7 @@ const tensions = [
 
 
 // -------------------------------------------------------------
-// INTERVENTIES (18)
+// INTERVENTIES (23)
 // -------------------------------------------------------------
 
 const interventions = [
@@ -267,9 +267,9 @@ const interventions = [
 
   { id: 'i10',
     title: 'Opplussen',
-    short: 'Organiseren van benodigde extra capaciteit, expertise, betrokkenheid, geld of tijd op het moment dat blijkt dat de basisopzet ontoereikend is.',
+    short: 'Organiseren van benodigde extra capaciteit, expertise, betrokkenheid, geld of tijd — of een rol die ontbreekt — op het moment dat blijkt dat de basisopzet ontoereikend is.',
     when: 'Wanneer duidelijk wordt dat de basisopzet niet toereikend is voor de complexiteit.',
-    example: 'Een externe procesbegeleider inhuren voor een halfjaar, omdat de interne capaciteit niet volstaat voor de gevraagde zorgvuldigheid.',
+    example: 'Een externe procesbegeleider inhuren voor een halfjaar, omdat de interne capaciteit niet volstaat voor de gevraagde zorgvuldigheid. Of een rol toevoegen die ontbreekt, zoals iemand die de buurt goed kent of een specialist die een ontbrekend perspectief inbrengt.',
     watch: 'Opplussen is geen oplossing voor onduidelijkheid over de opgave. Eerst scherper, dan opschalen.',
     phase: 'doorloop', category: 'powering' },
 
@@ -344,6 +344,46 @@ const interventions = [
     example: 'Een wethouder die in de raad bewust een politieke confrontatie aangaat om bewonersafspraken overeind te houden tegen ambtelijke druk in.',
     watch: 'Powerplay verbruikt politiek kapitaal. Te vaak inzetten ondermijnt geloofwaardigheid; te zelden inzetten ondermijnt afspraken.',
     phase: 'afloop', category: 'powering' },
+
+  { id: 'i21',
+    title: 'Vlekken in het ontwerp',
+    short: 'Bewust delen van het ontwerp openlaten, zodat er nog ruimte is om de opbrengst van participatie een plek te geven.',
+    when: 'Wanneer het ontwerp al ver is, maar de participatie nog loopt of nog moet beginnen.',
+    example: 'Een herinrichting van een straat waarin de plek van speelvoorzieningen en bankjes bewust nog niet is ingetekend, zodat bewoners daar in een latere ronde over kunnen meebeslissen.',
+    watch: 'Een vlek moet echt open zijn — en klein genoeg om haalbaar te blijven. Spreek vooraf af wanneer en door wie de vlek wordt ingevuld.',
+    phase: 'aanloop doorloop', category: 'puzzling' },
+
+  { id: 'i22',
+    title: 'Opknippen',
+    short: 'Het project opdelen in delen met elk een eigen tempo, zodat wat vastligt door kan en wat ruimte nodig heeft meer tijd krijgt.',
+    when: 'Wanneer een strakke planning en ruimte voor participatie niet samengaan in één traject.',
+    example: 'Een gebiedsontwikkeling waarin de woningbouw volgens planning doorgaat, terwijl voor de invulling van de plinten en de openbare ruimte een aparte fase met eigen participatie wordt ingericht.',
+    watch: 'Opknippen kan ook versnipperen. Houd zicht op hoe de delen samenhangen, en maak voor bewoners duidelijk over welk deel het gesprek gaat.',
+    phase: 'aanloop doorloop', category: 'puzzling' },
+
+  { id: 'i23',
+    title: 'Go/no-go-moment',
+    short: 'Vooraf een expliciet beslismoment inbouwen waarop wordt besloten of het proces doorgaat zoals gepland, wordt bijgesteld of stopt.',
+    when: 'Wanneer de planning optimistisch is en het onzeker is of er genoeg tijd is voor een zorgvuldig proces.',
+    example: 'Een projectteam spreekt bij de start af om na de eerste bewonersbijeenkomst opnieuw te beslissen: doorgaan zoals gepland, meer tijd nemen, of de scope aanpassen.',
+    watch: 'Een go/no-go zonder echte \'no\' is schijn. Leg vooraf vast op basis waarvan je beslist, en wie beslist.',
+    phase: 'doorloop', category: 'powering' },
+
+  { id: 'i24',
+    title: 'Snelkookpansessie',
+    short: 'Een intensieve werksessie waarin projectteam en experts samen alle opbrengsten doornemen en ter plekke scenario\'s of ontwerpvoorstellen maken.',
+    when: 'Wanneer er veel opbrengst ligt, maar weinig tijd om die zorgvuldig te verwerken.',
+    example: 'Een middag waarin projectteam, ontwerper en een verkeersdeskundige de opbrengst van een enquête en buurtgesprekken doornemen en direct twee varianten voor de herinrichting schetsen.',
+    watch: 'Voorbereiding is alles: wie moet erbij zijn, wat moet er op tafel liggen, en waar moet je mee weglopen?',
+    phase: 'doorloop afloop', category: 'mediating' },
+
+  { id: 'i25',
+    title: 'Sleutelfiguur zoeken',
+    short: 'Iemand vinden die de geschiedenis van de plek en van eerdere participatie kent — en die meenemen in het proces.',
+    when: 'Wanneer je instapt in een gebied met een voorgeschiedenis die je zelf niet kent.',
+    example: 'Een opbouwwerker die al jaren in de wijk werkt en vertelt wat er in eerdere trajecten is beloofd en misgegaan — waarna die geschiedenis een plek krijgt in het participatieplan.',
+    watch: 'Eén sleutelfiguur is één perspectief. Toets het verhaal bij anderen.',
+    phase: 'aanloop', category: 'mediating' },
 
 ];
 
