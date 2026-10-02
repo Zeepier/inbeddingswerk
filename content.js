@@ -30,8 +30,9 @@
 //
 // WAARDE-VELDEN
 // ─────────────
-// group: 'bewoners' (paars) | 'gemeente' (geel) | 'beide' (gradient)
-//   getoond als Bewoners / Gemeente / "Gemeente & Bewoners"
+// group: 'bewoners' (lichte tint) | 'gemeente' (donkere tint) | 'beide' (middentint)
+//   Niet meer als label of filter getoond: alleen een subtiele tint op de kaart
+//   en één zin in de pop-up ("vaak vanuit bewoners — maar dat hoeft niet").
 // desc:  één zin die de waarde toelicht (gebruikt op de speelkaarten)
 //
 // INTERVENTIE-VELDEN

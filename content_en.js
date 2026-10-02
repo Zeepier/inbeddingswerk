@@ -215,11 +215,7 @@ const staticEN = {
 
   'waarden-title': `Values <span class="em">as building blocks</span>`,
   'waarden-lead': `Which values matter most in this participation process? Select the values that are central.`,
-  'f-perspectief': `Perspective`,
   'f-alle': `All`,
-  'f-bewoners': `Residents`,
-  'f-gemeente': `Municipality`,
-  'f-beide': `Municipality &amp; Residents`,
   'waarden-hint': `Click a value to see the tensions it plays a part in`,
 
   'spanningen-title': `Tensions <span class="em">in practice</span>`,
