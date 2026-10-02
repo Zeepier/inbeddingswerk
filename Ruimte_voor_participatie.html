@@ -487,6 +487,8 @@
     font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
   }
   .vcard-count { color: var(--ink-muted); }
+  .cc { display: inline-flex; align-items: center; gap: 0.25em; white-space: nowrap; font-style: normal; font-variant-numeric: lining-nums; }
+  .cc-ic { width: 0.95em; height: 0.95em; flex-shrink: 0; }
   .vcard-num { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--mod-waarden); }
   .vcard.hidden { display: none; }
 
@@ -1225,9 +1227,14 @@ try {
 const t = key => UI[lang][key];
 // Tekst van een kaart in de gekozen taal (valt terug op Nederlands)
 const L = (obj, field) => (lang === 'en' && typeof contentEN !== 'undefined' && contentEN[obj.id] && contentEN[obj.id][field]) || obj[field];
-// Vast kaartnummer met set-letter: W/S/I (nl), V/T/I (en) — zie 'nr' in content.js
-const CODE_PREFIX = { nl: { v: 'W', t: 'S', i: 'I' }, en: { v: 'V', t: 'T', i: 'I' } };
-const cardCode = x => CODE_PREFIX[lang][x.id[0]] + x.nr;
+// Vast kaartnummer = set-icoon + nummer, gelijk aan de speelkaarten — zie 'nr' in content.js.
+// Iconen: Lucide (lucide.dev), ISC-licentie: kompas = waarde, pijlen = spanning, moersleutel = interventie.
+const SET_ICON = {
+  v: '<circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/>',
+  t: '<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>',
+  i: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+};
+const cardCode = x => `<span class="cc"><svg class="cc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SET_ICON[x.id[0]]}</svg>${x.nr}</span>`;
 const phaseText = p => (p || '').split(' ').filter(Boolean).map(x => t('phase')[x] || x).join(' · ');
 
 // Originele (Nederlandse) HTML van alle vaste teksten bewaren vóór er iets aan verandert

@@ -30,7 +30,8 @@
 // Interventies: i1, i2, i3, ... (voeg toe als i26, i27, enz.)
 // Verhalen:     c1, c2, c3, ... (voeg toe als c5, c6, enz.)
 //
-// nr: het VASTE kaartnummer (W1–W15, S1–S14, I1–I23; Engels V/T/I).
+// nr: het VASTE kaartnummer per set (1–15, 1–14, 1–23). Op kaart en website
+//   getoond als set-icoon + nummer (kompas 7, pijlen 10, moersleutel 22).
 //   Waarden en spanningen staan thematisch geordend, interventies op fase.
 //   Nooit hernummeren: een nieuwe kaart krijgt het volgende vrije nummer in
 //   zijn set, een verwijderd nummer wordt niet hergebruikt.
