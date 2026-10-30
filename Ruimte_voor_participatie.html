@@ -410,6 +410,30 @@
   .fb-eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--mod-verhalen); }
   .fb-title { font-size: 18px; font-weight: 600; color: var(--ink); }
   .fb-q { font-size: 14px; line-height: 1.45; color: var(--ink-soft); }
+  /* Handleiding: meer ademruimte — grotere letter, ruimere regels en meer wit tussen alinea's, stappen en onderdelen */
+  .hl { max-width: 700px; margin-top: 16px; }
+  .hl-step { margin-bottom: 0; padding: 8px 0 56px; }
+  .hl-step + .hl-step { border-top: 1px solid var(--line); padding-top: 48px; }
+  .hl-step-num { margin-bottom: 10px; }
+  .hl-step h3 { font-size: 28px; margin-bottom: 22px; }
+  .hl-step p, .hl-step li, .hl-do li { font-size: 17px; line-height: 1.75; }
+  .hl-step p { margin-bottom: 20px; }
+  .hl-step ul, .hl-do { margin: 6px 0 24px; }
+  .hl-step ul:last-child, .hl-do:last-child { margin-bottom: 0; }
+  .hl-step li, .hl-do li { margin-bottom: 16px; }
+  .hl-step li::before { top: 13px; }
+  .hl-do li::before { top: 3px; }
+  .hl-sub { margin: 40px 0 8px; }
+  .hl-core { margin: 14px 0 24px !important; padding: 8px 0 8px 22px; }
+  .hl-time { gap: 8px; margin: 18px 0 18px; }
+  .hl-time > div { padding: 12px 14px; }
+  .hl-note { margin-bottom: 8px !important; }
+  .hl-phase { margin: 56px 0 18px; padding-top: 16px; }
+  .hl-tip { padding: 16px 20px !important; margin: 22px 0 24px !important; line-height: 1.7 !important; }
+  .hl-ask { margin-top: 18px !important; }
+  .hl-step .hl-ask li { margin-bottom: 10px; }
+  .flow { margin: 20px 0 14px; }
+
   @media (max-width: 820px) {
     .flow { grid-template-columns: 1fr; width: 100%; }
     .flow-link { flex-direction: row; padding: 6px 0; }
