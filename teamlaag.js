@@ -47,6 +47,46 @@ function teamDraftDirty() {
   try { return localStorage.getItem(TEAM_DIRTY_KEY) === '1'; } catch (e) { return false; }
 }
 
+// Heeft deze browser een geactiveerde eigen teamversie? Dan tonen we die ook op de gewone pagina.
+const TEAM_ACTIEF_KEY = 'rvp-team-actief';
+function teamActief() { try { return localStorage.getItem(TEAM_ACTIEF_KEY) === '1'; } catch (e) { return false; } }
+function setTeamActief(on) { try { localStorage.setItem(TEAM_ACTIEF_KEY, on ? '1' : '0'); } catch (e) {} }
+
+// --- Toegankelijke instap vanaf de hoofdpagina (alleen knoppen; geen URL's of jargon) ---
+function teamOpenEditor() {
+  const u = new URL(location.href);
+  u.searchParams.delete('team');
+  u.searchParams.set('beheer', '');
+  location.href = u.pathname + u.search.replace('beheer=', 'beheer');
+}
+function teamNieuw() { saveTeamDraft({ team: { naam: '' } }, false); setTeamActief(true); teamOpenEditor(); }
+function teamOpenBestand(file, onError) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    let data; try { data = JSON.parse(reader.result); } catch (e) { return onError && onError('Dit bestand is geen geldige teamversie.'); }
+    if (!data || typeof data !== 'object' || Array.isArray(data)) return onError && onError('Dit bestand is geen geldige teamversie.');
+    saveTeamDraft(data, false); setTeamActief(true);
+    const u = new URL(location.href); u.searchParams.delete('beheer'); u.searchParams.delete('team');
+    location.href = u.pathname + u.search;
+  };
+  reader.readAsText(file);
+}
+function teamOpslaan() {
+  const d = loadTeamDraft() || { team: { naam: '' } };
+  const naam = ((d.team && d.team.naam) || '').trim().replace(/[^\w \-]+/g, '').replace(/\s+/g, '-');
+  const blob = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = naam ? `teamversie-${naam}.json` : 'teamversie.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+}
+function teamTerugNaarBasis() {
+  setTeamActief(false);
+  const u = new URL(location.href); u.searchParams.delete('beheer'); u.searchParams.delete('team');
+  location.href = u.pathname + u.search;
+}
+
 // Ongewijzigde basisset, om na een wijziging in de editor opnieuw te kunnen samenvoegen
 const TEAM_BASE = JSON.parse(JSON.stringify({ values, tensions, interventions, cases }));
 function resetToBase() {
@@ -88,6 +128,7 @@ const teamReady = (async () => {
     }
     if (teamState.beheer) {
       // De editor werkt op de werkversie; de eerste keer is dat een kopie van de gepubliceerde laag
+      setTeamActief(true);
       let draft = loadTeamDraft();
       if (!draft) {
         draft = teamState.published ? JSON.parse(JSON.stringify(teamState.published)) : { team: { naam: '' } };
@@ -97,6 +138,10 @@ const teamReady = (async () => {
       rebuildTeam(draft, { keepHidden: true });
     } else if (teamState.published) {
       rebuildTeam(teamState.published);
+    } else if (teamActief()) {
+      // Geen eigen sitekopie en geen ?team-link, maar deze browser heeft een eigen teamversie aanstaan
+      const draft = loadTeamDraft();
+      if (draft) { teamState.source = 'draft'; rebuildTeam(draft); }
     }
   }
   if (teamWarnings.length) console.warn('Teamlaag:\n- ' + teamWarnings.join('\n- '));

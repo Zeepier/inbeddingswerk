@@ -2,7 +2,9 @@
 
 *Status: fase 1 en 2 gebouwd (teamlaag.js, teameditor.js). Oktober 2026.*
 
-**Gebruik in het kort:** open de site met `?beheer` (of via "Teamversie beheren" onderaan de pagina). Wijzigingen worden bewaard in de browser als werkversie. "Exporteer teamversie" levert `team.json` op; zet dat bestand naast de site (eigen kopie) om de teamversie voor iedereen te publiceren. "Printkaarten (PDF)" opent de printkaarten met de werkversie.
+**Gebruik in het kort:** klik onderaan op **Teamversie** → *Nieuwe teamversie beginnen* of *Een opgeslagen versie openen* (een `team.json`-bestand, lokaal in de browser ingeladen — geen server). Je eigen versie blijft daarna op de **gewone pagina** staan (bewaard in deze browser; opt-in, dus de publieke basisversie blijft schoon voor gewone bezoekers). Via diezelfde dialoog: *Kaarten bewerken* (de editor), *Opslaan naar bestand* en *Terug naar de basisversie*. De editor is ook los te openen met `?beheer`. "Printkaarten (PDF)" opent de printkaarten met de werkversie.
+
+*Toegankelijke instap toegevoegd nov 2026 (teamlaag.js + dialoog in de site): testers hoeven geen URL's of jargon te kennen. Tester-uitleg staat in `testinstructie-teamversie.md`. Distributie-idee: een OpenResearch-artikel dat naar de (extern gehoste) tool linkt — ORA host zelf geen web-apps.*
 
 ## 1. Doel
 

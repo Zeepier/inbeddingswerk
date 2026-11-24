@@ -114,7 +114,7 @@ const tensions = [
     title: 'Impact staat niet in verhouding tot invloed',
     short: 'De ontwikkeling raakt mensen ingrijpend in hun woon- of leefomgeving, maar de geboden invloed reikt niet verder dan details.',
     body: 'De voorgenomen ontwikkeling raakt mensen ingrijpend in hun woon- of leefkwaliteit, terwijl de aangeboden invloed beperkt is tot bijvoorbeeld inrichtingsdetails. De mismatch tussen impact en zeggenschap voedt wantrouwen en maakt de uitkomst kwetsbaar voor procedureel verzet (zienswijzen, beroep).',
-    interventions: ['i6','i14','i7','i20','i21'],
+    interventions: ['i6','i14','i7','i20','i21','i5'],
     cases: ['c2','c3'],
     values: ['v1','v6'], phase: 'aanloop' },
 
@@ -130,7 +130,7 @@ const tensions = [
     title: 'Tegenstrijdig beleid of wetgeving maakt keuzes lastig',
     short: 'Wettelijke kaders en beleidsdoelen botsen, en geen enkel kader is leidend.',
     body: 'Wettelijke kaders en beleidsdoelen botsen in dezelfde opgave — denk aan woningbouwopgave versus klimaatadaptatie of stikstofruimte. Keuzes worden uitgesteld omdat geen enkel kader leidend is, en juridische onzekerheid stuurt het proces.',
-    interventions: ['i8','i6','i11','i14'],
+    interventions: ['i8','i6','i11','i14','i5'],
     cases: ['c2'],
     values: ['v9','v12'], phase: 'aanloop' },
 
@@ -146,7 +146,7 @@ const tensions = [
     title: 'Beleid is verkokerd, de leefomgeving niet',
     short: 'Beleid is per thema georganiseerd, terwijl bewoners hun leefomgeving als geheel beleven.',
     body: 'Beleid is vaak thematisch georganiseerd (groen, mobiliteit, wonen, sociaal), terwijl bewoners hun leefomgeving integraal beleven. Gemeentelijke afdelingen werken langs elkaar heen en plekken vallen tussen wal en schip.',
-    interventions: ['i8','i6','i3','i11'],
+    interventions: ['i8','i6','i3','i11','i4'],
     cases: ['c2'],
     values: ['v3','v6'], phase: 'aanloop' },
 
@@ -194,7 +194,7 @@ const tensions = [
     title: 'Procesdruk laat weinig ruimte om bij te sturen',
     short: 'KPI\'s, deadlines en verantwoording sturen zo strak dat er weinig ruimte is om te reageren op wat opkomt.',
     body: 'KPI\'s, deadlines en verantwoordingseisen sturen het werk zo strak dat er weinig ruimte is om te reageren op wat opkomt. Het traject loopt door volgens planning, ook als signalen aangeven dat het niet meer klopt.',
-    interventions: ['i16','i17','i10','i1','i22','i23','i24'],
+    interventions: ['i16','i17','i10','i1','i22','i23','i24','i4'],
     cases: ['c1'],
     values: ['v1','v4','v10'], phase: 'doorloop afloop' },
 

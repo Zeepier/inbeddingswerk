@@ -845,8 +845,22 @@
   .value-chip.gemeente { border-top: 3px solid var(--val-dark); }
   .value-chip.gemeente .vc-dot { background: var(--val-dark); }
 
-  .beheer-link { display: block; margin-top: 8px; color: rgba(255,255,255,0.35); font-size: 11px; text-decoration: none; }
+  .beheer-link { display: inline-block; margin-top: 8px; color: rgba(255,255,255,0.35); font-size: 11px; text-decoration: none; background: none; border: none; cursor: pointer; font-family: inherit; }
   .beheer-link:hover { color: rgba(255,255,255,0.7); text-decoration: underline; }
+
+  /* Teamversie-dialoog (toegankelijke instap) */
+  .tdlg-overlay { position: fixed; inset: 0; background: rgba(31,42,38,0.45); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+  .tdlg { background: var(--paper); border-radius: 12px; max-width: 460px; width: 100%; padding: 30px 30px 26px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+  .tdlg-x { position: absolute; top: 12px; right: 16px; background: none; border: none; font-size: 24px; line-height: 1; cursor: pointer; color: var(--ink-muted); }
+  .tdlg h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 27px; margin: 0 0 12px; color: var(--ink); }
+  .tdlg > div p, .tdlg p { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 20px; }
+  .tdlg-btns { display: flex; flex-direction: column; gap: 10px; }
+  .tdlg .tbtn { font: inherit; font-size: 15px; font-weight: 600; padding: 13px 16px; border-radius: 8px; cursor: pointer; border: 1px solid var(--line); background: var(--paper); color: var(--ink); text-align: left; transition: border-color 0.15s ease, background 0.15s ease; }
+  .tdlg .tbtn:hover { border-color: var(--green); }
+  .tdlg .tbtn.primary { background: var(--green); border-color: var(--green); color: #fff; }
+  .tdlg .tbtn small { display: block; font-weight: 400; font-size: 12.5px; color: var(--ink-muted); margin-top: 3px; }
+  .tdlg .tbtn.primary small { color: rgba(255,255,255,0.8); }
+  .tdlg-err { color: var(--mod-interventies); font-size: 13px; margin-top: 12px; }
   footer {
     background: var(--ink);
     color: rgba(255,255,255,0.5);
@@ -996,6 +1010,7 @@
       <h3>Wat is dit?</h3>
       <p>Als we burgers vragen mee te denken, moeten we ook ruimte hebben om iets te doen met hun ideeën: <em>ruimte voor participatie</em>. Die ruimte blijkt naderhand vaak beperkt, en gebeurt er daardoor vaak te weinig met de opbrengsten van participatieprocessen.</p>
       <p>Het is echter eigen aan participatie dat we niet precies weten wat bewoners ons gaan vertellen – als dat zo zou zijn, zouden we het ze niet hoeven vragen. Het is daarom belangrijk om te anticiperen op de mogelijke inbreng van bewoners. Welke ruimte zou er nodig zijn om hun inbreng plek te geven? En hoe kunnen we die ruimte maken?</p>
+      <p>Waar het participatieplan vooral het <em>proces</em> beschrijft, kijk je met deze tool vooruit: welke ruimte is er straks nodig om de opbrengsten een plek te geven?</p>
       <p><strong>Ruimte voor Participatie</strong> is ontwikkeld om dit gesprek te voeren, en bestaat uit de volgende onderdelen:</p>
       <ul>
         <li><strong>De gesprekshulp, met drie kaartendecks</strong>: <button class="ilink m-waarden" onclick="switchModule('waarden')">waarden</button>, <button class="ilink m-spanningen" onclick="switchModule('spanningen')">spanningen</button> en <button class="ilink m-interventies" onclick="switchModule('interventies')">interventies</button></li>
@@ -1212,8 +1227,17 @@
 
 <footer>
   <span data-i18n="footer">Ruimte voor participatie · Coach-tool · Voorbeeldversie · Gemaakt voor reflectie en gesprek</span>
-  <a class="beheer-link" id="beheerLink" href="?beheer">Teamversie beheren</a>
+  <button class="beheer-link" id="teamEntry" type="button">Teamversie</button>
 </footer>
+
+<!-- Toegankelijke teamversie-instap -->
+<div class="tdlg-overlay" id="teamDialog" hidden>
+  <div class="tdlg" role="dialog" aria-modal="true" aria-label="Teamversie">
+    <button class="tdlg-x" id="teamDlgClose" type="button" aria-label="Sluiten">×</button>
+    <div id="teamDlgBody"></div>
+  </div>
+</div>
+<input type="file" id="teamFile" accept=".json,application/json" hidden>
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-content">
@@ -1716,8 +1740,7 @@ function showTeamLine(layer) {
 teamReady.then(layer => {
   sortCards();
   showTeamLine(layer);
-  // Beheer-link behoudt een eventuele ?team=…
-  try { const u = new URL(location.href); u.searchParams.set('beheer', ''); document.getElementById('beheerLink').href = u.search.replace('beheer=', 'beheer'); } catch (e) {}
+  setupTeamDialog();
   if (teamState.beheer) {
     const sc = document.createElement('script');
     sc.src = 'teameditor.js';
@@ -1727,6 +1750,56 @@ teamReady.then(layer => {
     applyLang(lang);
   }
 });
+
+// Toegankelijke teamversie-instap: één knop opent een heldere dialoog, geen URL's of jargon.
+function setupTeamDialog() {
+  const entry = document.getElementById('teamEntry');
+  const dlg = document.getElementById('teamDialog');
+  const body = document.getElementById('teamDlgBody');
+  if (!entry || !dlg || !body) return;
+  if (teamState.beheer) { entry.hidden = true; return; } // in beheer regelt de editor dit
+  entry.textContent = teamActief() ? 'Jouw teamversie' : 'Teamversie';
+  function render() {
+    const d = loadTeamDraft();
+    const naam = (d && d.team && d.team.naam) ? String(d.team.naam).replace(/</g, '&lt;') : '';
+    if (teamActief()) {
+      body.innerHTML =
+        '<h3>Je werkt in je eigen teamversie' + (naam ? ': ' + naam : '') + '</h3>' +
+        '<p>Je eigen kaarten en aanpassingen staan op deze computer bewaard.</p>' +
+        '<div class="tdlg-btns">' +
+          '<button class="tbtn primary" data-act="bewerken">Kaarten bewerken<small>Voeg toe, pas aan of verberg kaarten</small></button>' +
+          '<button class="tbtn" data-act="opslaan">Opslaan naar bestand<small>Bewaar je teamversie om mee te nemen of te delen</small></button>' +
+          '<button class="tbtn" data-act="terug">Terug naar de basisversie<small>Je eigen versie blijft bewaard</small></button>' +
+        '</div>';
+    } else {
+      body.innerHTML =
+        '<h3>Jouw teamversie</h3>' +
+        '<p>Maak een eigen set kaarten voor jouw team: voeg eigen waarden, spanningen, interventies en verhalen toe, of pas bestaande aan. Je werk blijft op deze computer bewaard; je kunt het ook opslaan als bestand om mee te nemen of te delen.</p>' +
+        '<div class="tdlg-btns">' +
+          '<button class="tbtn primary" data-act="nieuw">Nieuwe teamversie beginnen</button>' +
+          '<button class="tbtn" data-act="openen">Een opgeslagen versie openen<small>Heb je al een teamversie-bestand? Open het hier.</small></button>' +
+        '</div>' +
+        '<div class="tdlg-err" id="teamDlgErr" hidden></div>';
+    }
+  }
+  entry.addEventListener('click', () => { render(); dlg.hidden = false; });
+  document.getElementById('teamDlgClose').addEventListener('click', () => { dlg.hidden = true; });
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.hidden = true; });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !dlg.hidden) dlg.hidden = true; });
+  body.addEventListener('click', e => {
+    const b = e.target.closest('button[data-act]'); if (!b) return;
+    const act = b.dataset.act;
+    if (act === 'nieuw') teamNieuw();
+    else if (act === 'openen') document.getElementById('teamFile').click();
+    else if (act === 'bewerken') teamOpenEditor();
+    else if (act === 'opslaan') teamOpslaan();
+    else if (act === 'terug') teamTerugNaarBasis();
+  });
+  document.getElementById('teamFile').addEventListener('change', e => {
+    const f = e.target.files && e.target.files[0]; if (!f) return;
+    teamOpenBestand(f, msg => { const el = document.getElementById('teamDlgErr'); if (el) { el.textContent = msg; el.hidden = false; } });
+  });
+}
 </script>
 
 </body>
