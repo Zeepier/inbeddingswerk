@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ruimte voor participatie — coach-tool</title>
+<title>Ruimte voor participatie â€” coach-tool</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -23,15 +23,15 @@
     --line: #E2DACA;
     --illust: #B68B3F;
     /* waarde-tinten: licht = vaak vanuit bewoners, donker = vaak vanuit gemeente, middel = beide.
-       Bewust één kleur (gradaties i.p.v. kampen) — en zo ook kleurenblind-veilig. */
+       Bewust Ã©Ã©n kleur (gradaties i.p.v. kampen) â€” en zo ook kleurenblind-veilig. */
     --val-light: #84AC95;
     --val-mid: #5E8A73;
     --val-dark: #2C4F3E;
     --val-bei-line: #CBBfae;
-    /* module-kleuren — één kleur per kaarttype */
+    /* module-kleuren â€” Ã©Ã©n kleur per kaarttype */
     --mod-waarden: #2C4F3E;       /* donkergroen */
     --mod-waarden-hover: #1E3A2C;
-    /* setkleuren gelijk aan de speelkaarten — kleurenblind-veilig (geen rood/groen) */
+    /* setkleuren gelijk aan de speelkaarten â€” kleurenblind-veilig (geen rood/groen) */
     --mod-spanningen: #A87412;    /* oker */
     --mod-spanningen-bg: #FBF1DC;
     --mod-spanningen-ink: #5C3D0A;
@@ -39,7 +39,7 @@
     --mod-interventies: #2F5F8A;  /* blauw */
     --mod-interventies-bg: #E1EAF2;
     --mod-interventies-ink: #234A6C;
-    --mod-verhalen: #6E4A7E;      /* pruim — onderlegger, los van de drie sets */
+    --mod-verhalen: #6E4A7E;      /* pruim â€” onderlegger, los van de drie sets */
     --mod-verhalen-bg: #EEE6F1;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -137,7 +137,7 @@
     margin-top: 10px; font-size: 12px; letter-spacing: 0.06em; color: var(--ink-soft);
     display: inline-block; border: 1px solid var(--line); border-radius: 100px; padding: 3px 10px;
   }
-  .app-team::before { content: '◆ '; color: var(--coral); }
+  .app-team::before { content: 'â—† '; color: var(--coral); }
   .app-team[hidden] { display: none; }
   /* Teamkaarten: subtiel kenmerk naast het nummer */
   .lc { font-size: 0.6em; margin-left: 0.3em; opacity: 0.7; }
@@ -252,7 +252,7 @@
     font-weight: 600;
   }
 
-  /* HANDLEIDING — prozalaag */
+  /* HANDLEIDING â€” prozalaag */
   .hl { max-width: 680px; margin-top: 8px; }
   .hl-step { margin-bottom: 40px; }
   .hl-step-num {
@@ -410,7 +410,7 @@
   .fb-eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--mod-verhalen); }
   .fb-title { font-size: 18px; font-weight: 600; color: var(--ink); }
   .fb-q { font-size: 14px; line-height: 1.45; color: var(--ink-soft); }
-  /* Handleiding: meer ademruimte — grotere letter, ruimere regels en meer wit tussen alinea's, stappen en onderdelen */
+  /* Handleiding: meer ademruimte â€” grotere letter, ruimere regels en meer wit tussen alinea's, stappen en onderdelen */
   .hl { max-width: 700px; margin-top: 16px; }
   .hl-step { margin-bottom: 0; padding: 8px 0 56px; }
   .hl-step + .hl-step { border-top: 1px solid var(--line); padding-top: 48px; }
@@ -509,7 +509,7 @@
   .ilink.m-verhalen { color: #6E4A7E; }
 
   /* ============================================================
-     CARD STYLES — gedeelde basis
+     CARD STYLES â€” gedeelde basis
      ============================================================ */
   .vcard, .tcard, .icard, .ccard {
     background: #EAE5DA;
@@ -526,7 +526,7 @@
     box-shadow: 0 8px 24px rgba(31,42,38,0.12);
   }
 
-  /* WAARDEN — groene topbalk */
+  /* WAARDEN â€” groene topbalk */
   .vcard {
     border-top-color: var(--mod-waarden);
     padding: 20px 20px 18px;
@@ -548,7 +548,7 @@
   .vcard-num { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--mod-waarden); }
   .vcard.hidden { display: none; }
 
-  /* SPANNINGEN — okergele topbalk */
+  /* SPANNINGEN â€” okergele topbalk */
   .tcard {
     border-top-color: var(--mod-spanningen);
     padding: 20px 20px 18px;
@@ -576,7 +576,7 @@
   .tcard-phase[data-phase="afloop"] { background: #F5DDD8; color: #8A3A26; }
   .tcard.hidden { display: none; }
 
-  /* INTERVENTIES — blauwe topbalk */
+  /* INTERVENTIES â€” blauwe topbalk */
   .icard {
     border-top-color: var(--mod-interventies);
     padding: 20px 20px 18px;
@@ -607,7 +607,7 @@
   /* Strategie zonder eigen kleur (zoals op de kaarten): neutraal label */
   .catbadge { background: rgba(31,42,38,0.07); color: var(--ink-soft); }
 
-  /* VERHALEN — blauwe topbalk */
+  /* VERHALEN â€” blauwe topbalk */
   .ccard {
     border-top-color: var(--mod-verhalen);
     overflow: hidden;
@@ -900,9 +900,9 @@
 <header class="app-header">
   <div class="app-header-text">
     <div class="app-logo" data-i18n="logo"><span class="logo-mark"></span>Ruimte voor participatie</div>
-    <p class="app-sub" data-i18n="sub">Een gesprekshulp om te anticiperen op de inbedding van participatie — zodat de inbreng van bewoners straks echt een plek krijgt in beleid en besluitvorming.</p>
+    <p class="app-sub" data-i18n="sub">Een gesprekshulp om te anticiperen op de inbedding van participatie â€” zodat de inbreng van bewoners straks echt een plek krijgt in beleid en besluitvorming.</p>
     <p class="app-team" id="teamLine" hidden></p>
-    <p class="app-hint" data-i18n="hint">Kies een kaartset hieronder. Elke set werkt zelfstandig — de koppelingen brengen je van waarden naar spanningen en interventies, met de verhalen als onderlegger.</p>
+    <p class="app-hint" data-i18n="hint">Kies een kaartset hieronder. Elke set werkt zelfstandig â€” de koppelingen brengen je van waarden naar spanningen en interventies, met de verhalen als onderlegger.</p>
   </div>
   <div class="header-links">
     <button class="handleiding-link" data-module="handleiding" data-i18n="btn-handleiding" onclick="switchModule('handleiding')">
@@ -994,7 +994,7 @@
 <!-- ===== MODULE: VERHALEN ===== -->
 <section class="content module-panel" id="panel-verhalen">
   <h2 class="section-title" data-i18n="verhalen-title">Verhalen <span class="em">uit de praktijk</span></h2>
-  <p class="section-lead" data-i18n="verhalen-lead">De onderlegger van de tool: praktijkcases waaraan de spanningen en interventies gekoppeld zijn. Bron én inspiratie — je komt hier vooral via de koppelingen in de kaarten, maar kunt de verhalen ook los doorbladeren.</p>
+  <p class="section-lead" data-i18n="verhalen-lead">De onderlegger van de tool: praktijkcases waaraan de spanningen en interventies gekoppeld zijn. Bron Ã©n inspiratie â€” je komt hier vooral via de koppelingen in de kaarten, maar kunt de verhalen ook los doorbladeren.</p>
 
   <div class="grid-cases" id="casesGrid"></div>
 </section>
@@ -1008,8 +1008,8 @@
     <div class="hl-step">
       <div class="hl-step-num">01</div>
       <h3>Wat is dit?</h3>
-      <p>Als we burgers vragen mee te denken, moeten we ook ruimte hebben om iets te doen met hun ideeën: <em>ruimte voor participatie</em>. Die ruimte blijkt naderhand vaak beperkt, en gebeurt er daardoor vaak te weinig met de opbrengsten van participatieprocessen.</p>
-      <p>Het is echter eigen aan participatie dat we niet precies weten wat bewoners ons gaan vertellen – als dat zo zou zijn, zouden we het ze niet hoeven vragen. Het is daarom belangrijk om te anticiperen op de mogelijke inbreng van bewoners. Welke ruimte zou er nodig zijn om hun inbreng plek te geven? En hoe kunnen we die ruimte maken?</p>
+      <p>Als we burgers vragen mee te denken, moeten we ook ruimte hebben om iets te doen met hun ideeÃ«n: <em>ruimte voor participatie</em>. Die ruimte blijkt naderhand vaak beperkt, en gebeurt er daardoor vaak te weinig met de opbrengsten van participatieprocessen.</p>
+      <p>Het is echter eigen aan participatie dat we niet precies weten wat bewoners ons gaan vertellen â€“ als dat zo zou zijn, zouden we het ze niet hoeven vragen. Het is daarom belangrijk om te anticiperen op de mogelijke inbreng van bewoners. Welke ruimte zou er nodig zijn om hun inbreng plek te geven? En hoe kunnen we die ruimte maken?</p>
       <p>Waar het participatieplan vooral het <em>proces</em> beschrijft, kijk je met deze tool vooruit: welke ruimte is er straks nodig om de opbrengsten een plek te geven?</p>
       <p><strong>Ruimte voor Participatie</strong> is ontwikkeld om dit gesprek te voeren, en bestaat uit de volgende onderdelen:</p>
       <ul>
@@ -1038,7 +1038,7 @@
         </button>
         <div class="flow-link" aria-hidden="true"><span class="fl-label">leiden tot</span><svg viewBox="0 0 40 12"><path d="M0 6 H36 M30 1 L36 6 L30 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="flow-step fs-leer flow-end">
-          <span class="fs-num">↳</span>
+          <span class="fs-num">â†³</span>
           <span class="fs-title">Leervragen</span>
           <span class="fs-q">Wat wil je verder onderzoeken?</span>
         </div>
@@ -1047,7 +1047,7 @@
         <button class="flow-base-card" onclick="switchModule('verhalen')">
           <span class="fb-eyebrow">Onderlegger</span>
           <span class="fb-title">Verhalen</span>
-          <span class="fb-q">Praktijkcases waaraan de spanningen en interventies gekoppeld zijn — bron en inspiratie.</span>
+          <span class="fb-q">Praktijkcases waaraan de spanningen en interventies gekoppeld zijn â€” bron en inspiratie.</span>
         </button>
       </div>
     </div>
@@ -1085,7 +1085,7 @@
     <div class="hl-step">
       <div class="hl-step-num">05</div>
       <h3>Draaiboek 60 minuten</h3>
-      <p>Het standaarddraaiboek past in één agendablok van een uur, met alle drie de modules.</p>
+      <p>Het standaarddraaiboek past in Ã©Ã©n agendablok van een uur, met alle drie de modules.</p>
       <div class="hl-time">
         <div><span class="t">5</span><span class="w">Opening</span></div>
         <div><span class="t">10</span><span class="w">Waarden</span></div>
@@ -1103,8 +1103,8 @@
       <div class="hl-phase m-waarden"><span class="min">10 min</span><h4>Waarden</h4></div>
       <ol class="hl-do">
         <li>Leg <strong>alle waardenkaarten</strong> tegelijk open.</li>
-        <li>Instructie: <span class="hl-say">"Neem rustig de tijd om ze te bekijken. Alles kan relevant zijn: kies de 5 à 6 die nu het meest urgent zijn."</span> Vijf à zes is een zacht maximum; rangschikken hoeft niet.</li>
-        <li>Vertelt de casushouder iets maar vindt hij of zij de kaart niet, dan mag je suggereren: <span class="hl-say">"Ik denk dat deze kaart erbij past — wat denk jij?"</span> Is het net iets anders, pak dan een blanco kaart.</li>
+        <li>Instructie: <span class="hl-say">"Neem rustig de tijd om ze te bekijken. Alles kan relevant zijn: kies de 5 Ã  6 die nu het meest urgent zijn."</span> Vijf Ã  zes is een zacht maximum; rangschikken hoeft niet.</li>
+        <li>Vertelt de casushouder iets maar vindt hij of zij de kaart niet, dan mag je suggereren: <span class="hl-say">"Ik denk dat deze kaart erbij past â€” wat denk jij?"</span> Is het net iets anders, pak dan een blanco kaart.</li>
         <li><strong>Houd het bij de waarden.</strong> Zet waarden nog niet tegenover elkaar als spanning: dat komt in de volgende stap.</li>
         <li>Rond af met samenvatten: <span class="hl-say">"Dit zijn de waarden die je hebt gekozen."</span></li>
       </ol>
@@ -1118,7 +1118,7 @@
       <ol class="hl-do">
         <li>Open met de kernvraag: <span class="hl-say">"Is er genoeg ruimte voor deze participatie, en welke spanningen voel je daarbij?"</span></li>
         <li>Alle spanningskaarten liggen op tafel. Schuif de paar kaarten uit je voorselectie naar de casushouder toe als suggestie. De rest blijft binnen handbereik om door te bladeren.</li>
-        <li>Geef tijd om alles te bekijken. Sorteer samen met de deelnemer de spanningen en waarden in 2 of 3 groepen van één of meer spanningen en waarden die samenhangen, of elkaar juist tegenspreken.</li>
+        <li>Geef tijd om alles te bekijken. Sorteer samen met de deelnemer de spanningen en waarden in 2 of 3 groepen van Ã©Ã©n of meer spanningen en waarden die samenhangen, of elkaar juist tegenspreken.</li>
         <li>Wijs expliciet op de <strong>blanco kaarten</strong>: de set is nooit compleet.</li>
         <li>Rond af met samenvatten: <span class="hl-say">"Dit zijn de spanningen die we nu hebben."</span></li>
       </ol>
@@ -1131,7 +1131,7 @@
         <li>De kaarten geven richting, maar denk door naar wat in dit project past, en schrijf dat op het vel.</li>
         <li>Blanco kaarten zijn beschikbaar.</li>
       </ol>
-      <p class="hl-tip">In deze stap mag de adviseur directiever en creatiever zijn: je eigen ervaring inbrengen, voorbeelden uit andere projecten noemen, ideeën die niet in het deck staan.</p>
+      <p class="hl-tip">In deze stap mag de adviseur directiever en creatiever zijn: je eigen ervaring inbrengen, voorbeelden uit andere projecten noemen, ideeÃ«n die niet in het deck staan.</p>
 
       <div class="hl-phase m-leer"><span class="min">10 min</span><h4>Afsluiting</h4></div>
       <ul>
@@ -1140,7 +1140,7 @@
         <li>Terug naar de kernvraag: is er genoeg ruimte gevonden, en waar moet die nog gemaakt worden?</li>
         <li>Komt er iets concreets boven, vraag dan door: wat is een eerste stap, en met wie?</li>
       </ul>
-      <p class="hl-tip">Gehoopte uitkomst: één tot drie samenhangende lijnen van waarde → spanning → interventie die de casushouder mee kan nemen.</p>
+      <p class="hl-tip">Gehoopte uitkomst: Ã©Ã©n tot drie samenhangende lijnen van waarde â†’ spanning â†’ interventie die de casushouder mee kan nemen.</p>
     </div>
 
     <div class="hl-step">
@@ -1175,7 +1175,7 @@
       </details>
       <details class="gl-term" id="gl-participatie">
         <summary>Participatie</summary>
-        <div class="gl-def">Participatie is een proces waarbij individuen, groepen en organisaties invloed uitoefenen op en controle delen over collectieve vraagstukken, beslissingen of diensten die hen aangaan.<span class="gl-source"><a href="https://kennisknooppuntparticipatie.nl/themas/definitie-van-participatie" target="_blank" rel="noopener">Bron: Kennisknooppunt Participatie ↗</a></span></div>
+        <div class="gl-def">Participatie is een proces waarbij individuen, groepen en organisaties invloed uitoefenen op en controle delen over collectieve vraagstukken, beslissingen of diensten die hen aangaan.<span class="gl-source"><a href="https://kennisknooppuntparticipatie.nl/themas/definitie-van-participatie" target="_blank" rel="noopener">Bron: Kennisknooppunt Participatie â†—</a></span></div>
       </details>
     </div>
 
@@ -1184,56 +1184,56 @@
       <div class="gl-group-intro">De drie bouwstenen waarmee je werkt: waarden botsen tot spanningen, en spanningen vragen om interventies.</div>
       <details class="gl-term" id="gl-waarden">
         <summary>Waarden</summary>
-        <div class="gl-def">Wat je met het participatieproces wilt bereiken: de belangen en drijfveren die centraal staan, bezien vanuit het perspectief van bewoners, gemeente of beide. Waarden zijn de bouwstenen — door ze vooraf te benoemen zie je waar spanningen te verwachten zijn.<span class="gl-muse">Vaak zijn binnen één proces meerdere waarden belangrijk, en zijn die niet vanzelfsprekend verenigbaar.</span><a class="gl-golink m-waarden" onclick="switchModule('waarden')">Open de kaartset Waarden →</a></div>
+        <div class="gl-def">Wat je met het participatieproces wilt bereiken: de belangen en drijfveren die centraal staan, bezien vanuit het perspectief van bewoners, gemeente of beide. Waarden zijn de bouwstenen â€” door ze vooraf te benoemen zie je waar spanningen te verwachten zijn.<span class="gl-muse">Vaak zijn binnen Ã©Ã©n proces meerdere waarden belangrijk, en zijn die niet vanzelfsprekend verenigbaar.</span><a class="gl-golink m-waarden" onclick="switchModule('waarden')">Open de kaartset Waarden â†’</a></div>
       </details>
       <details class="gl-term" id="gl-spanningen">
         <summary>Spanningen</summary>
-        <div class="gl-def">Wat kan ontstaan waar twee waarden botsen, bijvoorbeeld een waarde van bewoners tegenover een van de gemeente. Een spanning is geen los item, maar het schuren tussen twee dingen die allebei van belang zijn.<span class="gl-muse">Deze spanningen zijn uitdagingen in een proces, maar ook belangrijke aanwijzingen: ze vertellen je waar de bestaande inbeddingsruimte mogelijk niet overeenkomt met de dingen die bewoners belangrijk vinden. Zo kun je er vooraf op anticiperen.</span><a class="gl-golink m-spanningen" onclick="switchModule('spanningen')">Open de kaartset Spanningen →</a></div>
+        <div class="gl-def">Wat kan ontstaan waar twee waarden botsen, bijvoorbeeld een waarde van bewoners tegenover een van de gemeente. Een spanning is geen los item, maar het schuren tussen twee dingen die allebei van belang zijn.<span class="gl-muse">Deze spanningen zijn uitdagingen in een proces, maar ook belangrijke aanwijzingen: ze vertellen je waar de bestaande inbeddingsruimte mogelijk niet overeenkomt met de dingen die bewoners belangrijk vinden. Zo kun je er vooraf op anticiperen.</span><a class="gl-golink m-spanningen" onclick="switchModule('spanningen')">Open de kaartset Spanningen â†’</a></div>
       </details>
       <details class="gl-term" id="gl-interventies">
         <summary>Interventies</summary>
-        <div class="gl-def">Wat je kunt doen om met een (verwachte) spanning om te gaan. Geen voorschrift, maar een stap die professionals in vergelijkbare projecten daadwerkelijk zetten — die helpt vooruit te kijken naar wat er nodig is om ruimte te maken. Geordend naar de strategie erachter (afstemmen, verbinden of doorzetten) en de fase waarin ze speelt.<a class="gl-golink m-interventies" onclick="switchModule('interventies')">Open de kaartset Interventies →</a></div>
+        <div class="gl-def">Wat je kunt doen om met een (verwachte) spanning om te gaan. Geen voorschrift, maar een stap die professionals in vergelijkbare projecten daadwerkelijk zetten â€” die helpt vooruit te kijken naar wat er nodig is om ruimte te maken. Geordend naar de strategie erachter (afstemmen, verbinden of doorzetten) en de fase waarin ze speelt.<a class="gl-golink m-interventies" onclick="switchModule('interventies')">Open de kaartset Interventies â†’</a></div>
       </details>
     </div>
 
     <div class="gl-group c-strat">
-      <div class="gl-group-label">Strategieën om ruimte te maken</div>
-      <div class="gl-group-intro">We onderscheiden drie soorten strategieën die je kunt gebruiken om inbeddingsruimte te maken: afstemmen, verbinden en doorzetten. De interventies vallen elk onder één van deze strategieën.</div>
+      <div class="gl-group-label">StrategieÃ«n om ruimte te maken</div>
+      <div class="gl-group-intro">We onderscheiden drie soorten strategieÃ«n die je kunt gebruiken om inbeddingsruimte te maken: afstemmen, verbinden en doorzetten. De interventies vallen elk onder Ã©Ã©n van deze strategieÃ«n.</div>
       <details class="gl-term" id="gl-afstemmen">
         <summary>Afstemmen</summary>
         <div class="gl-def">Ruimte maken via de relatie: vroeg vertrouwen en gedeelde betekenis opbouwen en partijen bij elkaar brengen rond een gedeeld belang.</div>
       </details>
       <details class="gl-term" id="gl-verbinden">
         <summary>Verbinden</summary>
-        <div class="gl-def">Ruimte maken door vooruit te schakelen: uitkomsten herkaderen en aanhaken op beleidskansen en vensters die eraan komen, zodat je barrières vóór bent.</div>
+        <div class="gl-def">Ruimte maken door vooruit te schakelen: uitkomsten herkaderen en aanhaken op beleidskansen en vensters die eraan komen, zodat je barriÃ¨res vÃ³Ã³r bent.</div>
       </details>
       <details class="gl-term" id="gl-doorzetten">
         <summary>Doorzetten</summary>
-        <div class="gl-def">Ruimte maken via formele macht of positie: op tijd escaleren, een knoop doorhakken of een barrière doorbreken, zodat een verwachte uitkomst straks een plek heeft.</div>
+        <div class="gl-def">Ruimte maken via formele macht of positie: op tijd escaleren, een knoop doorhakken of een barriÃ¨re doorbreken, zodat een verwachte uitkomst straks een plek heeft.</div>
       </details>
-      <div class="gl-source gl-group-source"><a href="https://doi.org/10.1080/03003930.2018.1546172" target="_blank" rel="noopener">Bron: Nederhand, Van der Steen &amp; Van Twist (2018), Local Government Studies ↗</a></div>
+      <div class="gl-source gl-group-source"><a href="https://doi.org/10.1080/03003930.2018.1546172" target="_blank" rel="noopener">Bron: Nederhand, Van der Steen &amp; Van Twist (2018), Local Government Studies â†—</a></div>
     </div>
 
     <div class="gl-group c-fase">
       <div class="gl-group-label">Fasen in het proces</div>
-      <div class="gl-group-intro">Wanneer speelt iets? Elke spanning en interventie hoort bij één of meer fases van het participatieproces.</div>
+      <div class="gl-group-intro">Wanneer speelt iets? Elke spanning en interventie hoort bij Ã©Ã©n of meer fases van het participatieproces.</div>
       <details class="gl-term" id="gl-fasen">
         <summary>Aanloop, doorloop en afloop</summary>
-        <div class="gl-def">De fasen van een participatieproces. De <strong>aanloop</strong> is de fase vóór het begin van de (geplande) interacties met bewoners, de <strong>doorloop</strong> is tijdens, en de <strong>afloop</strong> is nadat die interacties zijn afgerond en de uitkomsten moeten worden verwerkt.<span class="gl-source"><a href="https://kennisknooppuntparticipatie.nl/publicaties/competentie-overzichten" target="_blank" rel="noopener">Bron: Kennisknooppunt Participatie ↗</a></span><span class="gl-muse">In veel processen zijn deze fases niet eenvoudig van elkaar te scheiden: vaak begint de verwerking van uitkomsten bijvoorbeeld al tijdens de doorloop, of zijn er al wat oriënterende gesprekken in de aanloopfase. Bovendien doorlopen projecten vaak meerdere cycli van aan-, door- en afloop, bijvoorbeeld in de verschillende fasen van een planproces.</span></div>
+        <div class="gl-def">De fasen van een participatieproces. De <strong>aanloop</strong> is de fase vÃ³Ã³r het begin van de (geplande) interacties met bewoners, de <strong>doorloop</strong> is tijdens, en de <strong>afloop</strong> is nadat die interacties zijn afgerond en de uitkomsten moeten worden verwerkt.<span class="gl-source"><a href="https://kennisknooppuntparticipatie.nl/publicaties/competentie-overzichten" target="_blank" rel="noopener">Bron: Kennisknooppunt Participatie â†—</a></span><span class="gl-muse">In veel processen zijn deze fases niet eenvoudig van elkaar te scheiden: vaak begint de verwerking van uitkomsten bijvoorbeeld al tijdens de doorloop, of zijn er al wat oriÃ«nterende gesprekken in de aanloopfase. Bovendien doorlopen projecten vaak meerdere cycli van aan-, door- en afloop, bijvoorbeeld in de verschillende fasen van een planproces.</span></div>
       </details>
     </div>
   </div>
 </section>
 
 <footer>
-  <span data-i18n="footer">Ruimte voor participatie · Coach-tool · Voorbeeldversie · Gemaakt voor reflectie en gesprek</span>
+  <span data-i18n="footer">Ruimte voor participatie Â· Coach-tool Â· Voorbeeldversie Â· Gemaakt voor reflectie en gesprek</span>
   <button class="beheer-link" id="teamEntry" type="button">Teamversie</button>
 </footer>
 
 <!-- Toegankelijke teamversie-instap -->
 <div class="tdlg-overlay" id="teamDialog" hidden>
   <div class="tdlg" role="dialog" aria-modal="true" aria-label="Teamversie">
-    <button class="tdlg-x" id="teamDlgClose" type="button" aria-label="Sluiten">×</button>
+    <button class="tdlg-x" id="teamDlgClose" type="button" aria-label="Sluiten">Ã—</button>
     <div id="teamDlgBody"></div>
   </div>
 </div>
@@ -1241,14 +1241,14 @@
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-content">
-    <button class="modal-close" onclick="closeModal()" aria-label="Sluiten">×</button>
+    <button class="modal-close" onclick="closeModal()" aria-label="Sluiten">Ã—</button>
     <div id="modalBody"></div>
   </div>
 </div>
 
-<script src="content.js"></script>
-<script src="content_en.js"></script>
-<script src="teamlaag.js"></script>
+<script src="content.js?v=261124"></script>
+<script src="content_en.js?v=261124"></script>
+<script src="teamlaag.js?v=261124"></script>
 <script>
 // values, tensions, interventions, cases, reflectQuestions komen uit content.js
 // contentEN en staticEN (Engelse vertaling) komen uit content_en.js
@@ -1259,13 +1259,13 @@ const _contentCheck = (typeof values !== 'undefined' && typeof tensions !== 'und
 // Taal kiezen via de NL/EN-knop, of met ?lang=en in de URL.
 const UI = {
   nl: {
-    title: 'Ruimte voor participatie — coach-tool',
+    title: 'Ruimte voor participatie â€” coach-tool',
     category: { powering: 'Doorzetten', puzzling: 'Verbinden', mediating: 'Afstemmen' },
     phase: { aanloop: 'aanloop', doorloop: 'doorloop', afloop: 'afloop' },
     tension: 'spanning', tensions: 'spanningen', cards: 'kaarten',
-    intervention: 'INTERVENTIE', photoSoon: 'Foto volgt', readStory: 'LEES VERHAAL →',
+    intervention: 'INTERVENTIE', photoSoon: 'Foto volgt', readStory: 'LEES VERHAAL â†’',
     value: 'Waarde', tensionEyebrow: 'Spanning',
-    valueLean: { bewoners: 'Deze waarde wordt vaak vanuit bewoners ingebracht — maar dat hoeft niet.', gemeente: 'Deze waarde wordt vaak vanuit de gemeente ingebracht — maar dat hoeft niet.', beide: 'Deze waarde is vaak voor bewoners én gemeente van belang.' },
+    valueLean: { bewoners: 'Deze waarde wordt vaak vanuit bewoners ingebracht â€” maar dat hoeft niet.', gemeente: 'Deze waarde wordt vaak vanuit de gemeente ingebracht â€” maar dat hoeft niet.', beide: 'Deze waarde is vaak voor bewoners Ã©n gemeente van belang.' },
     valueClash: 'Spanningen ontstaan waar deze waarde botst met een andere.',
     playsIn: 'Speelt in deze spanningen', tensionsLabel: 'Spanningen',
     noTension: 'Aan deze waarde is nog geen spanning gekoppeld. Dit is vaak een gedeeld belang dat zelf geen partij is in een conflict.',
@@ -1276,13 +1276,13 @@ const UI = {
     glossTitle: 'Bekijk in Begrippen', close: 'Sluiten', switchTo: 'Switch to English',
   },
   en: {
-    title: 'Room for participation — coach tool',
+    title: 'Room for participation â€” coach tool',
     category: { powering: 'Powering', puzzling: 'Puzzling', mediating: 'Mediating' },
     phase: { aanloop: 'preparation', doorloop: 'engagement', afloop: 'follow-up' },
     tension: 'tension', tensions: 'tensions', cards: 'cards',
-    intervention: 'INTERVENTION', photoSoon: 'Photo to follow', readStory: 'READ STORY →',
+    intervention: 'INTERVENTION', photoSoon: 'Photo to follow', readStory: 'READ STORY â†’',
     value: 'Value', tensionEyebrow: 'Tension',
-    valueLean: { bewoners: 'This value is often raised by residents — but it doesn’t have to be.', gemeente: 'This value is often raised by the municipality — but it doesn’t have to be.', beide: 'This value often matters to residents and municipality alike.' },
+    valueLean: { bewoners: 'This value is often raised by residents â€” but it doesnâ€™t have to be.', gemeente: 'This value is often raised by the municipality â€” but it doesnâ€™t have to be.', beide: 'This value often matters to residents and municipality alike.' },
     valueClash: 'Tensions arise where this value clashes with another.',
     playsIn: 'Plays a part in these tensions', tensionsLabel: 'Tensions',
     noTension: 'No tension has been linked to this value yet. This is often a shared interest that is not itself a party to a conflict.',
@@ -1305,20 +1305,20 @@ try {
 const t = key => UI[lang][key];
 // Tekst van een kaart in de gekozen taal (valt terug op Nederlands)
 const L = (obj, field) => (lang === 'en' && typeof contentEN !== 'undefined' && contentEN[obj.id] && contentEN[obj.id][field]) || obj[field];
-// Vast kaartnummer = set-icoon + nummer, gelijk aan de speelkaarten — zie 'nr' in content.js.
+// Vast kaartnummer = set-icoon + nummer, gelijk aan de speelkaarten â€” zie 'nr' in content.js.
 // Iconen: Lucide (lucide.dev), ISC-licentie: kompas = waarde, pijlen = spanning, moersleutel = interventie.
 const SET_ICON = {
   v: '<circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/>',
   t: '<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>',
   i: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
 };
-const cardCode = x => `<span class="cc"><svg class="cc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SET_ICON[setKey(x)]}</svg>${x.nr}${x.local ? '<span class="lc" title="Teamkaart">◆</span>' : ''}</span>`;
-// "Lokaal aangepast" bij een basiskaart die de teamlaag heeft gewijzigd — originele tekst opvraagbaar
+const cardCode = x => `<span class="cc"><svg class="cc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SET_ICON[setKey(x)]}</svg>${x.nr}${x.local ? '<span class="lc" title="Teamkaart">â—†</span>' : ''}</span>`;
+// "Lokaal aangepast" bij een basiskaart die de teamlaag heeft gewijzigd â€” originele tekst opvraagbaar
 const FIELD_NL = { title: 'titel', short: 'korte tekst', body: 'toelichting', desc: 'toelichting', when: 'wanneer', example: 'voorbeeld', watch: 'waar op te letten' };
-const adjNote = x => x.adjusted && lang === 'nl' ? `<details class="adj"><summary>Lokaal aangepast — toon originele tekst</summary>${Object.entries(x.orig || {}).map(([k, v]) => `<p><em>${FIELD_NL[k] || k}:</em> ${v}</p>`).join('')}</details>` : '';
-const phaseText = p => (p || '').split(' ').filter(Boolean).map(x => t('phase')[x] || x).join(' · ');
+const adjNote = x => x.adjusted && lang === 'nl' ? `<details class="adj"><summary>Lokaal aangepast â€” toon originele tekst</summary>${Object.entries(x.orig || {}).map(([k, v]) => `<p><em>${FIELD_NL[k] || k}:</em> ${v}</p>`).join('')}</details>` : '';
+const phaseText = p => (p || '').split(' ').filter(Boolean).map(x => t('phase')[x] || x).join(' Â· ');
 
-// Originele (Nederlandse) HTML van alle vaste teksten bewaren vóór er iets aan verandert
+// Originele (Nederlandse) HTML van alle vaste teksten bewaren vÃ³Ã³r er iets aan verandert
 const i18nOriginal = new Map();
 document.querySelectorAll('[data-i18n]').forEach(el => i18nOriginal.set(el, el.innerHTML));
 
@@ -1346,7 +1346,7 @@ function buildTensionCard(tn, idx) {
   const vals = (tn.values || []).map(vid => values.find(v => v.id === vid)).filter(Boolean);
   const phaseHtml = (tn.phase || '').split(' ').filter(Boolean).map(p => `<span class="tcard-phase" data-phase="${p}">${t('phase')[p] || p}</span>`).join(' ');
   const footer = (vals.length || tn.phase)
-    ? `<div class="tcard-values" style="gap: 6px;">${vals.map((v, i) => `${i > 0 ? '<span class="tcard-vx">·</span>' : ''}<span class="tcard-vchip">${L(v, 'title')}</span>`).join('')}${phaseHtml}</div>`
+    ? `<div class="tcard-values" style="gap: 6px;">${vals.map((v, i) => `${i > 0 ? '<span class="tcard-vx">Â·</span>' : ''}<span class="tcard-vchip">${L(v, 'title')}</span>`).join('')}${phaseHtml}</div>`
     : '';
   return `<button class="tcard" type="button" data-id="${tn.id}" data-tphase="${tn.phase||''}" onclick="showTensionModal('${tn.id}')">
     <div>
@@ -1415,7 +1415,7 @@ function showValueModal(id) {
   const linkedTensions = (v.tensions || []).map(tid => tensions.find(tn => tn.id === tid)).filter(Boolean);
   const desc = L(v, 'desc');
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">${t('value')} · ${cardCode(v)}</div>
+    <div class="modal-eyebrow">${t('value')} Â· ${cardCode(v)}</div>
     <h2>${L(v, 'title')}</h2>
     ${adjNote(v)}
     ${desc ? `<p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${desc}</p>` : ''}
@@ -1448,7 +1448,7 @@ function showTensionModal(id) {
     if (sideA.length && sideB.length) {
       clashHtml = `<div class="clash">
         <div class="clash-side">${sideA.map(buildValueChip).join('')}</div>
-        <div class="clash-vs">×</div>
+        <div class="clash-vs">Ã—</div>
         <div class="clash-side">${sideB.map(buildValueChip).join('')}</div>
       </div>`;
       if (both.length) {
@@ -1460,7 +1460,7 @@ function showTensionModal(id) {
   }
 
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">${t('tensionEyebrow')} · ${cardCode(tn)}</div>
+    <div class="modal-eyebrow">${t('tensionEyebrow')} Â· ${cardCode(tn)}</div>
     <h2>${L(tn, 'title')}</h2>
     ${adjNote(tn)}
     ${tn.short ? `<p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 12px;">${L(tn, 'short')}</p>` : ''}
@@ -1489,7 +1489,7 @@ function showInterventionModal(id) {
   const linkedTensions = tensions.filter(tn => tn.interventions.includes(id));
   const linkedCases = cases.filter(c => c.interventions.includes(id));
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-eyebrow">${t('intervention')} · ${cardCode(i)} · ${categoryLabel[i.category]||i.category} · ${phaseText(i.phase)}</div>
+    <div class="modal-eyebrow">${t('intervention')} Â· ${cardCode(i)} Â· ${categoryLabel[i.category]||i.category} Â· ${phaseText(i.phase)}</div>
     <h2>${L(i, 'title')}</h2>
     ${adjNote(i)}
     <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 8px;">${L(i, 'short')}</p>
@@ -1526,7 +1526,7 @@ function showCaseModal(id) {
     <h2>${L(c, 'title')}</h2>
     <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--ink); margin-bottom: 18px;">${L(c, 'summary')}</p>
     ${(L(c, 'full') || '').split('\n\n').filter(Boolean).map(p => `<p>${p}</p>`).join('')}
-    ${c.url ? `<a class="case-link" href="${c.url}" target="_blank" rel="noopener">Open het voorbeeld ↗</a>${c.intranet ? '<p class="case-note">Alleen bereikbaar via het intranet.</p>' : ''}` : ''}
+    ${c.url ? `<a class="case-link" href="${c.url}" target="_blank" rel="noopener">Open het voorbeeld â†—</a>${c.intranet ? '<p class="case-note">Alleen bereikbaar via het intranet.</p>' : ''}` : ''}
     <div class="modal-section">
       <div class="modal-section-label">${t('tensionsPlayed')}</div>
       <div class="grid-cards-small card-small">${linkedTensions.map(tn => buildTensionCard(tn)).join('')}</div>
@@ -1588,7 +1588,7 @@ function closeModal() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Toon de kaarten in de volgorde van hun vaste nummer — gelijk aan het fysieke deck.
+// Toon de kaarten in de volgorde van hun vaste nummer â€” gelijk aan het fysieke deck.
 const byNr = (a, b) => a.nr - b.nr;
 
 setupFilters();
@@ -1743,7 +1743,7 @@ teamReady.then(layer => {
   setupTeamDialog();
   if (teamState.beheer) {
     const sc = document.createElement('script');
-    sc.src = 'teameditor.js';
+    sc.src = 'teameditor.js?v=261124';
     sc.onload = () => applyLang(lang);
     document.body.appendChild(sc);
   } else {
@@ -1751,7 +1751,7 @@ teamReady.then(layer => {
   }
 });
 
-// Toegankelijke teamversie-instap: één knop opent een heldere dialoog, geen URL's of jargon.
+// Toegankelijke teamversie-instap: Ã©Ã©n knop opent een heldere dialoog, geen URL's of jargon.
 function setupTeamDialog() {
   const entry = document.getElementById('teamEntry');
   const dlg = document.getElementById('teamDialog');

@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Speelkaarten — Ruimte voor Participatie</title>
+<title>Speelkaarten â€” Ruimte voor Participatie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Drie setkleuren, kleurenblind-veilig: verschillen in tint én lichtheid
+  /* Drie setkleuren, kleurenblind-veilig: verschillen in tint Ã©n lichtheid
      (geen rood/groen). De setnaam staat altijd als woord in de balk, dus
      kleur is nooit de enige drager van informatie. */
   :root {
@@ -42,7 +42,7 @@
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   }
-  /* Vaste 3×3, ook bij een half gevuld vel: anders lijnt de achterkant niet uit. */
+  /* Vaste 3Ã—3, ook bij een half gevuld vel: anders lijnt de achterkant niet uit. */
   .card-grid {
     display: grid; grid-template-columns: repeat(3, 63mm); grid-template-rows: repeat(3, 88mm);
     justify-content: center; align-content: start; gap: 2.5mm;
@@ -82,7 +82,7 @@
   }
   .front-body h3 {
     font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 30px; line-height: 1.1; color: var(--ink);    /* ≈22pt, minimum 16pt */
+    font-size: 30px; line-height: 1.1; color: var(--ink);    /* â‰ˆ22pt, minimum 16pt */
   }
   /* Groot, vaag set-icoon rechtsonder: vult de voorkant en herhaalt de set ook zonder kleur */
   .watermark { position: absolute; right: -6mm; bottom: 2mm; width: 34mm; height: 34mm; opacity: 0.09; color: var(--c); pointer-events: none; }
@@ -108,7 +108,7 @@
     font-family: 'Cormorant Garamond', serif; font-weight: 600;
     font-size: 15px; line-height: 1.15; color: var(--ink); margin-bottom: 2.2mm;
   }
-  .back-body .expl { font-size: 13.4px; line-height: 1.38; color: var(--ink-soft); }   /* ≈10pt */
+  .back-body .expl { font-size: 13.4px; line-height: 1.38; color: var(--ink-soft); }   /* â‰ˆ10pt */
   .back-body .meta {
     margin-top: 2.4mm; font-size: 11px; line-height: 1.35; color: var(--ink-muted); font-style: italic;
   }
@@ -157,10 +157,10 @@
 </head>
 <body>
 <div class="toolbar">
-  <strong>Speelkaarten — Ruimte voor Participatie.</strong>
-  63×88 mm · 9 per A4 · dubbelzijdig. Print op stevig papier (≥200 g), schaal 100%, zonder marges.
+  <strong>Speelkaarten â€” Ruimte voor Participatie.</strong>
+  63Ã—88 mm Â· 9 per A4 Â· dubbelzijdig. Print op stevig papier (â‰¥200 g), schaal 100%, zonder marges.
   Oneven pagina's zijn voorkanten, even pagina's de bijbehorende achterkanten.
-  <br>Als PDF: klik op de knop en kies bij <em>Bestemming</em> "Opslaan als PDF" — met schaal 100% en marges "Geen".
+  <br>Als PDF: klik op de knop en kies bij <em>Bestemming</em> "Opslaan als PDF" â€” met schaal 100% en marges "Geen".
   <div class="opts">
     <label>Dubbelzijdig omslaan langs
       <select id="flip">
@@ -180,9 +180,9 @@
 
 <div id="root"></div>
 
-<script src="content.js"></script>
-<script src="content_en.js"></script>
-<script src="teamlaag.js"></script>
+<script src="content.js?v=261124"></script>
+<script src="content_en.js?v=261124"></script>
+<script src="teamlaag.js?v=261124"></script>
 <script>
   const params = new URLSearchParams(location.search);
   let lang = params.get('lang') === 'en' ? 'en' : 'nl';
@@ -193,7 +193,7 @@
       set: { v: 'Waarde', t: 'Spanning', i: 'Interventie' },
       deck: { v: 'Waarden', t: 'Spanningen', i: 'Interventies' },
       phase: { aanloop: 'Aanloop', doorloop: 'Doorloop', afloop: 'Afloop' },
-      lean: { bewoners: 'Wordt vaak vanuit bewoners ingebracht.', gemeente: 'Wordt vaak vanuit de gemeente ingebracht.', beide: 'Vaak voor bewoners én gemeente van belang.' },
+      lean: { bewoners: 'Wordt vaak vanuit bewoners ingebracht.', gemeente: 'Wordt vaak vanuit de gemeente ingebracht.', beide: 'Vaak voor bewoners Ã©n gemeente van belang.' },
       category: { powering: 'Doorzetten', puzzling: 'Verbinden', mediating: 'Afstemmen' },
       strategy: 'Strategie',
       playsIn: 'Speelt in spanningen', links: 'Mogelijk botsende waarden', ints: 'Passende interventies', fits: 'Past bij spanningen',
@@ -214,14 +214,14 @@
   };
   const T = () => TXT[lang];
   const L = (obj, f) => (lang === 'en' && contentEN[obj.id] && contentEN[obj.id][f]) || obj[f];
-  // Teamkaarten krijgen een subtiel ◆ naast het nummer
-  const lc = x => x.local ? '<span class="lc">◆</span>' : '';
+  // Teamkaarten krijgen een subtiel â—† naast het nummer
+  const lc = x => x.local ? '<span class="lc">â—†</span>' : '';
   const code = x => String(x.nr) + lc(x);                             // in de balk
   const icode = x => svg(setKey(x)) + x.nr + lc(x);                   // in verwijzingen
   const esc = s => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const byNr = (a, b) => a.nr - b.nr;
 
-  // Eén icoon per set — Lucide (lucide.dev), ISC-licentie; geen AI-gegenereerde beelden.
+  // EÃ©n icoon per set â€” Lucide (lucide.dev), ISC-licentie; geen AI-gegenereerde beelden.
   const ICON = {
     v: '<circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/>',           // compass
     t: '<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>',                                                         // arrow-right-left
@@ -242,11 +242,11 @@
   const phaseBar = x => {
     const on = new Set((x.phase || '').split(' ').filter(Boolean));
     return `<div class="phase-bar">${PHASES.map((p, i) =>
-      (i ? '<span class="arrow">→</span>' : '') + `<span class="ph${on.has(p) ? ' on ' + p : ''}">${T().phase[p]}</span>`).join('')}</div>`;
+      (i ? '<span class="arrow">â†’</span>' : '') + `<span class="ph${on.has(p) ? ' on ' + p : ''}">${T().phase[p]}</span>`).join('')}</div>`;
   };
   const pills = (ids, list, sep) => ids.map(id => list.find(x => x.id === id)).filter(Boolean).sort(byNr)
     .map(x => `<span class="pill">${icode(x)}</span>`).join(sep);
-  // Eén verwijzingsregel: icoon + label van de doelset, dan de codes als pillen
+  // EÃ©n verwijzingsregel: icoon + label van de doelset, dan de codes als pillen
   const refRow = (k, label, html) => html ? `<div class="ref-row to-${k}"><div class="ref-lbl">${label}</div><div class="pills">${html}</div></div>` : '';
 
   // ---- Voorkanten ----
@@ -273,7 +273,7 @@
     </div>`;
   };
   const backTension = t => {
-    const vs = pills(t.values || [], values, '<span class="x">×</span>');
+    const vs = pills(t.values || [], values, '<span class="x">Ã—</span>');
     const is = pills(t.interventions || [], interventions, '');
     return `
     <div class="card" style="${barStyle('t', t)}">
@@ -337,7 +337,7 @@
       sheet(`${name} <span class="cnt">${T().back}</span>`, color, mirror(page.map(backFn)));
     }
     sheet(`${name} <span class="cnt">${T().blank}</span>`, color, Array(9).fill(blankFront(k)));
-    sheet(`${name} <span class="cnt">${T().blank} · ${T().back}</span>`, color, Array(9).fill(blankBack(k)));
+    sheet(`${name} <span class="cnt">${T().blank} Â· ${T().back}</span>`, color, Array(9).fill(blankBack(k)));
   }
 
   function render() {
@@ -353,8 +353,8 @@
   window.addEventListener('beforeprint', () => fitTitles());
   window.addEventListener('load', () => setTimeout(fitTitles, 300));
 
-  // Titels op de voorkant: verklein (vanaf 30px, niet onder 22px ≈ 16pt) tot het
-  // langste woord in de breedte past en de titel in de hoogte — nooit midden in een woord afbreken.
+  // Titels op de voorkant: verklein (vanaf 30px, niet onder 22px â‰ˆ 16pt) tot het
+  // langste woord in de breedte past en de titel in de hoogte â€” nooit midden in een woord afbreken.
   function fitTitles() {
     document.querySelectorAll('.front-body h3').forEach(h => {
       const box = h.parentElement;
@@ -375,7 +375,7 @@
     if (layer && layer.team && layer.team.naam) {
       const t = document.createElement('div');
       t.style.marginTop = '6px';
-      t.innerHTML = '<strong>Teamversie:</strong> ' + layer.team.naam.replace(/</g, '&lt;') + ' — teamkaarten zijn gemarkeerd met ◆.';
+      t.innerHTML = '<strong>Teamversie:</strong> ' + layer.team.naam.replace(/</g, '&lt;') + ' â€” teamkaarten zijn gemarkeerd met â—†.';
       document.querySelector('.toolbar').appendChild(t);
     }
     render();
